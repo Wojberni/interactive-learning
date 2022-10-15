@@ -24,6 +24,3 @@ spring:
       ddl-auto: validate
 
 context.initializer.classes: com.zam.interactivelearning.application.configuration.BeansInitializer
-
-logging.level:
-  com.maciekbartczak: DEBUG

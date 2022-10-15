@@ -14,7 +14,3 @@ spring:
     defer-datasource-initialization: true
   flyway:
     enabled: false
-
-logging:
-  level:
-    org.springframework: TRACE
