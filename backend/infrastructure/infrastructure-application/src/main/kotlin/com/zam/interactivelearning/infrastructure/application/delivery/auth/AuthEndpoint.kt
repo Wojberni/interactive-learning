@@ -26,10 +26,4 @@ class AuthEndpoint(
     fun login(@RequestBody @Valid loginUserRequest: LoginUserRequest): LoginUserResponse {
         return authHelper.loginUser(loginUserRequest)
     }
-
-    @GetMapping("/foobar")
-    fun test(): EmptyResponse {
-        authHelper.currentUser()
-        return EmptyResponse()
-    }
 }

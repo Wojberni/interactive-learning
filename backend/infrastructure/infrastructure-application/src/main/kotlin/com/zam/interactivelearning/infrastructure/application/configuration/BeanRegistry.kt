@@ -3,7 +3,6 @@ package com.zam.interactivelearning.infrastructure.application.configuration
 import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
-import com.zam.interactivelearning.domain.application.user.PrintCurrentUserInfoCommandHandler
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.DomainExceptionHandler
@@ -33,7 +32,6 @@ class BeanRegistry {
     private fun registerCommandHandlerBeans() = beans {
         bean<CreateUserCommandHandler>()
         bean<LoginUserCommandHandler>()
-        bean<PrintCurrentUserInfoCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
