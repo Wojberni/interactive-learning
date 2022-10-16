@@ -31,7 +31,7 @@ jobs:
 
   generate-apispec:
     needs: build-backend
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./backend/application
