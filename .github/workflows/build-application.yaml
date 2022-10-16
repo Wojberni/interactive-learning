@@ -24,19 +24,15 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
       - name: Persist test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports
-      - name: Generate api specification
-        run: |
-          cd application
-          mvn springdoc-openapi:generate
       - name: Persist specification file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apispec
-          path: .application/target/apispec.json
+          path: ./backend/application/target/apispec.json
 
   build-mobile:
     needs: build-backend
@@ -53,17 +49,18 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: 'maven'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.4'
+      - run: flutter --version
       - name: Download api specification
         uses: actions/download-artifact@v2
         with:
           name: apispec
-          path: ./apispec
       - name: Setup application
-        run: ./setup.sh ./apispec/apispec.json
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.0.5'
-      - run: flutter build apk
+        run: ./setup.sh ../apispec.json
+      - name: Build apk
+        run: flutter build apk
 
   generate-report:
     needs: build-backend
@@ -74,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download test results
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports
