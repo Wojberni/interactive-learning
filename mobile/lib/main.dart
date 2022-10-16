@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:learning_api/api.dart';
+import 'package:mobile/api/ApiClient.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -52,6 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
+      callLoginEndpoint();
+
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
@@ -59,6 +65,14 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  void callLoginEndpoint() {
+    AuthEndpointApi(apiClient)
+    .login(LoginUserRequest(username: "asdf", password: "bar"))
+    .then((value) => {
+      apiClient.addDefaultHeader("Authorization", "Bearer ${value?.token}")
+      });
   }
 
   @override
