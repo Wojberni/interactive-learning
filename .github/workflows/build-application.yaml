@@ -28,25 +28,18 @@ jobs:
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports
-
-  generate-apispec:
-    needs: build-backend
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend/application
-    steps:
-      - uses: actions/checkout@v3
       - name: Generate api specification
-        run: mvn springdoc-openapi:generate
+        run: |
+          cd application
+          mvn springdoc-openapi:generate
       - name: Persist specification file
         uses: actions/upload-artifact@v2
         with:
           name: apispec
-          path: ./target/apispec.json
+          path: .application/target/apispec.json
 
   build-mobile:
-    needs: generate-apispec
+    needs: build-backend
     runs-on: ubuntu-latest
     defaults:
       run:
