@@ -1,4 +1,4 @@
-name: Build backend project
+name: Build application
 on:
   push:
     branches:
