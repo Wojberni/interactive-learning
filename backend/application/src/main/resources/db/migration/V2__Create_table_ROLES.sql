@@ -1,0 +1,6 @@
+CREATE SEQUENCE roles_id_seq;
+
+CREATE TABLE ROLES(
+    ID BIGINT PRIMARY KEY DEFAULT nextval('roles_id_seq'),
+    NAME VARCHAR(45) NOT NULL
+);

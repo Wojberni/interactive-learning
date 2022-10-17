@@ -1,0 +1,51 @@
+name: Build and deploy application
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and publish backend Docker image to Github Packages Registry
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        with:
+          context: backend
+          name: wojberni/interactive-learning/interactive-learning-backend
+          registry: ghcr.io
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: ./backend/Dockerfile
+          tags: latest
+  deploy-backend:
+    needs: build-backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy image to server
+        uses: appleboy/ssh-action@master
+        env:
+          GITHUB_USERNAME: ${{ secrets.USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          envs: GITHUB_USERNAME, GITHUB_TOKEN, DB_URL, DB_USERNAME, DB_PASSWORD, JWT_SECRET
+          script: |
+            docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+            docker pull ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
+            docker stop interactive-learning-backend
+            docker system prune -f
+            docker run --name interactive-learning-backend \
+            -e APP_DATABASE_URL=$DB_URL -e APP_DATABASE_USERNAME=$DB_USERNAME -e APP_DATABASE_PASSWORD=$DB_PASSWORD -e APP_JWT_TOKEN_SECRET=$JWT_SECRET \
+            -dit -p 8080:8080 ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
