@@ -1,7 +1,8 @@
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -176,9 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                                 vertical: screenHeight*0.01
                             ),
                             child: ElevatedButton(
-                              onPressed: () { 
+                              onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  //TODO send login form
+                                  loginUser(login, password);
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -203,7 +204,9 @@ class _LoginPageState extends State<LoginPage> {
                                 vertical: screenHeight*0.01
                             ),
                             child: ElevatedButton(
-                              onPressed: () {  },
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('registrationPage');
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFFD0CECE),
                                   minimumSize: Size(screenWidth*0.9, screenHeight*0.11)
@@ -225,14 +228,18 @@ class _LoginPageState extends State<LoginPage> {
                                 horizontal: 15,
                                 vertical: screenHeight*0.02
                             ),
-                            child: SizedBox(
-                              width: screenWidth,
-                              child: const Text(
-                                'Nie pamiętasz hasła?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18
+                            child: GestureDetector(
+                              //TODO: go to page with password reset
+                              //onTap: () => Navigator.of(context).pushNamed('resetPasswordPage'),
+                              child: SizedBox(
+                                width: screenWidth,
+                                child: const Text(
+                                  'Nie pamiętasz hasła?',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18
+                                  ),
                                 ),
                               ),
                             ),
@@ -245,5 +252,52 @@ class _LoginPageState extends State<LoginPage> {
             )
         )
     );
+  }
+
+  loginUser(String login, String password) async {
+    try {
+      var response = await http.post(Uri.parse('http://localhost:8080/auth/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'username': login,
+          'password': password
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        //TODO: add successful login alert
+        await Future.delayed(const Duration(seconds: 1));
+        if (!mounted) return;
+        Navigator.of(context).pushNamed('homePage');
+      }
+      //TODO: handle other responses
+    }
+    catch (e) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Logowanie nie powiodło się'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: const <Widget>[
+                    Text('Błąd serwera.'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          }
+      );
+    }
   }
 }
