@@ -11,4 +11,5 @@ Repository for the Interactive Learning Application project.
 
 # Deployment
 
-URL: http://46.101.167.158:8080/swagger-ui/index.html
+mobile-web: https://learning.bartczak.software/#/
+api (swagger): https://learning-api.bartczak.software/swagger-ui/index.html 
