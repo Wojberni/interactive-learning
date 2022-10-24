@@ -1,4 +1,4 @@
-name: Build backend project
+name: Build application
 on:
   push:
     branches:
@@ -24,10 +24,15 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
       - name: Persist test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports
+      - name: Persist specification file
+        uses: actions/upload-artifact@v3
+        with:
+          name: apispec
+          path: ./backend/application/target/apispec.json
 
   generate-report:
     needs: build-backend
@@ -38,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download test results
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports

@@ -1,16 +1,11 @@
-# mobile
+# Setting up the application
+ * (optional) run the server locally
+ * generate api client and install dependencies using the following script (if you are using Windows, unlucky, you need to do it manually, just check the script for what's being executed)
+    ```
+    ./setup.sh <path_to_specification>
 
-A new Flutter project.
+    path_to_specification is optional, if not provided it defaults to localhost
+    ```
+ * set the API_BASE_URL in .env file
+ * run the application
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
