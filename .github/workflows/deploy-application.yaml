@@ -106,7 +106,7 @@ jobs:
             -dit -p 8080:8080 ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
 
   deploy-mobile-web:
-    needs: build-backend
+    needs: build-mobile-web
     runs-on: ubuntu-latest
 
     steps:
