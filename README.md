@@ -12,4 +12,5 @@ Repository for the Interactive Learning Application project.
 # Deployment
 
 mobile-web: https://learning.bartczak.software/#/
+
 api (swagger): https://learning-api.bartczak.software/swagger-ui/index.html 
