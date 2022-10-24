@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:learning_api/api.dart';
+
+import 'api/ApiClient.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -179,7 +179,11 @@ class _LoginPageState extends State<LoginPage> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  loginUser(login, password);
+                                  AuthEndpointApi(apiClient)
+                                      .login(LoginUserRequest(username: login, password: password))
+                                      .then((value) => {
+                                    apiClient.addDefaultHeader("Authorization", "Bearer ${value?.token}")
+                                  });
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -252,52 +256,5 @@ class _LoginPageState extends State<LoginPage> {
             )
         )
     );
-  }
-
-  loginUser(String login, String password) async {
-    try {
-      var response = await http.post(Uri.parse('http://localhost:8080/auth/login'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'username': login,
-          'password': password
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        //TODO: add successful login alert
-        await Future.delayed(const Duration(seconds: 1));
-        if (!mounted) return;
-        Navigator.of(context).pushNamed('homePage');
-      }
-      //TODO: handle other responses
-    }
-    catch (e) {
-      return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Logowanie nie powiodło się'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[
-                    Text('Błąd serwera.'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          }
-      );
-    }
   }
 }

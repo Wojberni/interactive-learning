@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:learning_api/api.dart';
+
+import 'api/ApiClient.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -292,8 +292,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      //TODO: send registration form
-                                      registerUser(login, email, password);
+                                      //TODO: send registration form with email
+                                      AuthEndpointApi(apiClient)
+                                          .register(RegisterUserRequest(username: login, password: password));
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -340,55 +341,5 @@ class _RegistrationPageState extends State<RegistrationPage> {
             )
         )
     );
-  }
-
-  registerUser(String login, String email, String password) async {
-    try {
-      var response = await http.post(Uri.parse('http://localhost:8080/auth/register'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'username': login,
-          'email': email,
-          'password': password
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        //TODO: add successful registration alert
-        await Future.delayed(const Duration(seconds: 1));
-        if (!mounted) return;
-        Navigator.of(context).pushNamed('loginPage');
-      }
-      //TODO: handle other responses,
-      //TODO: check if login is already taken
-      //TODO: check if email is already taken
-    }
-    catch (e) {
-      return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Rejestracja nie powiodło się'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[
-                    Text('Błąd serwera.'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          }
-      );
-    }
   }
 }
