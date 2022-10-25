@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_api/api.dart';
 
-import 'api/ApiClient.dart';
+import '../api/ApiClient.dart';
 import 'custom_elevated_button.dart';
-import 'custom_login_register_form_field.dart';
+import 'custom_form_field.dart';
 import 'custom_validation_extension.dart';
-import 'custom_header_login_register.dart';
+import 'custom_layout_header.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,11 +16,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
 
-  String login = "";
-  String password = "";
+  String _login = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             resizeToAvoidBottomInset: false,
             body: SafeArea(
                 child: Form(
-                  key: formKey,
+                  key: _formKey,
                   child: Column(
                         children: [
                           const CustomHeaderLoginRegister("Logowanie"),
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                               } else if (!value.isValidName) {
                                 return "Wpisz poprawny login!";
                               } else {
-                                login = value;
+                                _login = value;
                                 return null;
                               }
                             },
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                               } else if (!value.isValidPassword) {
                                 return "Wpisz poprawne hasło!";
                               } else {
-                                password = value;
+                                _password = value;
                                 return null;
                               }
                             },
@@ -77,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                           CustomElevatedButton(
                             title: 'Zaloguj się',
                             onPressed: () {
-                              if (formKey.currentState!.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 AuthEndpointApi(apiClient)
                                     .login(LoginUserRequest(
-                                    username: login, password: password))
+                                    username: _login, password: _password))
                                     .then((value) => {
                                   apiClient.addDefaultHeader(
                                       "Authorization",
@@ -96,26 +96,6 @@ class _LoginPageState extends State<LoginPage> {
                                   .pushNamed('registrationPage');
                             },
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //       horizontal: 50, vertical: screenHeight * 0.01),
-                          //   child: ElevatedButton(
-
-                          //     style: ElevatedButton.styleFrom(
-                          //         backgroundColor: _buttonColor,
-                          //         minimumSize: Size(
-                          //             screenWidth * 0.9, screenHeight * 0.11)),
-                          //     child: const Center(
-                          //       child: Text(
-                          //         'Rejestracja',
-                          //         style: TextStyle(
-                          //             fontSize: 34,
-                          //             color: Colors.black,
-                          //             fontWeight: FontWeight.normal),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 15, vertical: screenHeight * 0.02),

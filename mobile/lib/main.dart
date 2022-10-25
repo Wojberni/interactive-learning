@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/home_page.dart';
-import 'package:mobile/login_page.dart';
-import 'package:mobile/registration_page.dart';
+import 'package:mobile/home/home_page.dart';
+import 'package:mobile/login_register/login_page.dart';
+import 'package:mobile/login_register/registration_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
