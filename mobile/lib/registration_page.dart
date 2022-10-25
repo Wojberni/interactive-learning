@@ -292,9 +292,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      //TODO: send registration form with email
                                       AuthEndpointApi(apiClient)
-                                          .register(RegisterUserRequest(username: login, password: password));
+                                          .register(RegisterUserRequest(email: email, username: login, password: password));
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
