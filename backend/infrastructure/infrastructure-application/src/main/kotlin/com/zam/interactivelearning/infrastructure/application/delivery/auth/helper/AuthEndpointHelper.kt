@@ -15,6 +15,7 @@ class AuthEndpointHelper(
 
     fun registerUser(registerUserRequest: RegisterUserRequest) {
         val command = CreateUserCommand(
+            registerUserRequest.email,
             registerUserRequest.username,
             passwordEncoder.encode(registerUserRequest.password))
         executor.executeCommand(command)
