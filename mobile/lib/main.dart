@@ -11,7 +11,7 @@ Future main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  final bool loggedIn = false;
+  final bool loggedIn = true;
 
   // This widget is the root of your application.
   @override
