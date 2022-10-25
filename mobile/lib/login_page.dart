@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:learning_api/api.dart';
 
 import 'api/ApiClient.dart';
+import 'custom_elevated_button.dart';
 import 'custom_login_register_form_field.dart';
 import 'custom_validation_extension.dart';
 import 'custom_header_login_register.dart';
@@ -17,8 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
-  final _primaryColor = const Color(0xFF82E6FF);
-  final _buttonColor = const Color(0xFFD0CECE);
+
   String login = "";
   String password = "";
 
@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final List<String> inputTexts = ["Login", "Haslo"];
 
     return MaterialApp(
         home: Scaffold(
@@ -39,10 +38,11 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const CustomHeaderLoginRegister("Logowanie"),
                           CustomFormField(
-                            hintText: inputTexts[0],
+                            hintText: 'Login',
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'[a-zA-Z0-9]')),
+                              LengthLimitingTextInputFormatter(30),
                             ],
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -56,10 +56,11 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                           CustomFormField(
-                            hintText: inputTexts[1],
+                            hintText: 'Hasło',
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'[a-zA-Z0-9]')),
+                              LengthLimitingTextInputFormatter(30),
                             ],
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -71,130 +72,50 @@ class _LoginPageState extends State<LoginPage> {
                                 return null;
                               }
                             },
+                            secret: true,
+                          ),
+                          CustomElevatedButton(
+                            title: 'Zaloguj się',
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                AuthEndpointApi(apiClient)
+                                    .login(LoginUserRequest(
+                                    username: login, password: password))
+                                    .then((value) => {
+                                  apiClient.addDefaultHeader(
+                                      "Authorization",
+                                      "Bearer ${value?.token}")
+                                });
+                              }
+                            },
+                          ),
+                          CustomElevatedButton(
+                            title: 'Rejestracja',
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed('registrationPage');
+                            },
                           ),
                           // Padding(
-                          //   padding: const EdgeInsets.symmetric(
-                          //       horizontal: 30, vertical: 1),
-                          //   child: Container(
-                          //     decoration: BoxDecoration(
-                          //       color: _primaryColor,
-                          //       border: Border.all(color: Colors.black),
-                          //     ),
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.only(
-                          //           left: 20, right: 20, bottom: 2),
-                          //       child: TextFormField(
-                          //         onTap: () {
-                          //           FocusScope.of(context).unfocus();
-                          //           TextEditingController().clear();
-                          //         },
-                          //         obscureText: false,
-                          //         inputFormatters: [
-                          //           LengthLimitingTextInputFormatter(15),
-                          //         ],
-                          //         style: const TextStyle(fontSize: 22),
-                          //         validator: (value) {
-                          //           if (value!.isEmpty) {
-                          //             return "Wpisz login!";
-                          //           } else if (!RegExp(r'^[a-zA-Z0-9]+$')
-                          //               .hasMatch(value)) {
-                          //             return "Wpisz poprawny login!";
-                          //           } else {
-                          //             login = value;
-                          //             return null;
-                          //           }
-                          //         },
+                          //   padding: EdgeInsets.symmetric(
+                          //       horizontal: 50, vertical: screenHeight * 0.01),
+                          //   child: ElevatedButton(
+
+                          //     style: ElevatedButton.styleFrom(
+                          //         backgroundColor: _buttonColor,
+                          //         minimumSize: Size(
+                          //             screenWidth * 0.9, screenHeight * 0.11)),
+                          //     child: const Center(
+                          //       child: Text(
+                          //         'Rejestracja',
+                          //         style: TextStyle(
+                          //             fontSize: 34,
+                          //             color: Colors.black,
+                          //             fontWeight: FontWeight.normal),
                           //       ),
                           //     ),
                           //   ),
                           // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(
-                          //       horizontal: 30, vertical: 1),
-                          //   child: Container(
-                          //     decoration: BoxDecoration(
-                          //       color: _primaryColor,
-                          //       border: Border.all(color: Colors.black),
-                          //     ),
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.only(
-                          //           left: 20, right: 20, bottom: 2),
-                          //       child: TextFormField(
-                          //         onTap: () {
-                          //           FocusScope.of(context).unfocus();
-                          //           TextEditingController().clear();
-                          //         },
-                          //         obscureText: true,
-                          //         inputFormatters: [
-                          //           LengthLimitingTextInputFormatter(20),
-                          //         ],
-                          //         style: const TextStyle(fontSize: 22),
-                          //         validator: (value) {
-                          //           if (value!.isEmpty) {
-                          //             return "Wpisz hasło!";
-                          //           } else {
-                          //             password = value;
-                          //             return null;
-                          //           }
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 50, vertical: screenHeight * 0.01),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  AuthEndpointApi(apiClient)
-                                      .login(LoginUserRequest(
-                                          username: login, password: password))
-                                      .then((value) => {
-                                            apiClient.addDefaultHeader(
-                                                "Authorization",
-                                                "Bearer ${value?.token}")
-                                          });
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: _buttonColor,
-                                  minimumSize: Size(
-                                      screenWidth * 0.9, screenHeight * 0.11)),
-                              child: const Center(
-                                child: Text(
-                                  'Zaloguj się',
-                                  style: TextStyle(
-                                      fontSize: 34,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 50, vertical: screenHeight * 0.01),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('registrationPage');
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: _buttonColor,
-                                  minimumSize: Size(
-                                      screenWidth * 0.9, screenHeight * 0.11)),
-                              child: const Center(
-                                child: Text(
-                                  'Rejestracja',
-                                  style: TextStyle(
-                                      fontSize: 34,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              ),
-                            ),
-                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 15, vertical: screenHeight * 0.02),
