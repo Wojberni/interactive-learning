@@ -22,6 +22,16 @@ class CustomHeaderLoginRegister extends StatelessWidget {
             ),
           ),
         ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 5,
+            width: double.infinity,
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          ),
+        ),
       ],
     );
   }
