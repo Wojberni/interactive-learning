@@ -35,7 +35,7 @@ class AuthEndpointTest(
     @Test
     fun `should register a new user`() {
         Given {
-            body(RegisterUserRequest("foo", "bar"))
+            body(RegisterUserRequest("foo@bar.com","foo", "bar"))
         } When {
             post ("/auth/register")
         } Then {
@@ -50,7 +50,7 @@ class AuthEndpointTest(
         userRepository.save(UserEntity(username = "foo", password =  "asdf", roles = setOf()))
 
         Given {
-            body(RegisterUserRequest("foo", "qwerty"))
+            body(RegisterUserRequest("foo@bar.com","foo", "qwerty"))
         } When {
             post("auth/register")
         } Then {

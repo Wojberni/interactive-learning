@@ -9,6 +9,7 @@ class UserEntity(
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
     var id: Long = 0,
+    var email: String = "",
     var username: String = "",
     var password: String = "",
     @ManyToMany(fetch = FetchType.EAGER)

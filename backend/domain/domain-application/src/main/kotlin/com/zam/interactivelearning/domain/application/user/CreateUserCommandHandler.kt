@@ -15,6 +15,7 @@ class CreateUserCommandHandler(
         }
 
         val user = UserEntity(
+            email = command.email,
             username = command.username,
             password = command.password
         )
