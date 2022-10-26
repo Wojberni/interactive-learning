@@ -34,86 +34,88 @@ class _LoginPageState extends State<LoginPage> {
             body: SafeArea(
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                        children: [
-                          const CustomHeaderLoginRegister("Logowanie"),
-                          CustomFormField(
-                            hintText: 'Login',
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[a-zA-Z0-9]')),
-                              LengthLimitingTextInputFormatter(30),
-                            ],
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Wpisz login!";
-                              } else if (!value.isValidName) {
-                                return "Wpisz poprawny login!";
-                              } else {
-                                _login = value;
-                                return null;
-                              }
-                            },
-                          ),
-                          CustomFormField(
-                            hintText: 'Hasło',
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[a-zA-Z0-9]')),
-                              LengthLimitingTextInputFormatter(30),
-                            ],
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Wpisz hasło!";
-                              } else if (!value.isValidPassword) {
-                                return "Wpisz poprawne hasło!";
-                              } else {
-                                _password = value;
-                                return null;
-                              }
-                            },
-                            secret: true,
-                          ),
-                          CustomElevatedButton(
-                            title: 'Zaloguj się',
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                AuthEndpointApi(apiClient)
-                                    .login(LoginUserRequest(
-                                    username: _login, password: _password))
-                                    .then((value) => {
-                                  apiClient.addDefaultHeader(
-                                      "Authorization",
-                                      "Bearer ${value?.token}")
-                                });
-                              }
-                            },
-                          ),
-                          CustomElevatedButton(
-                            title: 'Rejestracja',
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed('registrationPage');
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: screenHeight * 0.02),
-                            child: GestureDetector(
-                              //TODO: go to page with password reset
-                              //onTap: () => Navigator.of(context).pushNamed('resetPasswordPage'),
-                              child: SizedBox(
-                                width: screenWidth,
-                                child: const Text(
-                                  'Nie pamiętasz hasła?',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                  child: SingleChildScrollView(
+                    child: Column(
+                          children: [
+                            const CustomHeaderLoginRegister("Logowanie"),
+                            CustomFormField(
+                              hintText: 'Login',
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[a-zA-Z0-9]')),
+                                LengthLimitingTextInputFormatter(30),
+                              ],
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Wpisz login!";
+                                } else if (!value.isValidName) {
+                                  return "Wpisz poprawny login!";
+                                } else {
+                                  _login = value;
+                                  return null;
+                                }
+                              },
+                            ),
+                            CustomFormField(
+                              hintText: 'Hasło',
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[a-zA-Z0-9]')),
+                                LengthLimitingTextInputFormatter(30),
+                              ],
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Wpisz hasło!";
+                                } else if (!value.isValidPassword) {
+                                  return "Wpisz poprawne hasło!";
+                                } else {
+                                  _password = value;
+                                  return null;
+                                }
+                              },
+                              secret: true,
+                            ),
+                            CustomElevatedButton(
+                              title: 'Zaloguj się',
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  AuthEndpointApi(apiClient)
+                                      .login(LoginUserRequest(
+                                      username: _login, password: _password))
+                                      .then((value) => {
+                                    apiClient.addDefaultHeader(
+                                        "Authorization",
+                                        "Bearer ${value?.token}")
+                                  });
+                                }
+                              },
+                            ),
+                            CustomElevatedButton(
+                              title: 'Rejestracja',
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed('registrationPage');
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: screenHeight * 0.02),
+                              child: GestureDetector(
+                                //TODO: go to page with password reset
+                                //onTap: () => Navigator.of(context).pushNamed('resetPasswordPage'),
+                                child: SizedBox(
+                                  width: screenWidth,
+                                  child: const Text(
+                                    'Nie pamiętasz hasła?',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ]),
+                          ]),
+                  ),
                       ),
                 ),
               ),
