@@ -53,6 +53,7 @@ class CustomFormField extends StatelessWidget {
             ),
             style: const TextStyle(
               color: Colors.black,
+              fontSize: 26,
             ),
           ),
         ),
