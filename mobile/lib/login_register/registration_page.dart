@@ -35,102 +35,104 @@ class _RegistrationPageState extends State<RegistrationPage> {
         body: SafeArea(
             child: Form(
           key: _formKey,
-          child: Column(children: [
-            const CustomHeaderLoginRegister("Rejestracja"),
-            CustomFormField(
-              hintText: 'Login',
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
-                LengthLimitingTextInputFormatter(30),
-              ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz login!";
-                } else if (!value.isValidName) {
-                  return "Wpisz poprawny login!";
-                } else {
-                  _login = value;
-                  return null;
-                }
-              },
-            ),
-            CustomFormField(
-              hintText: 'Email',
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]')),
-                LengthLimitingTextInputFormatter(30),
-              ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz email!";
-                } else if (!value.isValidEmail) {
-                  return "Wpisz poprawny email!";
-                } else {
-                  _email = value;
-                  return null;
-                }
-              },
-            ),
-            CustomFormField(
-              hintText: 'Hasło',
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
-                LengthLimitingTextInputFormatter(30),
-              ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz hasło!";
-                } else if (!value.isValidPassword) {
-                  return "Wpisz poprawne hasło!";
-                } else {
-                  _password = value;
-                  return null;
-                }
-              },
-            ),
-            CustomFormField(
-              hintText: 'Powtórz hasło',
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
-                LengthLimitingTextInputFormatter(30),
-              ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz hasło!";
-                } else if (!value.isValidPassword) {
-                  return "Wpisz poprawne hasło!";
-                } else if (value != _password) {
-                  return "Hasła nie są takie same!";
-                } else {
-                  _password2 = value;
-                  return null;
-                }
-              },
-            ),
-            CustomElevatedButton(
-                title: 'Zarejestruj się',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    //TODO: send registration form with email
-                    AuthEndpointApi(apiClient).register(RegisterUserRequest(
-                        username: _login, password: _password));
+          child: SingleChildScrollView(
+            child: Column(children: [
+              const CustomHeaderLoginRegister("Rejestracja"),
+              CustomFormField(
+                hintText: 'Login',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Wpisz login!";
+                  } else if (!value.isValidName) {
+                    return "Wpisz poprawny login!";
+                  } else {
+                    _login = value;
+                    return null;
                   }
-                }),
-            Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 15, vertical: screenHeight * 0.01),
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: const Text(
-                      'Powrót do ekranu logowania',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                },
+              ),
+              CustomFormField(
+                hintText: 'Email',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]')),
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Wpisz email!";
+                  } else if (!value.isValidEmail) {
+                    return "Wpisz poprawny email!";
+                  } else {
+                    _email = value;
+                    return null;
+                  }
+                },
+              ),
+              CustomFormField(
+                hintText: 'Hasło',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Wpisz hasło!";
+                  } else if (!value.isValidPassword) {
+                    return "Wpisz poprawne hasło!";
+                  } else {
+                    _password = value;
+                    return null;
+                  }
+                },
+              ),
+              CustomFormField(
+                hintText: 'Powtórz hasło',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                  LengthLimitingTextInputFormatter(30),
+                ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Wpisz hasło!";
+                  } else if (!value.isValidPassword) {
+                    return "Wpisz poprawne hasło!";
+                  } else if (value != _password) {
+                    return "Hasła nie są takie same!";
+                  } else {
+                    _password2 = value;
+                    return null;
+                  }
+                },
+              ),
+              CustomElevatedButton(
+                  title: 'Zarejestruj się',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      //TODO: send registration form with email
+                      AuthEndpointApi(apiClient).register(RegisterUserRequest(
+                          username: _login, password: _password));
+                    }
+                  }),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 15, vertical: screenHeight * 0.01),
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: SizedBox(
+                      width: screenWidth,
+                      child: const Text(
+                        'Powrót do ekranu logowania',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
                     ),
-                  ),
-                )),
-          ]),
+                  )),
+            ]),
+          ),
         )),
       ),
     );
