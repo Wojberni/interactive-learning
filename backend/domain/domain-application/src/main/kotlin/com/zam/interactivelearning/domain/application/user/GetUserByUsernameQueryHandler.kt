@@ -3,6 +3,7 @@ package com.zam.interactivelearning.domain.application.user
 import com.zam.interactivelearning.cqrs.QueryHandler
 import com.zam.interactivelearning.domain.api.user.User
 import com.zam.interactivelearning.domain.api.user.GetUserByUsernameQuery
+import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import kotlin.reflect.KClass
 
 class GetUserByUsernameQueryHandler(
