@@ -1,10 +1,13 @@
 package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
+import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
+import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.DomainExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.MethodArgumentNotValidHandler
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
@@ -32,6 +35,7 @@ class BeanRegistry {
     private fun registerCommandHandlerBeans() = beans {
         bean<CreateUserCommandHandler>()
         bean<LoginUserCommandHandler>()
+        bean<CreateQuizCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -41,6 +45,8 @@ class BeanRegistry {
     private fun registerEndpointBeans() = beans {
         bean<AuthEndpoint>()
         bean<AuthEndpointHelper>()
+        bean<QuizEndpoint>()
+        bean<QuizEndpointHelper>()
     }
 
     private fun registerCqrsBeans() = beans {
