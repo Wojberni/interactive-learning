@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication()
-class StarterApplication
+class InteractiveLearningApi
 
 fun main(args: Array<String>) {
-    runApplication<StarterApplication>(*args)
+    runApplication<InteractiveLearningApi>(*args)
 }
