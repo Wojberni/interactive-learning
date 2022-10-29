@@ -11,8 +11,8 @@ class AnswerEntity(
     var id: Long = 0,
     var content: String = "",
     @ManyToOne
-    @JoinColumn(name = "question_id")
-    var question: QuestionEntity? = null,
+    @JoinColumn(name = "question_id", nullable = false)
+    var question: QuestionEntity = QuestionEntity(),
     var isCorrect: Boolean = false,
     var createdBy: Long = 0
 )

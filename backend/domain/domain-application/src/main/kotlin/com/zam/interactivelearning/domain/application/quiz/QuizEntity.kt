@@ -12,6 +12,6 @@ class QuizEntity(
     var name: String = "",
     var description: String = "",
     var createdBy: Long = 0,
-    @OneToMany(mappedBy = "quiz", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var questions: Set<QuestionEntity> = setOf()
+    @OneToMany(mappedBy = "quiz", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    var questions: MutableSet<QuestionEntity> = mutableSetOf()
 )

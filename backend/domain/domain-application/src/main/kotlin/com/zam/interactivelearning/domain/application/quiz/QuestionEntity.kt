@@ -11,8 +11,10 @@ class QuestionEntity(
     var id: Long = 0,
     var content: String = "",
     @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    var quiz: QuizEntity? = null,
+    @JoinColumn(name = "quiz_id", nullable = false)
+    var quiz: QuizEntity = QuizEntity(),
+    @OneToMany(mappedBy = "question", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var answers: MutableSet<AnswerEntity> = mutableSetOf(),
     var createdBy: Long = 0
 )
 
