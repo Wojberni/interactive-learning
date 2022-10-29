@@ -1,4 +1,4 @@
-package com.zam.interactivelearning.domain.application.user
+package com.zam.interactivelearning.domain.application.user.persistence
 
 import javax.persistence.*
 
