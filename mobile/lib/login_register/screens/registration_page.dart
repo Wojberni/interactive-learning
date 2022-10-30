@@ -113,8 +113,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       //TODO: send registration form with email
-                      AuthEndpointApi(apiClient).register(RegisterUserRequest(
-                          username: _login, password: _password));
+                      // AuthEndpointApi(apiClient).register(RegisterUserRequest(
+                      //     username: _login, password: _password));
                     }
                   }),
               Padding(
