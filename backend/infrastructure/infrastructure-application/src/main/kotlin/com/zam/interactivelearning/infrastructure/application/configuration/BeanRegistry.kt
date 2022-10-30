@@ -7,7 +7,6 @@ import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandl
 import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
 import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
-import com.zam.interactivelearning.domain.application.user.persistence.RoleRepositoryImpl
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
@@ -29,7 +28,6 @@ class BeanRegistry {
         return listOf(
             registerCommandHandlerBeans(),
             registerQueryHandlerBeans(),
-            registerRepositoryBeans(),
             registerEndpointBeans(),
             registerCqrsBeans(),
             registerSecurityBeans(),
@@ -48,10 +46,6 @@ class BeanRegistry {
         bean<GetUsernameByIdQueryHandler>()
         bean<GetAllQuizzesQueryHandler>()
         bean<GetQuizByIdQueryHandler>()
-    }
-
-    private fun registerRepositoryBeans() = beans {
-        bean<RoleRepositoryImpl>()
     }
 
     private fun registerEndpointBeans() = beans {
