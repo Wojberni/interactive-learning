@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/common/custom_navigation_bar.dart';
+import 'package:mobile/home/widgets/home_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,8 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
     final List<String> tilesTitles = [
       'Daily Challenge',
       'Losowe zadanie',
@@ -19,56 +19,48 @@ class _HomePageState extends State<HomePage> {
       'Ulubione'
     ];
     final List<Color> tilesColors = [
-      Colors.lightBlueAccent,
-      Colors.deepOrangeAccent,
-      Colors.lightGreenAccent,
-      Colors.pinkAccent
+      const Color(0xFF38FE40),
+      const Color(0xFF2E6CF0),
+      const Color(0xFFF0AA0A),
+      const Color(0xFFF02E83)
     ];
-    //final List<Blob> tilesIcons = [];
+    final List<String> tilesIcons = [
+      'assets/images/daily_challenge.png',
+      'assets/images/random_task.png',
+      'assets/images/search.png',
+      'assets/images/pomodoro.png'
+    ];
 
     return MaterialApp(
         home: Scaffold(
             body: SafeArea(
       child: Column(
         children: [
-          SizedBox(
-            height: screenHeight * 0.1,
-            child: const Center(
-              child: Text(
-                "Nazwa aplikacji / logo",
-                style: TextStyle(fontSize: 26, color: Colors.black),
+            const SizedBox(
+              height: 60,
+              child: Center(
+                child: Text(
+                  "Logo <- Interactive Learning App",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                  fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: screenHeight * 0.76,
+          Flexible(
             child: GridView.count(
-              // Create a grid with 2 columns. If you change the scrollDirection to
-              // horizontal, this produces 2 rows.
               crossAxisCount: 2,
-              // Generate 100 widgets that display their index in the List.
-              children: List.generate(4, (index) {
-                return Container(
-                  color: tilesColors.elementAt(index),
-                  child: Center(
-                    child: Text(
-                      tilesTitles.elementAt(index),
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ),
-                );
+              childAspectRatio: 0.6,
+              children: List.generate(tilesTitles.length, (index) {
+                return HomeTile(
+                    title: tilesTitles[index],
+                    color: tilesColors[index],
+                    iconPath: tilesIcons[index]);
               }),
             ),
           ),
-          SizedBox(
-            height: screenHeight * 0.1,
-            child: const Center(
-              child: Text(
-                "Home / Account / Timer",
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
-            ),
-          ),
+          const CustomNavigationBar(),
         ],
       ),
     )));
