@@ -21,7 +21,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String _login = "";
   String _email = "";
   String _password = "";
-  String _password2 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +74,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomFormField(
                 hintText: 'Hasło',
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                   LengthLimitingTextInputFormatter(30),
                 ],
+                secret: true,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Wpisz hasło!";
@@ -92,9 +91,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               CustomFormField(
                 hintText: 'Powtórz hasło',
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                   LengthLimitingTextInputFormatter(30),
                 ],
+                secret: true,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Wpisz hasło!";
@@ -103,7 +102,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   } else if (value != _password) {
                     return "Hasła nie są takie same!";
                   } else {
-                    _password2 = value;
                     return null;
                   }
                 },
@@ -113,8 +111,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       //TODO: send registration form with email
-                      // AuthEndpointApi(apiClient).register(RegisterUserRequest(
-                      //     username: _login, password: _password));
+                      AuthEndpointApi(apiClient).register(RegisterUserRequest(email: _email,
+                          username: _login, password: _password));
                     }
                   }),
               Padding(
