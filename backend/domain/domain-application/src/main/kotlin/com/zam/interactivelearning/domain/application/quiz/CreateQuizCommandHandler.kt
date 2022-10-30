@@ -4,7 +4,6 @@ import com.zam.interactivelearning.cqrs.CommandHandler
 import com.zam.interactivelearning.domain.api.quiz.Answer
 import com.zam.interactivelearning.domain.api.quiz.CreateQuizCommand
 import com.zam.interactivelearning.domain.api.quiz.Question
-import com.zam.interactivelearning.domain.api.quiz.Quiz
 import com.zam.interactivelearning.security.api.UserContextHolder
 import kotlin.reflect.KClass
 
@@ -14,14 +13,14 @@ class CreateQuizCommandHandler(
 ): CommandHandler<CreateQuizCommand, Unit> {
 
     override fun handle(command: CreateQuizCommand) {
-        quizRepository.save(command.quiz.toEntity())
+        quizRepository.save(command.toQuizEntity())
     }
 
     override fun supportedClass(): KClass<CreateQuizCommand> {
         return CreateQuizCommand::class
     }
 
-    private fun Quiz.toEntity(): QuizEntity {
+    private fun CreateQuizCommand.toQuizEntity(): QuizEntity {
         val quizEntity = QuizEntity(
             name = this.name,
             description = this.description,

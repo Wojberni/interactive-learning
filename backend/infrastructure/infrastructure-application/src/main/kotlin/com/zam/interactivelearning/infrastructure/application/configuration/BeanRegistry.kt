@@ -2,9 +2,11 @@ package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
+import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
+import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
 import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
-import com.zam.interactivelearning.domain.application.user.persistence.RoleRepositoryImpl
+import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
@@ -26,7 +28,6 @@ class BeanRegistry {
         return listOf(
             registerCommandHandlerBeans(),
             registerQueryHandlerBeans(),
-            registerRepositoryBeans(),
             registerEndpointBeans(),
             registerCqrsBeans(),
             registerSecurityBeans(),
@@ -42,10 +43,9 @@ class BeanRegistry {
 
     private fun registerQueryHandlerBeans() = beans {
         bean<GetUserByUsernameQueryHandler>()
-    }
-
-    private fun registerRepositoryBeans() = beans {
-        bean<RoleRepositoryImpl>()
+        bean<GetUsernameByIdQueryHandler>()
+        bean<GetAllQuizzesQueryHandler>()
+        bean<GetQuizByIdQueryHandler>()
     }
 
     private fun registerEndpointBeans() = beans {
