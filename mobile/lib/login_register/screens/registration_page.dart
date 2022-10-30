@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_api/api.dart';
-import 'package:mobile/login_register/custom_elevated_button.dart';
-import 'package:mobile/login_register/custom_validation_extension.dart';
+import 'package:mobile/login_register/widgets/custom_elevated_button.dart';
+import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
 
-import '../api/ApiClient.dart';
-import 'custom_form_field.dart';
-import 'custom_layout_header.dart';
+import '../../api/ApiClient.dart';
+import '../widgets/custom_form_field.dart';
+import '../widgets/custom_layout_header.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});

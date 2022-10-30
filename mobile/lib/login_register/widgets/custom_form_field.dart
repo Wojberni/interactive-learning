@@ -50,6 +50,8 @@ class CustomFormField extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              contentPadding: const EdgeInsets.symmetric(
+                  vertical: 13, horizontal: 15),
             ),
             style: const TextStyle(
               color: Colors.black,

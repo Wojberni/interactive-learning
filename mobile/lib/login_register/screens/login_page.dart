@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_api/api.dart';
 
-import '../api/ApiClient.dart';
-import 'custom_elevated_button.dart';
-import 'custom_form_field.dart';
-import 'custom_validation_extension.dart';
-import 'custom_layout_header.dart';
+import '../../api/ApiClient.dart';
+import '../widgets/custom_elevated_button.dart';
+import '../widgets/custom_form_field.dart';
+import '../widgets/custom_validation_extension.dart';
+import '../widgets/custom_layout_header.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
