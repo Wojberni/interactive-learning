@@ -6,10 +6,7 @@ import com.zam.interactivelearning.domain.application.quiz.AnswerEntity
 import com.zam.interactivelearning.domain.application.quiz.QuestionEntity
 import com.zam.interactivelearning.domain.application.quiz.QuizEntity
 import com.zam.interactivelearning.domain.application.quiz.QuizRepository
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizAnswer
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizQuestion
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.*
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
 import io.restassured.module.mockmvc.kotlin.extensions.Then
@@ -73,6 +70,28 @@ class QuizEndpointTest(
             response.quizzes.map {
                 assertEquals("test_user", it.createdByUsername)
             }
+        }
+    }
+
+    @Test
+    @Transactional
+    fun `should get quiz details by id`() {
+        val existing = quizRepository.findAll().first()
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/quizzes/${existing.id}")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+
+            val response = extract().body().`as`(QuizDetailsResponse::class.java)
+            assertEquals(existing.id, response.quizId)
+            assertEquals(existing.questions.size, response.questions.size)
+            assertEquals(existing.questions.first().content, response.questions.first().content)
+            assertEquals(existing.questions.first().answers.size, response.questions.first().answers.size)
+            assertEquals(existing.questions.first().answers.first().content, response.questions.first().answers.first().content)
         }
     }
 

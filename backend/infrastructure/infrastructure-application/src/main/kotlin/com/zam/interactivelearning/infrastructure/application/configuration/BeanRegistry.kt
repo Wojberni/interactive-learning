@@ -3,6 +3,7 @@ package com.zam.interactivelearning.infrastructure.application.configuration
 import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
+import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
 import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
 import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
@@ -46,6 +47,7 @@ class BeanRegistry {
         bean<GetUserByUsernameQueryHandler>()
         bean<GetUsernameByIdQueryHandler>()
         bean<GetAllQuizzesQueryHandler>()
+        bean<GetQuizByIdQueryHandler>()
     }
 
     private fun registerRepositoryBeans() = beans {
