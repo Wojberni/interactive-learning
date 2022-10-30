@@ -1,11 +1,12 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
-import com.zam.interactivelearning.domain.api.quiz.Answer
-import com.zam.interactivelearning.domain.api.quiz.CreateQuizCommand
-import com.zam.interactivelearning.domain.api.quiz.Question
-import com.zam.interactivelearning.domain.api.quiz.Quiz
+import com.zam.interactivelearning.domain.api.quiz.GetAllQuizzesQuery
+import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.Quiz
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
+import com.zam.interactivelearning.infrastructure.application.delivery.quiz.converter.toCommand
 
 class QuizEndpointHelper(
     private val executor: CqrsExecutor,
@@ -14,23 +15,21 @@ class QuizEndpointHelper(
         executor.executeCommand(createQuizRequest.toCommand())
     }
 
-    private fun CreateQuizRequest.toCommand(): CreateQuizCommand {
-        return CreateQuizCommand(
-            quiz = Quiz(
-                name = this.name,
-                description = this.description,
-                questions = this.questions.map { question ->
-                    Question(
-                        content = question.content,
-                        answers = question.answers.map { answer ->
-                            Answer(
-                                content = answer.content,
-                                isCorrect = answer.isCorrect
-                            )
-                        }
-                    )
-                }
-            )
+    fun getAllQuizzes(): QuizListResponse {
+        val quizzes = executor.executeQuery(GetAllQuizzesQuery())
+        return QuizListResponse(
+            quizzes = quizzes.map {
+                Quiz(
+                    it.id,
+                    it.name,
+                    it.description,
+                    getUsername(it.createdById)
+                )
+            }
         )
+    }
+
+    private fun getUsername(id: Long): String {
+        return executor.executeQuery(GetUsernameByIdQuery(id))
     }
 }

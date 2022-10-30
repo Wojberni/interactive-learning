@@ -2,9 +2,13 @@ package com.zam.interactivelearning.application.test.quiz
 
 import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
+import com.zam.interactivelearning.domain.application.quiz.AnswerEntity
+import com.zam.interactivelearning.domain.application.quiz.QuestionEntity
+import com.zam.interactivelearning.domain.application.quiz.QuizEntity
 import com.zam.interactivelearning.domain.application.quiz.QuizRepository
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizAnswer
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizQuestion
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
@@ -23,7 +27,7 @@ class QuizEndpointTest(
     val webApplicationContext: WebApplicationContext,
     @Autowired
     val quizRepository: QuizRepository,
-): AuthenticatedTest() {
+) : AuthenticatedTest() {
 
     @BeforeEach
     fun setup() {
@@ -33,12 +37,14 @@ class QuizEndpointTest(
     @Test
     @Transactional
     fun `should create a new quiz`() {
+        quizRepository.deleteAll()
         val request = getCreateQuizRequest()
+
         Given {
             header(getAuthHeader(userJwt))
             body(request)
         } When {
-            post("/quiz")
+            post("/quizzes")
         } Then {
             statusCode(201)
 
@@ -52,9 +58,27 @@ class QuizEndpointTest(
         }
     }
 
+    @Test
+    fun `should get all quizzes`() {
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/quizzes")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+
+            val response = extract().body().`as`(QuizListResponse::class.java)
+            assertEquals(2, response.quizzes.size)
+            response.quizzes.map {
+                assertEquals("test_user", it.createdByUsername)
+            }
+        }
+    }
+
     private fun getCreateQuizRequest(): CreateQuizRequest {
         return CreateQuizRequest(
-            "Polish monarchs",
+            "test_quiz",
             "Check your knowledge on historical Polish monarchs",
             questions = listOf(
                 QuizQuestion(
