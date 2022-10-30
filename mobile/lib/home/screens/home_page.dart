@@ -36,14 +36,16 @@ class _HomePageState extends State<HomePage> {
             body: SafeArea(
       child: Column(
         children: [
-            const SizedBox(
+            Container(
               height: 60,
-              child: Center(
+              color: Colors.white,
+              child: const Center(
                 child: Text(
                   "Logo <- Interactive Learning App",
                   style: TextStyle(
                       fontSize: 24,
                       color: Colors.black,
+                  backgroundColor: Colors.white,
                   fontWeight: FontWeight.bold),
                 ),
               ),
@@ -56,7 +58,11 @@ class _HomePageState extends State<HomePage> {
                 return HomeTile(
                     title: tilesTitles[index],
                     color: tilesColors[index],
-                    iconPath: tilesIcons[index]);
+                    iconPath: tilesIcons[index],
+                    onTap: () {
+                      print('Tapped on tile $index');
+                      // todo: navigate to the correct screen
+                    });
               }),
             ),
           ),
