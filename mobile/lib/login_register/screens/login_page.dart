@@ -59,8 +59,6 @@ class _LoginPageState extends State<LoginPage> {
                             CustomFormField(
                               hintText: 'Hasło',
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[a-zA-Z0-9]')),
                                 LengthLimitingTextInputFormatter(30),
                               ],
                               validator: (value) {
