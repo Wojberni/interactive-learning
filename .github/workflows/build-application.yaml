@@ -28,11 +28,6 @@ jobs:
         with:
           name: test-results
           path: ./backend/application/target/surefire-reports
-      - name: Persist specification file
-        uses: actions/upload-artifact@v3
-        with:
-          name: apispec
-          path: ./backend/application/target/apispec.json
 
   generate-report:
     needs: build-backend

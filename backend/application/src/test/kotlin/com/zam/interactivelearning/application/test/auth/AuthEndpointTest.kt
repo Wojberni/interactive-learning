@@ -1,8 +1,9 @@
 package com.zam.interactivelearning.application.test.auth
 
 import com.zam.interactivelearning.application.IntegrationTest
-import com.zam.interactivelearning.domain.application.user.UserEntity
-import com.zam.interactivelearning.domain.application.user.UserRepository
+import com.zam.interactivelearning.domain.application.user.ApplicationRoles
+import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
+import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import com.zam.interactivelearning.infrastructure.api.delivery.auth.LoginUserRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.auth.RegisterUserRequest
 import io.restassured.module.mockmvc.RestAssuredMockMvc
@@ -10,6 +11,7 @@ import io.restassured.module.mockmvc.kotlin.extensions.Given
 import io.restassured.module.mockmvc.kotlin.extensions.Then
 import io.restassured.module.mockmvc.kotlin.extensions.When
 import org.hamcrest.Matchers
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -35,13 +37,16 @@ class AuthEndpointTest(
     @Test
     fun `should register a new user`() {
         Given {
-            body(RegisterUserRequest("foo", "bar"))
+            body(RegisterUserRequest("foo@bar.com","foo", "bar"))
         } When {
             post ("/auth/register")
         } Then {
             statusCode(201)
 
-            assertTrue(userRepository.existsByUsername("foo"))
+            val created = userRepository.findByUsername("foo")
+            assertTrue(created.isPresent)
+            assertTrue(passwordEncoder.matches("bar", created.get().password))
+            assertEquals(ApplicationRoles.USER.roleName, created.get().roles.first().name)
         }
     }
 
@@ -50,7 +55,7 @@ class AuthEndpointTest(
         userRepository.save(UserEntity(username = "foo", password =  "asdf", roles = setOf()))
 
         Given {
-            body(RegisterUserRequest("foo", "qwerty"))
+            body(RegisterUserRequest("foo@bar.com","foo", "qwerty"))
         } When {
             post("auth/register")
         } Then {
