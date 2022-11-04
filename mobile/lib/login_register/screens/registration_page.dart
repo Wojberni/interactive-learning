@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/login_register/widgets/custom_elevated_button.dart';
 import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
@@ -113,13 +114,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       //TODO: send registration form with email
                       AuthEndpointApi(apiClient).register(RegisterUserRequest(email: _email,
                           username: _login, password: _password));
+                      context.go('/auth/login');
                     }
                   }),
               Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: 15, vertical: screenHeight * 0.01),
                   child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.go('/auth/login'),
                     child: SizedBox(
                       width: screenWidth,
                       child: const Text(
