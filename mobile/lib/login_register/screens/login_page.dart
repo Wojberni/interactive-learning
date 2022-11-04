@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 
 import '../../api/ApiClient.dart';
@@ -85,22 +86,19 @@ class _LoginPageState extends State<LoginPage> {
                                         "Authorization",
                                         "Bearer ${value?.token}")
                                   });
+                                  context.go('/home'); // temporary solution
                                 }
                               },
                             ),
                             CustomElevatedButton(
                               title: 'Rejestracja',
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('registrationPage');
-                              },
+                              onPressed: () => context.go('/auth/register'),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 15, vertical: screenHeight * 0.02),
                               child: GestureDetector(
-                                //TODO: go to page with password reset
-                                //onTap: () => Navigator.of(context).pushNamed('resetPasswordPage'),
+                                // onTap: () => context.go('/auth/forgotPassword'),
                                 child: SizedBox(
                                   width: screenWidth,
                                   child: const Text(

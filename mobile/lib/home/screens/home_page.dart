@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/common/custom_navigation_bar.dart';
 import 'package:mobile/home/widgets/home_tile.dart';
 
@@ -30,6 +31,12 @@ class _HomePageState extends State<HomePage> {
       'assets/images/search.png',
       'assets/images/pomodoro.png'
     ];
+    final List<String> tilesRoutes = [
+      '/daily_challenge',
+      '/random_task',
+      '/search',
+      '/pomodoro'
+    ];
 
     return MaterialApp(
         home: Scaffold(
@@ -60,8 +67,8 @@ class _HomePageState extends State<HomePage> {
                     color: tilesColors[index],
                     iconPath: tilesIcons[index],
                     onTap: () {
-                      print('Tapped on tile $index');
-                      // todo: navigate to the correct screen
+                      print('Tapped on tile ${tilesRoutes[index]}');
+                      // context.go(tilesRoutes[index]);
                     });
               }),
             ),
