@@ -4,12 +4,14 @@ import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyRespo
 import com.zam.interactivelearning.infrastructure.api.delivery.flashcard.CreateFlashcardRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.flashcard.FlashcardDetailsResponse
 import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.helper.FlashcardEndpointHelper
+import com.zam.interactivelearning.security.api.AuthenticatedUser
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
+@AuthenticatedUser
 @RequestMapping("/flashcards")
 class FlashcardEndpoint(
     val helper: FlashcardEndpointHelper
