@@ -2,6 +2,8 @@ package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.api.user.GetUserByIdQuery
+import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
+import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
@@ -11,6 +13,8 @@ import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQuer
 import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
+import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.FlashcardEndpoint
+import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.helper.FlashcardEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.user.UserEndpoint
@@ -43,6 +47,7 @@ class BeanRegistry {
         bean<CreateUserCommandHandler>()
         bean<LoginUserCommandHandler>()
         bean<CreateQuizCommandHandler>()
+        bean<CreateFlashcardCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -51,6 +56,7 @@ class BeanRegistry {
         bean<GetAllQuizzesQueryHandler>()
         bean<GetQuizByIdQueryHandler>()
         bean<GetUserByIdQueryHandler>()
+        bean<GetFlashcardByIdQueryHandler>()
     }
 
     private fun registerEndpointBeans() = beans {
@@ -60,6 +66,8 @@ class BeanRegistry {
         bean<QuizEndpointHelper>()
         bean<UserEndpoint>()
         bean<UserEndpointHelper>()
+        bean<FlashcardEndpoint>()
+        bean<FlashcardEndpointHelper>()
     }
 
     private fun registerCqrsBeans() = beans {
