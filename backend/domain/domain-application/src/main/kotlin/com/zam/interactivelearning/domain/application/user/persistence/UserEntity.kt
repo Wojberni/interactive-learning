@@ -19,5 +19,4 @@ class UserEntity(
         inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
     var roles: Set<RoleEntity> = setOf()
-) {
-}
+)
