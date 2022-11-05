@@ -1,4 +1,4 @@
-insert into users(id, username, password) values (next value for users_id_seq,'test_user', '$2a$12$aM6aqvT1BWv0gkojKuxVMOhdqyQsn69GImWX2kYYQqw7AxdJj.0IO');
+insert into users(id, username, email, password) values (next value for users_id_seq,'test_user', 'test@test.com', '$2a$12$aM6aqvT1BWv0gkojKuxVMOhdqyQsn69GImWX2kYYQqw7AxdJj.0IO');
 
 insert into roles(id, name) values (1, 'ROLE_USER');
 
