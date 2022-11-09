@@ -31,7 +31,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: _backgroundColor,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
             child: Form(
           key: _formKey,
