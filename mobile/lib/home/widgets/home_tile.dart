@@ -32,7 +32,6 @@ class HomeTile extends StatelessWidget {
                 ),
               ),
             ),
-            // SvgPicture.asset(iconPath, width: 50, height: 50),
             Image.asset(iconPath, width: 100, height: 100),
           ],
         ),

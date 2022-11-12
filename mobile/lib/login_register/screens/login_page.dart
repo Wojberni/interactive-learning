@@ -6,7 +6,6 @@ import 'package:learning_api/api.dart';
 import '../../api/ApiClient.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_form_field.dart';
-import '../widgets/custom_validation_extension.dart';
 import '../widgets/custom_layout_header.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
 
-  String _login = "";
-  String _password = "";
+  final String _login = "";
+  final String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +42,12 @@ class _LoginPageState extends State<LoginPage> {
                   FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                   LengthLimitingTextInputFormatter(30),
                 ],
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Wpisz login!";
-                  } else if (!value.isValidName) {
-                    return "Wpisz poprawny login!";
-                  } else {
-                    _login = value;
-                    return null;
-                  }
-                },
               ),
               CustomFormField(
                 hintText: 'Hasło',
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Wpisz hasło!";
-                  } else if (!value.isValidPassword) {
-                    return "Wpisz poprawne hasło!";
-                  } else {
-                    _password = value;
-                    return null;
-                  }
-                },
                 secret: true,
               ),
               CustomElevatedButton(

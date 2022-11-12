@@ -66,8 +66,7 @@ class _HomePageState extends State<HomePage> {
                         color: tilesColors[index],
                         iconPath: tilesIcons[index],
                         onTap: () {
-                          print('Tapped on tile ${tilesRoutes[index]}');
-                          // context.go(tilesRoutes[index]);
+                          context.go(tilesRoutes[index]);
                         });
                   }),
                 ),
