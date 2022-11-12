@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
         home: Scaffold(
             backgroundColor: _backgroundColor,
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             body: SafeArea(
                 child: Form(
                   key: _formKey,
@@ -65,8 +65,6 @@ class _LoginPageState extends State<LoginPage> {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Wpisz hasło!";
-                                } else if (!value.isValidPassword) {
-                                  return "Wpisz poprawne hasło!";
                                 } else {
                                   _password = value;
                                   return null;
@@ -84,9 +82,9 @@ class _LoginPageState extends State<LoginPage> {
                                       .then((value) => {
                                     apiClient.addDefaultHeader(
                                         "Authorization",
-                                        "Bearer ${value?.token}")
+                                        "Bearer ${value?.token}"),
+                                        context.go('/home')
                                   });
-                                  context.go('/home'); // temporary solution
                                 }
                               },
                             ),
