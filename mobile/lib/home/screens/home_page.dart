@@ -38,44 +38,43 @@ class _HomePageState extends State<HomePage> {
       '/pomodoro'
     ];
 
-    return MaterialApp(
-        home: Scaffold(
-            body: SafeArea(
-      child: Column(
-        children: [
-            Container(
-              height: 60,
-              color: Colors.white,
-              child: const Center(
-                child: Text(
-                  "Logo <- Interactive Learning App",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                  backgroundColor: Colors.white,
-                  fontWeight: FontWeight.bold),
+    return Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                color: Colors.white,
+                child: const Center(
+                  child: Text(
+                    "Logo <- Interactive Learning App",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.black,
+                        backgroundColor: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-          Flexible(
-            child: GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 0.6,
-              children: List.generate(tilesTitles.length, (index) {
-                return HomeTile(
-                    title: tilesTitles[index],
-                    color: tilesColors[index],
-                    iconPath: tilesIcons[index],
-                    onTap: () {
-                      print('Tapped on tile ${tilesRoutes[index]}');
-                      // context.go(tilesRoutes[index]);
-                    });
-              }),
-            ),
+              Flexible(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.6,
+                  children: List.generate(tilesTitles.length, (index) {
+                    return HomeTile(
+                        title: tilesTitles[index],
+                        color: tilesColors[index],
+                        iconPath: tilesIcons[index],
+                        onTap: () {
+                          print('Tapped on tile ${tilesRoutes[index]}');
+                          // context.go(tilesRoutes[index]);
+                        });
+                  }),
+                ),
+              ),
+              const CustomNavigationBar(),
+            ],
           ),
-          const CustomNavigationBar(),
-        ],
-      ),
-    )));
+        ));
   }
 }
