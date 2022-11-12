@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/custom_navigation_bar.dart';
+import 'package:mobile/profile/widgets/custom_counter.dart';
+import 'package:mobile/profile/widgets/custom_counter_description.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -143,79 +145,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                         fontWeight: FontWeight.w300),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: const Text(
-                                    'Liczba wykonanych ćwiczeń',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300),
-                                  ),
+                                const CustomCounterDescription(text: 'Liczba wykonanych ćwiczeń'),
+                                CustomCounter(
+                                    text: profilePageData.finishedActivitiesCount!.toString()
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: Text(
-                                    profilePageData.finishedActivitiesCount!
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 36,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
+                                const CustomCounterDescription(text: 'Aktualny daily streak'),
+                                CustomCounter(
+                                    text: profilePageData.dailyStreak.toString()
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: const Text(
-                                    'Aktualny daily streak',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: Text(
-                                    profilePageData.dailyStreak.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 36,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: const Text(
-                                    'Liczba znajomych',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.02),
-                                  child: Text(
-                                    profilePageData.friendsCount.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 36,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
+                                const CustomCounterDescription(text: 'Liczba znajomych'),
+                                CustomCounter(
+                                    text: profilePageData.friendsCount.toString()
+                                )
                               ],
                             ),
                           ),
