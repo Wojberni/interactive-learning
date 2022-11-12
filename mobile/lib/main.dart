@@ -4,6 +4,7 @@ import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
 import 'package:mobile/login_register/screens/registration_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile/profile/screens/profile_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -40,6 +41,11 @@ class MyApp extends StatelessWidget {
         path: '/home',
         builder: (BuildContext context, GoRouterState state) =>
         const HomePage(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (BuildContext context, GoRouterState state) =>
+        const ProfilePage(),
       ),
     ],
   );
