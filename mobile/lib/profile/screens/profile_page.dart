@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/custom_navigation_bar.dart';
-import 'package:mobile/profile/widgets/custom_counter.dart';
-import 'package:mobile/profile/widgets/custom_counter_description.dart';
+import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
+import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -86,35 +86,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(30))),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: screenWidth * 0.04,
-                                      bottom: screenHeight * 0.01),
-                                  child: Text(
-                                    profilePageData.username!,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 34,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: screenHeight * 0.01),
-                                  child: Text(
-                                    profilePageData.email!,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                )
-                              ],
-                            )),
+                            child: ProfilePageIconWithDescription(
+                                email: profilePageData.email!,
+                                username: profilePageData.username!)),
                       ),
                       Padding(
                         padding:
@@ -142,19 +116,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontWeight: FontWeight.w300),
                                 ),
                               ),
-                              const CustomCounterDescription(
-                                  text: 'Liczba wykonanych ćwiczeń'),
-                              CustomCounter(
-                                  text: profilePageData.finishedActivitiesCount!
-                                      .toString()),
-                              const CustomCounterDescription(
-                                  text: 'Aktualny daily streak'),
-                              CustomCounter(
-                                  text: profilePageData.dailyStreak.toString()),
-                              const CustomCounterDescription(
-                                  text: 'Liczba znajomych'),
-                              CustomCounter(
-                                  text: profilePageData.friendsCount.toString())
+                              CustomCounterWithDescription(
+                                text: profilePageData.finishedActivitiesCount!
+                                    .toString(),
+                                description: 'Liczba wykonanych ćwiczeń',
+                              ),
+                              CustomCounterWithDescription(
+                                text: profilePageData.dailyStreak.toString(),
+                                description: 'Aktualny daily streak',
+                              ),
+                              CustomCounterWithDescription(
+                                text: profilePageData.friendsCount.toString(),
+                                description: 'Liczba znajomych',
+                              ),
                             ],
                           ),
                         ),
