@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
@@ -9,7 +10,11 @@ import 'package:mobile/show_quiz/screens/quiz_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
   runApp(MyApp());
+      });
 }
 
 class MyApp extends StatelessWidget {

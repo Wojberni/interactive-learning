@@ -39,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
               CustomFormField(
                 hintText: 'Login',
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                   LengthLimitingTextInputFormatter(30),
                 ],
               ),
@@ -59,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                             username: _login, password: _password))
                         .then((value) => {
                               apiClient.addDefaultHeader(
-                                  "Authorization", "Bearer ${value?.token}")
+                                  "Authorization", "Bearer ${value?.token}"),
+                              context.go('/home')
                             });
-                    context.go('/home'); // temporary solution
                   }
                 },
               ),
