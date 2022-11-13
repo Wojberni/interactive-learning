@@ -13,8 +13,8 @@ class CustomCounterDescription extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: screenHeight * 0.02),
+      padding: EdgeInsets.symmetric(
+          vertical: screenHeight * 0.01),
       child: Text(
         text,
         textAlign: TextAlign.center,
