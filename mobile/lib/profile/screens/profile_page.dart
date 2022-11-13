@@ -7,6 +7,8 @@ import 'package:mobile/common/custom_navigation_bar.dart';
 import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
 import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
 
+import '../data/profile_page_data.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -175,12 +177,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     )));
   }
-}
-
-class ProfilePageData {
-  String? username = "";
-  String? email = "";
-  int? finishedActivitiesCount = 0;
-  int? friendsCount = 0;
-  int dailyStreak = 0;
 }
