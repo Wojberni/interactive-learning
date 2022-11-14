@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           Flexible(
             child: GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: 0.6,
+              childAspectRatio: 0.65,
               children: List.generate(tilesTitles.length, (index) {
                 return HomeTile(
                     title: tilesTitles[index],
