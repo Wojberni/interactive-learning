@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 
 import '../../api/ApiClient.dart';
+import '../../common/helpers/snackbar.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_form_field.dart';
 import '../widgets/custom_validation_extension.dart';
@@ -25,8 +26,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    const invalidCredentialsSnackbar =
-        SnackBar(content: Text("Nieprawidłowy login lub hasło"));
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
@@ -91,11 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                                   .catchError((err) => {
                                         if (err.code == 403)
                                           {
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus(),
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                                    invalidCredentialsSnackbar)
+                                            showSnackBar(context, "Niepoprawny login lub hasło!", SnackBarType.error)
                                           }
                                       });
                             }
