@@ -1,6 +1,7 @@
 package com.zam.interactivelearning.infrastructure.application.exceptionhandlers
 
 import com.zam.interactivelearning.domain.api.common.DomainException
+import com.zam.interactivelearning.infrastructure.api.delivery.common.ApiErrorCodes
 import com.zam.interactivelearning.infrastructure.api.delivery.common.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,8 @@ class DomainExceptionHandler: ResponseEntityExceptionHandler() {
         val response = ErrorResponse(
             LocalDateTime.now(),
             HttpStatus.BAD_REQUEST.value(),
-            domainException.message
+            domainException.message,
+            ApiErrorCodes.exceptionToApiErrorCodeMap[domainException::class].orEmpty()
         )
         return ResponseEntity(response, HttpStatus.BAD_REQUEST)
     }

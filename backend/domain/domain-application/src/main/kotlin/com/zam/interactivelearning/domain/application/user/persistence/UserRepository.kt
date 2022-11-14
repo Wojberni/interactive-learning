@@ -5,6 +5,7 @@ import java.util.Optional
 
 interface UserRepository: CrudRepository<UserEntity, Long> {
     fun existsByUsername(username: String): Boolean
+    fun existsByEmail(email: String): Boolean
     fun findByUsername(username: String): Optional<UserEntity>
     fun findUsernameById(id: Long): Username
 }
