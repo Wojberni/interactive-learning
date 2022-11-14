@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/api/api_error_codes.dart';
 import 'package:mobile/login_register/widgets/custom_elevated_button.dart';
 import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
 
 import '../../api/ApiClient.dart';
+import '../../api/api_error_response.dart';
+import '../../common/helpers/snackbar.dart';
 import '../widgets/custom_form_field.dart';
 import '../widgets/custom_layout_header.dart';
 
@@ -107,16 +112,50 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   }
                 },
               ),
-              CustomElevatedButton(
-                  title: 'Zarejestruj się',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      //TODO: send registration form with email
-                      AuthEndpointApi(apiClient).register(RegisterUserRequest(email: _email,
-                          username: _login, password: _password));
-                      context.go('/auth/login');
-                    }
-                  }),
+              Builder(
+                  builder: (context) => CustomElevatedButton(
+                      title: 'Zarejestruj się',
+                      onPressed: () {
+                        var apiErrorResponse = ApiErrorResponse();
+                        if (_formKey.currentState!.validate()) {
+                          AuthEndpointApi(apiClient)
+                              .register(RegisterUserRequest(
+                                  email: _email,
+                                  username: _login,
+                                  password: _password))
+                              .then((res) => context.go('auth/login'))
+                              .catchError((err) => {
+                                    if (err.code == 400)
+                                      {
+                                        apiErrorResponse
+                                            .fromRawError(err.message),
+                                        if (apiErrorResponse.errorCode ==
+                                            ApiErrorCodes.emailExistsError)
+                                          {
+                                            showSnackBar(
+                                                context,
+                                                "Email istnieje!",
+                                                SnackBarType.error),
+                                          }
+                                        else if (apiErrorResponse.errorCode ==
+                                            ApiErrorCodes.usernameExistsError)
+                                          {
+                                            showSnackBar(
+                                                context,
+                                                "Login istnieje!",
+                                                SnackBarType.error),
+                                          }
+                                        else
+                                          {
+                                            showSnackBar(
+                                                context,
+                                                "Coś poszło nie tak!",
+                                                SnackBarType.error)
+                                          }
+                                      }
+                                  });
+                        }
+                      })),
               Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: 15, vertical: screenHeight * 0.01),
