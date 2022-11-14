@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
 
 import '../../api/ApiClient.dart';
 import '../../common/helpers/snackbar.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_form_field.dart';
-import '../widgets/custom_validation_extension.dart';
 import '../widgets/custom_layout_header.dart';
 
 class LoginPage extends StatefulWidget {
@@ -48,6 +48,8 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Wpisz login!";
+                    } else if (!value.isValidName) {
+                      return "Wpisz poprawny login!";
                     } else {
                       _login = value;
                       return null;
@@ -62,6 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Wpisz hasło!";
+                    } else if (!value.isValidPassword) {
+                      return "Wpisz poprawne hasło!";
                     } else {
                       _password = value;
                       return null;
