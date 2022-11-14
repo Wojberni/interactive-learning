@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/random_task',
         builder: (BuildContext context, GoRouterState state) =>
-        const QuizPage(),
+        QuizPage(),
       ),
       GoRoute(
         path: '/random_task/question',

@@ -19,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
 
-  final String _login = "";
-  final String _password = "";
+  String _login = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,20 @@ class _LoginPageState extends State<LoginPage> {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
+                validator: (value) {
+                    _login = value!;
+                    return null;
+                },
               ),
               CustomFormField(
                 hintText: 'Hasło',
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
+                validator: (value) {
+                  _password = value!;
+                  return null;
+                },
                 secret: true,
               ),
               CustomElevatedButton(

@@ -19,12 +19,12 @@ class QuizAnswer extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 15),
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.only(right: 15),
+                padding: const EdgeInsets.only(right: 20),
                 child: Image.asset(
                   imagePath,
                   width: 25,
