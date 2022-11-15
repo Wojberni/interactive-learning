@@ -41,7 +41,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: test-results
-          path: ./backend/application/target/surefire-reports
+          path: ./test-results
       - name: Publish test report
         uses: dorny/test-reporter@v1
         if: always()
