@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
 
 import '../../api/ApiClient.dart';
 import '../../common/helpers/snackbar.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_form_field.dart';
-import '../widgets/custom_validation_extension.dart';
 import '../widgets/custom_layout_header.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: _backgroundColor,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Form(
             key: _formKey,
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                                         apiClient.addDefaultHeader(
                                             "Authorization",
                                             "Bearer ${value?.token}"),
-                                        context.go("/home")
+                                            context.go("/home")
                                       })
                                   .catchError((err) => {
                                         if (err.code == 403)

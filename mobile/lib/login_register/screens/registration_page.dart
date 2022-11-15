@@ -36,7 +36,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: _backgroundColor,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
             child: Form(
           key: _formKey,
@@ -87,7 +87,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   if (value!.isEmpty) {
                     return "Wpisz hasło!";
                   } else if (!value.isValidPassword) {
-                    return "Wpisz poprawne hasło!";
+                    return "Hasło musi zawierać wielką i małą literę,\n"
+                        "znak specjalny, cyfrę oraz co najmniej 8 znaków!";
                   } else {
                     _password = value;
                     return null;
@@ -103,8 +104,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Wpisz hasło!";
-                  } else if (!value.isValidPassword) {
-                    return "Wpisz poprawne hasło!";
                   } else if (value != _password) {
                     return "Hasła nie są takie same!";
                   } else {

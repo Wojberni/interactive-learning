@@ -4,6 +4,7 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.api.quiz.GetAllQuizzesQuery
 import com.zam.interactivelearning.domain.api.quiz.GetQuizByIdQuery
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
+import com.zam.interactivelearning.infrastructure.api.delivery.common.RequestValidator
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.Quiz
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
@@ -13,8 +14,10 @@ import com.zam.interactivelearning.infrastructure.application.delivery.quiz.conv
 
 class QuizEndpointHelper(
     private val executor: CqrsExecutor,
+    private val requestValidator: RequestValidator<CreateQuizRequest>
 ) {
     fun createQuiz(createQuizRequest: CreateQuizRequest) {
+        requestValidator.validate(createQuizRequest)
         executor.executeCommand(createQuizRequest.toCommand())
     }
 
