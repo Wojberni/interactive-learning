@@ -11,4 +11,6 @@ class UserProfileResponse(
     val finishedActivitiesCount: Int,
     @get: NotNull
     val friendsCount: Int,
+    @get: NotNull
+    val dailyStreak: Int
 )
