@@ -17,10 +17,12 @@ import com.zam.interactivelearning.infrastructure.application.delivery.flashcard
 import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.helper.FlashcardEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
+import com.zam.interactivelearning.infrastructure.application.delivery.quiz.validator.CreateQuizRequestValidator
 import com.zam.interactivelearning.infrastructure.application.delivery.user.UserEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.user.helper.UserEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.DomainExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.MethodArgumentNotValidHandler
+import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.RequestValidationExceptionHandler
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
 import com.zam.interactivelearning.security.application.context.UserContextHolderImpl
 import com.zam.interactivelearning.security.application.domain.LoginUserCommandHandler
@@ -64,6 +66,7 @@ class BeanRegistry {
         bean<AuthEndpointHelper>()
         bean<QuizEndpoint>()
         bean<QuizEndpointHelper>()
+        bean<CreateQuizRequestValidator>()
         bean<UserEndpoint>()
         bean<UserEndpointHelper>()
         bean<FlashcardEndpoint>()
@@ -85,6 +88,7 @@ class BeanRegistry {
     private fun registerOtherBeans() = beans {
         bean<MethodArgumentNotValidHandler>()
         bean<DomainExceptionHandler>()
+        bean<RequestValidationExceptionHandler>()
     }
 
 }

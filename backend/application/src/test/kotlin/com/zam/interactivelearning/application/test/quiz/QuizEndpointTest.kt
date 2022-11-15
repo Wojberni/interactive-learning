@@ -95,6 +95,21 @@ class QuizEndpointTest(
         }
     }
 
+    @Test
+    fun `should not create a quiz when no correct answer is provided`() {
+        val request = getCreateQuizRequestWithoutCorrectAnswer()
+
+        Given {
+            header(getAuthHeader(userJwt))
+            body(request)
+        } When {
+            post("/quizzes")
+                .prettyPeek()
+        } Then {
+            statusCode(400)
+        }
+    }
+
     private fun getCreateQuizRequest(): CreateQuizRequest {
         return CreateQuizRequest(
             "test_quiz",
@@ -107,6 +122,33 @@ class QuizEndpointTest(
                         QuizAnswer("Mieszko I", false),
                         QuizAnswer("Władysław I Herman", false),
                         QuizAnswer("Władysław II Jagiełło", false)
+                    )
+                )
+            )
+        )
+    }
+
+    private fun getCreateQuizRequestWithoutCorrectAnswer(): CreateQuizRequest {
+        return CreateQuizRequest(
+            "test_quiz",
+            "Check your knowledge on Polish twitch.tv streamers",
+            questions = listOf(
+                QuizQuestion(
+                    "What is the first name of a confident streamer under the nickname of mamm0n?",
+                    listOf(
+                        QuizAnswer("Adam", false),
+                        QuizAnswer("Tomasz", false),
+                        QuizAnswer("Jan", false),
+                        QuizAnswer("Witold", false)
+                    )
+                ),
+                QuizQuestion(
+                    "Which streamer appears on the 'kac' emote?",
+                    listOf(
+                        QuizAnswer("mamm0n", false),
+                        QuizAnswer("Gucio", false),
+                        QuizAnswer("Demonzz", true),
+                        QuizAnswer("Adamczyk", false)
                     )
                 )
             )
