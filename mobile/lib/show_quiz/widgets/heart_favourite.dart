@@ -16,10 +16,10 @@ class _HeartFavouriteState extends State<HeartFavourite> {
         ? ElevatedButton(
             onPressed: () => setState(() => _isFavourite = false),
             style: ButtonStyle(
+              shadowColor: MaterialStateProperty.all<Color>(Colors.blue),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: const BorderSide(color: Colors.black))),
+                      borderRadius: BorderRadius.circular(20.0))),
               padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
               backgroundColor:
                   const MaterialStatePropertyAll(Color(0xFFECECEC)),
@@ -33,10 +33,10 @@ class _HeartFavouriteState extends State<HeartFavourite> {
         : ElevatedButton(
             onPressed: () => setState(() => _isFavourite = true),
             style: ButtonStyle(
+              shadowColor: MaterialStateProperty.all<Color>(Colors.blue),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: const BorderSide(color: Colors.black))),
+                      borderRadius: BorderRadius.circular(20.0))),
               padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
               backgroundColor:
                   const MaterialStatePropertyAll(Color(0xFFECECEC)),

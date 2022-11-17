@@ -8,19 +8,19 @@ class StartQuizButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  side: const BorderSide(color: Colors.black)
-              )
-          ),
-        padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
+        shadowColor: MaterialStateProperty.all<Color>(Colors.blue),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        )),
+        padding: const MaterialStatePropertyAll(
+            EdgeInsets.symmetric(vertical: 20, horizontal: 50)),
         backgroundColor: const MaterialStatePropertyAll(Color(0xFFECECEC)),
       ),
       onPressed: () => context.go('/random_task/question/'),
       child: const Center(
-        child: Text('Start Quiz',
-            style: TextStyle(fontSize: 24, color: Colors.black)),
+        child:
+            Text('Start', style: TextStyle(fontSize: 24, color: Colors.blue)),
       ),
     );
   }
