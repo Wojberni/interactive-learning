@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/add_quiz/screens/add_quiz_page.dart';
 import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
 import 'package:mobile/login_register/screens/registration_page.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/show_quiz/screens/question_page.dart';
 import 'package:mobile/show_quiz/screens/quiz_page.dart';
+
+import 'add_quiz/screens/add_quiz_answers.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -63,6 +66,16 @@ class MyApp extends StatelessWidget {
         path: '/profile',
         builder: (BuildContext context, GoRouterState state) =>
         const ProfilePage(),
+      ),
+      GoRoute(
+        path: '/add_quiz',
+        builder: (BuildContext context, GoRouterState state) =>
+        const AddQuizPage(),
+      ),
+      GoRoute(
+        path: '/add_quiz/answers',
+        builder: (BuildContext context, GoRouterState state) =>
+        const AddQuizAnswers(),
       ),
     ],
   );
