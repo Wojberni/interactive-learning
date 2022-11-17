@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
-import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
 
 import '../../api/ApiClient.dart';
 import '../../common/helpers/snackbar.dart';
@@ -42,14 +41,11 @@ class _LoginPageState extends State<LoginPage> {
                 CustomFormField(
                   hintText: 'Login',
                   inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                     LengthLimitingTextInputFormatter(30),
                   ],
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Wpisz login!";
-                    } else if (!value.isValidName) {
-                      return "Wpisz poprawny login!";
                     } else {
                       _login = value;
                       return null;
@@ -64,8 +60,6 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Wpisz hasło!";
-                    } else if (!value.isValidPassword) {
-                      return "Wpisz poprawne hasło!";
                     } else {
                       _password = value;
                       return null;
