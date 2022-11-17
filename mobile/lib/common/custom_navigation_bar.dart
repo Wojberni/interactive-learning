@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({super.key});
 
-  //todo: implement routes
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const [
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            context.go('/home');
+            break;
+          case 1:
+            context.go('/profile');
+            break;
+          case 2:
+            context.go('/favourites');
+            break;
+        }
+      },
+      items: const[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
