@@ -20,6 +20,7 @@ class UserEndpointHelper(
             user.email,
             0,
             0,
+            0
         )
     }
 }

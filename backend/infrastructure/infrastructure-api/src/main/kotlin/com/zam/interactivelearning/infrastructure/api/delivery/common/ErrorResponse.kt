@@ -9,5 +9,7 @@ class ErrorResponse(
     @NotNull
     val status: Int,
     @NotNull
-    val message: String
+    val message: String,
+    @NotNull
+    val errorCode: String = ""
 )

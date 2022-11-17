@@ -5,6 +5,7 @@ import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
 import 'package:mobile/login_register/screens/registration_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/show_quiz/screens/question_page.dart';
 import 'package:mobile/show_quiz/screens/quiz_page.dart';
 
@@ -57,6 +58,11 @@ class MyApp extends StatelessWidget {
         path: '/random_task/question',
         builder: (BuildContext context, GoRouterState state) =>
         const QuestionPage(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (BuildContext context, GoRouterState state) =>
+        const ProfilePage(),
       ),
     ],
   );

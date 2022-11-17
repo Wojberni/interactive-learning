@@ -36,6 +36,7 @@ class UserEndpointTest(
             body("email", equalTo("test@test.com"))
             body("finishedActivitiesCount", equalTo(0))
             body("friendsCount", equalTo(0))
+            body("dailyStreak", equalTo(0))
         }
     }
 
