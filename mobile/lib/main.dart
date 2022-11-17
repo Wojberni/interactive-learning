@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
 import 'package:mobile/login_register/screens/registration_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
+import 'package:mobile/show_quiz/screens/question_page.dart';
+import 'package:mobile/show_quiz/screens/quiz_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
   runApp(MyApp());
+      });
 }
 
 class MyApp extends StatelessWidget {
@@ -41,6 +48,16 @@ class MyApp extends StatelessWidget {
         path: '/home',
         builder: (BuildContext context, GoRouterState state) =>
         const HomePage(),
+      ),
+      GoRoute(
+        path: '/random_task',
+        builder: (BuildContext context, GoRouterState state) =>
+        QuizPage(),
+      ),
+      GoRoute(
+        path: '/random_task/question',
+        builder: (BuildContext context, GoRouterState state) =>
+        const QuestionPage(),
       ),
       GoRoute(
         path: '/profile',
