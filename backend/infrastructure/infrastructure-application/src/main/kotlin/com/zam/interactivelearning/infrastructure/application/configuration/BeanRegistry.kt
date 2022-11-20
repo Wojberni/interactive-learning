@@ -3,7 +3,9 @@ package com.zam.interactivelearning.infrastructure.application.configuration
 import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
+import com.zam.interactivelearning.domain.application.friends.ChangeFriendRequestStatusCommandHandler
 import com.zam.interactivelearning.domain.application.friends.CreateAddFriendRequestCommandHandler
+import com.zam.interactivelearning.domain.application.friends.FriendRequestStatusChangedEventHandler
 import com.zam.interactivelearning.domain.application.friends.GetPendingFriendRequestsQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
@@ -12,6 +14,8 @@ import com.zam.interactivelearning.domain.application.user.CreateUserCommandHand
 import com.zam.interactivelearning.domain.application.user.GetUserByIdQueryHandler
 import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
 import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
+import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
+import com.zam.interactivelearning.events.EventPublisher
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.FlashcardEndpoint
@@ -41,9 +45,11 @@ class BeanRegistry {
         return listOf(
             registerCommandHandlerBeans(),
             registerQueryHandlerBeans(),
+            registerEventHandlerBeans(),
             registerEndpointBeans(),
             registerCqrsBeans(),
             registerSecurityBeans(),
+            registerEventBeans(),
             registerOtherBeans()
         )
     }
@@ -54,6 +60,7 @@ class BeanRegistry {
         bean<CreateQuizCommandHandler>()
         bean<CreateFlashcardCommandHandler>()
         bean<CreateAddFriendRequestCommandHandler>()
+        bean<ChangeFriendRequestStatusCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -64,6 +71,10 @@ class BeanRegistry {
         bean<GetUserByIdQueryHandler>()
         bean<GetFlashcardByIdQueryHandler>()
         bean<GetPendingFriendRequestsQueryHandler>()
+    }
+
+    private fun registerEventHandlerBeans() = beans {
+        bean<FriendRequestStatusChangedEventHandler>()
     }
 
     private fun registerEndpointBeans() = beans {
@@ -90,6 +101,11 @@ class BeanRegistry {
         bean<UserDetailsService>()
         bean<UserContextHolderImpl>()
         bean<SecurityConfiguration>()
+    }
+
+    private fun registerEventBeans() = beans {
+        bean<AsynchronousEventsConfiguration>()
+        bean<EventPublisher>()
     }
 
     private fun registerOtherBeans() = beans {
