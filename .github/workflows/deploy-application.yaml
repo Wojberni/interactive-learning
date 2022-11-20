@@ -91,7 +91,7 @@ jobs:
             docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
             docker pull ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
             docker stop interactive-learning-backend
-            docker system prune -f
+            docker system prune -f --volumes
             docker run --name interactive-learning-backend \
             -e APP_DATABASE_URL=$DB_URL -e APP_DATABASE_USERNAME=$DB_USERNAME -e APP_DATABASE_PASSWORD=$DB_PASSWORD -e APP_JWT_TOKEN_SECRET=$JWT_SECRET \
             -dit -p 8080:8080 ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
