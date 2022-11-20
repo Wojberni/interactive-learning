@@ -81,3 +81,4 @@ jobs:
           file_pattern: ./api/*
           add_options: -f
           commit_user_name: Interactive Learning Actions
+          create_branch: true
