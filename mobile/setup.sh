@@ -20,6 +20,3 @@ java -jar $generatorFilename generate \
     -g dart \
     -o $outputDir \
     --additional-properties=pubName=learning_api
-
-flutter pub get
-flutter pub run build_runner build
