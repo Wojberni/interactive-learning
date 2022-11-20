@@ -12,6 +12,7 @@ import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.context.WebApplicationContext
 
 @IntegrationTest
@@ -28,6 +29,7 @@ class UserEndpointTest(
     }
 
     @Test
+    @Transactional
     fun `should get the currently logged in user profile`() {
         defaultUser.friends = setOf(prepareUser())
         userRepository.save(defaultUser)
