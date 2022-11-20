@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/add_quiz/screens/add_quiz_page.dart';
 import 'package:mobile/home/screens/home_page.dart';
 import 'package:mobile/login_register/screens/login_page.dart';
 import 'package:mobile/login_register/screens/registration_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
-import 'package:mobile/show_quiz/screens/question_page.dart';
-import 'package:mobile/show_quiz/screens/quiz_page.dart';
-
-import 'add_quiz/screens/add_quiz_answers.dart';
+import 'package:mobile/quiz/add/screens/quiz_answers.dart';
+import 'package:mobile/quiz/add/screens/quiz_page.dart';
+import 'package:mobile/quiz/show/screens/question_page.dart';
+import 'package:mobile/quiz/show/screens/quiz_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");

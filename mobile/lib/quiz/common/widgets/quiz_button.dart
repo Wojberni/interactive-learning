@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class StartQuizButton extends StatelessWidget {
-  const StartQuizButton({super.key});
+class QuizButton extends StatelessWidget {
+  const QuizButton({super.key, required this.title, required this.onPressed});
+
+  final String title;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,10 @@ class StartQuizButton extends StatelessWidget {
             EdgeInsets.symmetric(vertical: 20, horizontal: 50)),
         backgroundColor: const MaterialStatePropertyAll(Color(0xFFECECEC)),
       ),
-      onPressed: () => context.go('/random_task/question/'),
-      child: const Center(
+      onPressed: onPressed,
+      child: Center(
         child:
-            Text('Start', style: TextStyle(fontSize: 24, color: Colors.blue)),
+            Text(title, style: const TextStyle(fontSize: 24, color: Colors.blue)),
       ),
     );
   }

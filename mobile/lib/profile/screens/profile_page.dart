@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/custom_navigation_bar.dart';
+import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
 import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
 

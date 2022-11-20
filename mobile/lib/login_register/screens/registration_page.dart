@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/api_error_codes.dart';
 import 'package:mobile/login_register/widgets/custom_elevated_button.dart';
-import 'package:mobile/login_register/widgets/custom_validation_extension.dart';
+import 'package:mobile/login_register/extensions/custom_validation_extension.dart';
 
 import '../../api/ApiClient.dart';
 import '../../api/api_error_response.dart';
@@ -62,7 +62,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 LengthLimitingTextInputFormatter(30),
               ],
               secret: true,
-              validator: (value) {},
+              validator: (value) => validatePasswordInput(value),
             ),
             CustomFormField(
               hintText: 'Powtórz hasło',

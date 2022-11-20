@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/show_quiz/widgets/header_quiz_page.dart';
-import 'package:mobile/show_quiz/widgets/quiz_answer.dart';
+
+import '../widgets/header_quiz_page.dart';
+import '../widgets/quiz_answer.dart';
 
 class QuestionPage extends StatelessWidget {
   const QuestionPage({super.key});

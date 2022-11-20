@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/show_quiz/widgets/header_quiz_page.dart';
-import 'package:mobile/show_quiz/widgets/heart_favourite.dart';
-import 'package:mobile/show_quiz/widgets/quiz_page_text_container.dart';
-import 'package:mobile/show_quiz/widgets/start_quiz_button.dart';
+import 'package:go_router/go_router.dart';
+
+import '../widgets/header_quiz_page.dart';
+import '../widgets/heart_favourite.dart';
+import '../../common/widgets/quiz_button.dart';
+import '../widgets/quiz_page_text_container.dart';
+
 
 class QuizPage extends StatefulWidget {
-  QuizPage({super.key});
+  const QuizPage({super.key});
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -36,9 +39,12 @@ class _QuizPageState extends State<QuizPage> {
             const QuizPageTestContainer('Twórca quizu', 'xxx'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
-                StartQuizButton(),
-                HeartFavourite(),
+              children: <Widget>[
+                QuizButton(
+                  title: 'Start',
+                  onPressed: () => context.go('/random_task/question/'),
+                ),
+                const HeartFavourite(), // todo: change for stateless widget
               ],
             ),
           ],
