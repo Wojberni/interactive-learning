@@ -2,7 +2,7 @@ package com.zam.interactivelearning.application.test.flashcard
 
 import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
-import com.zam.interactivelearning.domain.application.flashcard.FlashcardEntity
+import com.zam.interactivelearning.domain.application.flashcard.FlashCardEntity
 import com.zam.interactivelearning.domain.application.flashcard.FlashcardRepository
 import com.zam.interactivelearning.infrastructure.api.delivery.flashcard.CreateFlashcardRequest
 import io.restassured.module.mockmvc.RestAssuredMockMvc
@@ -67,9 +67,9 @@ class FlashcardEndpointTest(
         )
     }
 
-    private fun insertFlashcard(): FlashcardEntity {
+    private fun insertFlashcard(): FlashCardEntity {
         return flashcardRepository.save(
-            FlashcardEntity(
+            FlashCardEntity(
                 content = "front",
                 answer = "back",
                 createdBy = 1
