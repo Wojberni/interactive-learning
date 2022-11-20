@@ -22,11 +22,6 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn clean install
-      - name: Persist specification file
-        uses: actions/upload-artifact@v3
-        with:
-          name: apispec
-          path: ./backend/application/target/apispec.json
       - name: Build and publish backend Docker image to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
@@ -57,12 +52,8 @@ jobs:
         with:
           flutter-version: '3.3.4'
       - run: flutter --version
-      - name: Download api specification
-        uses: actions/download-artifact@v2
-        with:
-          name: apispec
-      - name: Setup application
-        run: ./setup.sh ../apispec.json
+      - run: flutter pub get
+      - run: flutter pub upgrade learning_api
       - name: Build web application
         run: flutter build web
       - name: Build and publish backend Docker image to Github Packages Registry
@@ -100,7 +91,7 @@ jobs:
             docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
             docker pull ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
             docker stop interactive-learning-backend
-            docker system prune -f
+            docker system prune -f --volumes
             docker run --name interactive-learning-backend \
             -e APP_DATABASE_URL=$DB_URL -e APP_DATABASE_USERNAME=$DB_USERNAME -e APP_DATABASE_PASSWORD=$DB_PASSWORD -e APP_JWT_TOKEN_SECRET=$JWT_SECRET \
             -dit -p 8080:8080 ghcr.io/wojberni/interactive-learning/interactive-learning-backend:latest
@@ -129,6 +120,6 @@ jobs:
             docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
             docker pull ghcr.io/wojberni/interactive-learning/interactive-learning-mobile-web:latest
             docker stop interactive-learning-mobile-web
-            docker system prune -f
+            docker system prune -f --volumes
             docker run --name interactive-learning-mobile-web \
             -dit -p 2137:80 ghcr.io/wojberni/interactive-learning/interactive-learning-mobile-web:latest

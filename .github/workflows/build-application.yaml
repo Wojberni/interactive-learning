@@ -23,6 +23,11 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn clean install
+      - name: Persist specification file
+        uses: actions/upload-artifact@v3
+        with:
+          name: apispec
+          path: ./backend/application/target/apispec.json
       - name: Persist test results
         uses: actions/upload-artifact@v3
         with:
@@ -30,6 +35,7 @@ jobs:
           path: ./backend/**/target/surefire-reports
 
   generate-report:
+    if: ${{ github.event_name == 'push' }}
     needs: build-backend
     runs-on: ubuntu-latest
     defaults:
@@ -49,3 +55,35 @@ jobs:
           name: Test report
           path: "**/surefire-reports/TEST-*.xml"
           reporter: java-junit
+  generate-api-client:
+    if: ${{ github.event_name == 'push' }}
+    needs: build-backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mobile
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: generated-api-client
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: 'maven'
+      - name: Download api specification
+        uses: actions/download-artifact@v2
+        with:
+          name: apispec
+      - name: Generate api client
+        run: ./setup.sh ../apispec.json ./api-client
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update api client
+          branch: generated-api-client
+          file_pattern: ./mobile/api-client/*
+          disable_globbing: true
+          add_options: -f
+          commit_user_name: Interactive Learning Actions
+          create_branch: true

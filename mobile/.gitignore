@@ -127,4 +127,3 @@ app.*.symbols
 
 # openapi client
 openapi-generator-cli-*.jar
-/api
