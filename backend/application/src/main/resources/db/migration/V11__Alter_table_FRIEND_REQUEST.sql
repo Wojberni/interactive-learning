@@ -1,0 +1,1 @@
+ALTER TABLE friend_request rename to friend_requests;
