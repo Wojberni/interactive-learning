@@ -120,6 +120,6 @@ jobs:
             docker login ghcr.io -u $GITHUB_USERNAME -p $GITHUB_TOKEN
             docker pull ghcr.io/wojberni/interactive-learning/interactive-learning-mobile-web:latest
             docker stop interactive-learning-mobile-web
-            docker system prune -f
+            docker system prune -f -- volumes
             docker run --name interactive-learning-mobile-web \
             -dit -p 2137:80 ghcr.io/wojberni/interactive-learning/interactive-learning-mobile-web:latest
