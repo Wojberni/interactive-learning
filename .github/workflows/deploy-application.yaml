@@ -53,6 +53,7 @@ jobs:
           flutter-version: '3.3.4'
       - run: flutter --version
       - run: flutter pub get
+      - run: flutter pub upgrade learning_api
       - name: Build web application
         run: flutter build web
       - name: Build and publish backend Docker image to Github Packages Registry
