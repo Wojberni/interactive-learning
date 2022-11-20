@@ -53,12 +53,12 @@ class MyApp extends StatelessWidget {
         const HomePage(),
       ),
       GoRoute(
-        path: '/random_task',
+        path: '/random_task', // temporary path
         builder: (BuildContext context, GoRouterState state) =>
         QuizPage(),
       ),
       GoRoute(
-        path: '/random_task/question',
+        path: '/random_task/question', // temporary path
         builder: (BuildContext context, GoRouterState state) =>
         const QuestionPage(),
       ),
@@ -68,12 +68,12 @@ class MyApp extends StatelessWidget {
         const ProfilePage(),
       ),
       GoRoute(
-        path: '/add_quiz',
+        path: '/search', // temporary path
         builder: (BuildContext context, GoRouterState state) =>
         const AddQuizPage(),
       ),
       GoRoute(
-        path: '/add_quiz/answers',
+        path: '/search/add_quiz', // temporary path
         builder: (BuildContext context, GoRouterState state) =>
         const AddQuizAnswers(),
       ),

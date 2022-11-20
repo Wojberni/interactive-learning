@@ -46,16 +46,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                 LengthLimitingTextInputFormatter(30),
               ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz login!";
-                } else if (!value.isValidName) {
-                  return "Wpisz poprawny login!";
-                } else {
-                  _login = value;
-                  return null;
-                }
-              },
+              validator: (value) => validateLoginInput(value),
             ),
             CustomFormField(
               hintText: 'Email',
@@ -63,16 +54,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]')),
                 LengthLimitingTextInputFormatter(30),
               ],
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz email!";
-                } else if (!value.isValidEmail) {
-                  return "Wpisz poprawny email!";
-                } else {
-                  _email = value;
-                  return null;
-                }
-              },
+              validator: (value) => validateEmailInput(value),
             ),
             CustomFormField(
               hintText: 'Hasło',
@@ -80,17 +62,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 LengthLimitingTextInputFormatter(30),
               ],
               secret: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz hasło!";
-                } else if (!value.isValidPassword) {
-                  return "Hasło musi zawierać wielką i małą literę,\n"
-                      "znak specjalny, cyfrę oraz co najmniej 8 znaków!";
-                } else {
-                  _password = value;
-                  return null;
-                }
-              },
+              validator: (value) {},
             ),
             CustomFormField(
               hintText: 'Powtórz hasło',
@@ -98,15 +70,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 LengthLimitingTextInputFormatter(30),
               ],
               secret: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Wpisz hasło!";
-                } else if (value != _password) {
-                  return "Hasła nie są takie same!";
-                } else {
-                  return null;
-                }
-              },
+              validator: (value) => validatePasswordConfirmationInput(value),
             ),
             Builder(
                 builder: (context) => CustomElevatedButton(
@@ -162,6 +126,50 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       }
                   }
               });
+    }
+  }
+
+  String? validateLoginInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz login!";
+    } else if (!value.isValidName) {
+      return "Wpisz poprawny login!";
+    } else {
+      _login = value;
+      return null;
+    }
+  }
+
+  String? validateEmailInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz email!";
+    } else if (!value.isValidEmail) {
+      return "Wpisz poprawny email!";
+    } else {
+      _email = value;
+      return null;
+    }
+  }
+
+  String? validatePasswordInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz hasło!";
+    } else if (!value.isValidPassword) {
+      return "Hasło musi zawierać wielką i małą literę,\n"
+          "znak specjalny, cyfrę oraz co najmniej 8 znaków!";
+    } else {
+      _password = value;
+      return null;
+    }
+  }
+
+  String? validatePasswordConfirmationInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz hasło!";
+    } else if (value != _password) {
+      return "Hasła nie są takie same!";
+    } else {
+      return null;
     }
   }
 }

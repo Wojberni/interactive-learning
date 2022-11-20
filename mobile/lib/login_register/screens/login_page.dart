@@ -42,28 +42,14 @@ class _LoginPageState extends State<LoginPage> {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Wpisz login!";
-                  } else {
-                    _login = value;
-                    return null;
-                  }
-                },
+                validator: (value) => validateLoginInput(value),
               ),
               CustomFormField(
                 hintText: 'Hasło',
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Wpisz hasło!";
-                  } else {
-                    _password = value;
-                    return null;
-                  }
-                },
+                validator: (value) => validatePasswordInput(value),
                 secret: true,
               ),
               Builder(
@@ -115,4 +101,23 @@ class _LoginPageState extends State<LoginPage> {
               });
     }
   }
+
+  String? validateLoginInput(String? value){
+      if (value!.isEmpty) {
+        return "Wpisz login!";
+      } else {
+        _login = value;
+        return null;
+      }
+  }
+
+  String? validatePasswordInput(String? value){
+      if (value!.isEmpty) {
+        return "Wpisz hasło!";
+      } else {
+        _password = value;
+        return null;
+      }
+  }
+
 }
