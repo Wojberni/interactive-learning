@@ -181,6 +181,8 @@ class ApiClient {
           return valueString == 'true' || valueString == '1';
         case 'DateTime':
           return value is DateTime ? value : DateTime.tryParse(value);
+        case 'AcceptOrRejectFriendRequest':
+          return AcceptOrRejectFriendRequest.fromJson(value);
         case 'AddFriendRequest':
           return AddFriendRequest.fromJson(value);
         case 'CreateFlashcardRequest':

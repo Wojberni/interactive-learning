@@ -2,6 +2,7 @@
 .travis.yml
 README.md
 analysis_options.yaml
+doc/AcceptOrRejectFriendRequest.md
 doc/AddFriendRequest.md
 doc/AuthEndpointApi.md
 doc/CreateFlashcardRequest.md
@@ -37,6 +38,7 @@ lib/auth/authentication.dart
 lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
+lib/model/accept_or_reject_friend_request.dart
 lib/model/add_friend_request.dart
 lib/model/create_flashcard_request.dart
 lib/model/create_quiz_request.dart
@@ -53,5 +55,4 @@ lib/model/quiz_question.dart
 lib/model/register_user_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/friend_request_test.dart
-test/pending_friend_requests_response_test.dart
+test/accept_or_reject_friend_request_test.dart

@@ -16,6 +16,45 @@ class FriendsEndpointApi {
 
   final ApiClient apiClient;
 
+  /// Performs an HTTP 'POST /friends/requests/acceptOrReject' operation and returns the [Response].
+  /// Parameters:
+  ///
+  /// * [AcceptOrRejectFriendRequest] acceptOrRejectFriendRequest (required):
+  Future<Response> acceptOrRejectFriendRequestWithHttpInfo(AcceptOrRejectFriendRequest acceptOrRejectFriendRequest,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/friends/requests/acceptOrReject';
+
+    // ignore: prefer_final_locals
+    Object? postBody = acceptOrRejectFriendRequest;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Parameters:
+  ///
+  /// * [AcceptOrRejectFriendRequest] acceptOrRejectFriendRequest (required):
+  Future<void> acceptOrRejectFriendRequest(AcceptOrRejectFriendRequest acceptOrRejectFriendRequest,) async {
+    final response = await acceptOrRejectFriendRequestWithHttpInfo(acceptOrRejectFriendRequest,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
   /// Performs an HTTP 'POST /friends/add' operation and returns the [Response].
   /// Parameters:
   ///

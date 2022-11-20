@@ -9,9 +9,56 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**acceptOrRejectFriendRequest**](FriendsEndpointApi.md#acceptorrejectfriendrequest) | **POST** /friends/requests/acceptOrReject | 
 [**addFriend**](FriendsEndpointApi.md#addfriend) | **POST** /friends/add | 
 [**getPendingFriendRequests**](FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
 
+
+# **acceptOrRejectFriendRequest**
+> acceptOrRejectFriendRequest(acceptOrRejectFriendRequest)
+
+
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = FriendsEndpointApi();
+final acceptOrRejectFriendRequest = AcceptOrRejectFriendRequest(); // AcceptOrRejectFriendRequest | 
+
+try {
+    api_instance.acceptOrRejectFriendRequest(acceptOrRejectFriendRequest);
+} catch (e) {
+    print('Exception when calling FriendsEndpointApi->acceptOrRejectFriendRequest: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **acceptOrRejectFriendRequest** | [**AcceptOrRejectFriendRequest**](AcceptOrRejectFriendRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **addFriend**
 > addFriend(addFriendRequest)

@@ -62,6 +62,7 @@ Class | Method | HTTP request | Description
 *AuthEndpointApi* | [**register**](doc//AuthEndpointApi.md#register) | **POST** /auth/register | 
 *FlashcardEndpointApi* | [**createFlashcard**](doc//FlashcardEndpointApi.md#createflashcard) | **POST** /flashcards | Create a flashcard
 *FlashcardEndpointApi* | [**getById**](doc//FlashcardEndpointApi.md#getbyid) | **GET** /flashcards/{id} | Get a flashcard by id
+*FriendsEndpointApi* | [**acceptOrRejectFriendRequest**](doc//FriendsEndpointApi.md#acceptorrejectfriendrequest) | **POST** /friends/requests/acceptOrReject | 
 *FriendsEndpointApi* | [**addFriend**](doc//FriendsEndpointApi.md#addfriend) | **POST** /friends/add | 
 *FriendsEndpointApi* | [**getPendingFriendRequests**](doc//FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
 *QuizEndpointApi* | [**createQuiz**](doc//QuizEndpointApi.md#createquiz) | **POST** /quizzes | Create a new quiz
@@ -72,6 +73,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AcceptOrRejectFriendRequest](doc//AcceptOrRejectFriendRequest.md)
  - [AddFriendRequest](doc//AddFriendRequest.md)
  - [CreateFlashcardRequest](doc//CreateFlashcardRequest.md)
  - [CreateQuizRequest](doc//CreateQuizRequest.md)

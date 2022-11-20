@@ -33,6 +33,7 @@ part 'api/friends_endpoint_api.dart';
 part 'api/quiz_endpoint_api.dart';
 part 'api/user_endpoint_api.dart';
 
+part 'model/accept_or_reject_friend_request.dart';
 part 'model/add_friend_request.dart';
 part 'model/create_flashcard_request.dart';
 part 'model/create_quiz_request.dart';
