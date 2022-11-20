@@ -285,9 +285,11 @@ packages:
   learning_api:
     dependency: "direct main"
     description:
-      path: api
-      relative: true
-    source: path
+      path: "mobile/api-client"
+      ref: generated-api-client
+      resolved-ref: "5d8526f8f48d9e474bc13cc3ff626c575cf75e5c"
+      url: "https://github.com/Wojberni/interactive-learning.git"
+    source: git
     version: "1.0.0"
   lints:
     dependency: transitive

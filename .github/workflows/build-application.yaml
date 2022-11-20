@@ -35,6 +35,7 @@ jobs:
           path: ./backend/**/target/surefire-reports
 
   generate-report:
+    if: ${{ github.event_name == 'push' }}
     needs: build-backend
     runs-on: ubuntu-latest
     defaults:
@@ -55,6 +56,7 @@ jobs:
           path: "**/surefire-reports/TEST-*.xml"
           reporter: java-junit
   generate-api-client:
+    if: ${{ github.event_name == 'push' }}
     needs: build-backend
     runs-on: ubuntu-latest
     defaults:
