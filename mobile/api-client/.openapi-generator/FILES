@@ -2,11 +2,13 @@
 .travis.yml
 README.md
 analysis_options.yaml
+doc/AddFriendRequest.md
 doc/AuthEndpointApi.md
 doc/CreateFlashcardRequest.md
 doc/CreateQuizRequest.md
 doc/FlashcardDetailsResponse.md
 doc/FlashcardEndpointApi.md
+doc/FriendsEndpointApi.md
 doc/LoginUserRequest.md
 doc/LoginUserResponse.md
 doc/Quiz.md
@@ -22,6 +24,7 @@ git_push.sh
 lib/api.dart
 lib/api/auth_endpoint_api.dart
 lib/api/flashcard_endpoint_api.dart
+lib/api/friends_endpoint_api.dart
 lib/api/quiz_endpoint_api.dart
 lib/api/user_endpoint_api.dart
 lib/api_client.dart
@@ -32,6 +35,7 @@ lib/auth/authentication.dart
 lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
+lib/model/add_friend_request.dart
 lib/model/create_flashcard_request.dart
 lib/model/create_quiz_request.dart
 lib/model/flashcard_details_response.dart
@@ -45,3 +49,5 @@ lib/model/quiz_question.dart
 lib/model/register_user_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
+test/add_friend_request_test.dart
+test/friends_endpoint_api_test.dart
