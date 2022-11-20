@@ -78,7 +78,8 @@ jobs:
         with:
           commit_message: Update api client
           branch: generated-api-client
-          file_pattern: ./api/*
+          file_pattern: ./mobile/api/*
+          disable_globbing: true
           add_options: -f
           commit_user_name: Interactive Learning Actions
           create_branch: true
