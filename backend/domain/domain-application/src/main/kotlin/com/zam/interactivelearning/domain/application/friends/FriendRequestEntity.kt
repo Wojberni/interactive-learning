@@ -5,6 +5,7 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@Table(name = "FRIEND_REQUESTS")
 class FriendRequestEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friend_requests_id_seq")
