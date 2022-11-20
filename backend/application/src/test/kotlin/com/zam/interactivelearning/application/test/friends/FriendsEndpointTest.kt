@@ -8,10 +8,13 @@ import com.zam.interactivelearning.domain.application.friends.FriendRequestRepos
 import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.AddFriendRequest
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.PendingFriendRequestsResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
 import io.restassured.module.mockmvc.kotlin.extensions.Then
 import io.restassured.module.mockmvc.kotlin.extensions.When
+import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
@@ -31,17 +34,17 @@ class FriendsEndpointTest(
     val userRepository: UserRepository,
 ) : AuthenticatedTest() {
 
-    lateinit var sender: UserEntity
+    lateinit var defaultUser: UserEntity
 
     @BeforeEach
     fun setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext)
-        sender = userRepository.findByUsername("test_user").orElseThrow()
+        defaultUser = userRepository.findByUsername("test_user").orElseThrow()
     }
 
     @Test
     fun `should create a friend request`() {
-        val targetUser = prepareTargetUser()
+        val targetUser = prepareUser()
 
         Given {
             header(getAuthHeader(userJwt))
@@ -52,7 +55,7 @@ class FriendsEndpointTest(
             statusCode(201)
 
             val created = friendRequestRepository.findAll().first()
-            assertEquals(sender.id, created.senderId)
+            assertEquals(defaultUser.id, created.senderId)
             assertEquals(targetUser.id, created.receiverId)
             assertEquals(FriendRequestStatus.PENDING, created.status)
         }
@@ -60,8 +63,8 @@ class FriendsEndpointTest(
 
     @Test
     fun `should not create a friend request when there is one already pending`() {
-        val targetUser = prepareTargetUser()
-        saveFriendRequest(sender, targetUser, FriendRequestStatus.PENDING)
+        val targetUser = prepareUser()
+        saveFriendRequest(defaultUser, targetUser, FriendRequestStatus.PENDING)
 
         Given {
             header(getAuthHeader(userJwt))
@@ -76,8 +79,8 @@ class FriendsEndpointTest(
 
     @Test
     fun `should not create a friend request when the target user has sent you a request`() {
-        val targetUser = prepareTargetUser()
-        saveFriendRequest(sender, targetUser, FriendRequestStatus.PENDING)
+        val targetUser = prepareUser()
+        saveFriendRequest(defaultUser, targetUser, FriendRequestStatus.PENDING)
 
         Given {
             header(getAuthHeader(userJwt))
@@ -91,10 +94,31 @@ class FriendsEndpointTest(
     }
 
     @Test
+    fun `should return pending friend requests`() {
+        val firstSender = prepareUser()
+        val secondSender = prepareUser()
+        saveFriendRequest(firstSender, defaultUser, FriendRequestStatus.PENDING)
+        saveFriendRequest(secondSender, defaultUser, FriendRequestStatus.ACCEPTED)
+        saveFriendRequest(secondSender, firstSender, FriendRequestStatus.PENDING)
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/friends/requests/pending")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+            val response = extract().body().`as`(PendingFriendRequestsResponse::class.java)
+            assertEquals(1, response.friendRequests.size)
+            assertEquals(firstSender.username, response.friendRequests.first().senderUsername)
+        }
+    }
+
+    @Test
     @Disabled("TODO: enable when the friendship is implemented")
     fun `should not create a friend request when there is one already accepted`() {
-        val targetUser = prepareTargetUser()
-        saveFriendRequest(sender, targetUser, FriendRequestStatus.ACCEPTED)
+        val targetUser = prepareUser()
+        saveFriendRequest(defaultUser, targetUser, FriendRequestStatus.ACCEPTED)
 
         Given {
             header(getAuthHeader(userJwt))
@@ -122,7 +146,7 @@ class FriendsEndpointTest(
         )
     }
 
-    private fun prepareTargetUser(): UserEntity {
+    private fun prepareUser(): UserEntity {
         return userRepository.save(
             UserEntity(
                 username = "target"

@@ -4,6 +4,7 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.CreateAddFriendRequestCommandHandler
+import com.zam.interactivelearning.domain.application.friends.GetPendingFriendRequestsQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
@@ -62,6 +63,7 @@ class BeanRegistry {
         bean<GetQuizByIdQueryHandler>()
         bean<GetUserByIdQueryHandler>()
         bean<GetFlashcardByIdQueryHandler>()
+        bean<GetPendingFriendRequestsQueryHandler>()
     }
 
     private fun registerEndpointBeans() = beans {

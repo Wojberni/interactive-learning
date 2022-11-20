@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "FLASHCARDS")
-class FlashcardEntity(
+class FlashCardEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flashcards_id_seq")
     @SequenceGenerator(name = "flashcards_id_seq", sequenceName = "flashcards_id_seq", allocationSize = 1)

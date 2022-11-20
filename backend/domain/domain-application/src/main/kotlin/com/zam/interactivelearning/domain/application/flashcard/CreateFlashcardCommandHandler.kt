@@ -12,7 +12,7 @@ class CreateFlashcardCommandHandler(
 
     override fun handle(command: CreateFlashcardCommand) {
         flashcardRepository.save(
-            FlashcardEntity(
+            FlashCardEntity(
                 content = command.content,
                 answer = command.answer,
                 createdBy = contextHolder.getCurrentUser().id
