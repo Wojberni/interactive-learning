@@ -1,6 +1,7 @@
 package com.zam.interactivelearning.domain.application.user
 
 import com.zam.interactivelearning.cqrs.QueryHandler
+import com.zam.interactivelearning.domain.api.common.DomainException
 import com.zam.interactivelearning.domain.api.user.User
 import com.zam.interactivelearning.domain.api.user.GetUserByUsernameQuery
 import com.zam.interactivelearning.domain.application.user.converter.toUser
@@ -12,7 +13,7 @@ class GetUserByUsernameQueryHandler(
 ): QueryHandler<GetUserByUsernameQuery, User> {
     override fun handle(query: GetUserByUsernameQuery): User {
         return userRepository.findByUsername(query.username)
-            .orElseThrow { IllegalArgumentException() }
+            .orElseThrow { DomainException("User with username ${query.username} not found") }
             .toUser()
     }
 
