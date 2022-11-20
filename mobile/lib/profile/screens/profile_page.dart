@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:learning_api/api.dart';
-import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/custom_navigation_bar.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
+import 'package:mobile/profile/widgets/navigation_button.dart';
 import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
 
+import '../data/get_user_profile.dart';
 import '../data/profile_page_data.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,21 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
 
     dataFuture = getUserProfileData();
-  }
-
-  Future<ProfilePageData> getUserProfileData() async {
-    ProfilePageData profilePageData = ProfilePageData();
-    await UserEndpointApi(apiClient).getCurrentUserProfile().then((value) => {
-          profilePageData.username = value?.username,
-          profilePageData.email = value?.email,
-          profilePageData.friendsCount = value?.friendsCount,
-          profilePageData.finishedActivitiesCount =
-              value?.finishedActivitiesCount,
-          // add daily streak data
-          // profilePageData.dailyStreak = value?.dailyStreak
-        });
-
-    return profilePageData;
   }
 
   @override
@@ -135,35 +122,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.05,
-                              vertical: screenHeight * 0.02),
-                          child: SizedBox(
-                            height: screenHeight * 0.1,
-                            child: ElevatedButton(
-                              onPressed: null,
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.grey[200]!),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          side: const BorderSide(
-                                              color: Colors.grey)))),
-                              child: const Text(
-                                'Znajomi',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 34,
-                                    color: Colors.deepPurpleAccent,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            ),
-                          )),
+                      SizedBox(
+                        height: screenHeight * 0.1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            NavigationButton('Znajomi', () => print('Znajomi')),
+                            NavigationButton(
+                                'Wyloguj', () => {logout(), context.go('/auth/login')}),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -176,5 +145,10 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       ),
     )));
+  }
+
+  Future<void> logout() async {
+    var storage = const FlutterSecureStorage();
+    await storage.delete(key: 'token');
   }
 }

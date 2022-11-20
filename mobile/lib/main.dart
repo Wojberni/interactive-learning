@@ -1,69 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mobile/home/screens/home_page.dart';
-import 'package:mobile/login_register/screens/login_page.dart';
-import 'package:mobile/login_register/screens/registration_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:mobile/router/custom_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mobile/profile/screens/profile_page.dart';
-import 'package:mobile/show_quiz/screens/question_page.dart';
-import 'package:mobile/show_quiz/screens/quiz_page.dart';
+
+
+import 'api/ApiClient.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+  String initialRoute = await getInitialRoute();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-  runApp(MyApp());
+  runApp(MyApp(initialRoute: initialRoute));
       });
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key, required this.initialRoute});
 
-  // todo: read token from flutter_secure_storage
+  final String initialRoute;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Interactive Learning',
-      routerConfig: _router,
+      routerConfig: CustomRouter(initialRoute: initialRoute),
     );
   }
+}
 
-  //todo: extract it to separate file (common folder)
-  final GoRouter _router = GoRouter(
-    initialLocation: '/auth/login',
-    routes: <GoRoute>[
-      GoRoute(
-        path: '/auth/login',
-        builder: (BuildContext context, GoRouterState state) =>
-            const LoginPage(),
-      ),
-      GoRoute(
-        path: '/auth/register',
-        builder: (BuildContext context, GoRouterState state) =>
-            const RegistrationPage(),
-      ),
-      GoRoute(
-        path: '/home',
-        builder: (BuildContext context, GoRouterState state) =>
-        const HomePage(),
-      ),
-      GoRoute(
-        path: '/random_task',
-        builder: (BuildContext context, GoRouterState state) =>
-        QuizPage(),
-      ),
-      GoRoute(
-        path: '/random_task/question',
-        builder: (BuildContext context, GoRouterState state) =>
-        const QuestionPage(),
-      ),
-      GoRoute(
-        path: '/profile',
-        builder: (BuildContext context, GoRouterState state) =>
-        const ProfilePage(),
-      ),
-    ],
-  );
+Future<String> getInitialRoute() async {
+  String initialRoute = '/auth/login';
+  var storage = const FlutterSecureStorage();
+  await storage.read(key: 'token').then((value) {
+    if (value != null) {
+      initialRoute = '/home';
+      apiClient.addDefaultHeader(
+          "Authorization", "Bearer $value");
+    }
+  });
+  return initialRoute;
 }
