@@ -55,4 +55,3 @@ lib/model/quiz_question.dart
 lib/model/register_user_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/accept_or_reject_friend_request_test.dart

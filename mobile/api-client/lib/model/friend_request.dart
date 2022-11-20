@@ -13,25 +13,13 @@ part of openapi.api;
 class FriendRequest {
   /// Returns a new [FriendRequest] instance.
   FriendRequest({
-    this.id,
-    this.senderUsername,
+    required this.id,
+    required this.senderUsername,
   });
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? id;
+  int id;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? senderUsername;
+  String senderUsername;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is FriendRequest &&
@@ -41,24 +29,16 @@ class FriendRequest {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (id == null ? 0 : id!.hashCode) +
-    (senderUsername == null ? 0 : senderUsername!.hashCode);
+    (id.hashCode) +
+    (senderUsername.hashCode);
 
   @override
   String toString() => 'FriendRequest[id=$id, senderUsername=$senderUsername]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.id != null) {
       json[r'id'] = this.id;
-    } else {
-      json[r'id'] = null;
-    }
-    if (this.senderUsername != null) {
       json[r'senderUsername'] = this.senderUsername;
-    } else {
-      json[r'senderUsername'] = null;
-    }
     return json;
   }
 
@@ -81,8 +61,8 @@ class FriendRequest {
       }());
 
       return FriendRequest(
-        id: mapValueOfType<int>(json, r'id'),
-        senderUsername: mapValueOfType<String>(json, r'senderUsername'),
+        id: mapValueOfType<int>(json, r'id')!,
+        senderUsername: mapValueOfType<String>(json, r'senderUsername')!,
       );
     }
     return null;
@@ -132,6 +112,8 @@ class FriendRequest {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'id',
+    'senderUsername',
   };
 }
 

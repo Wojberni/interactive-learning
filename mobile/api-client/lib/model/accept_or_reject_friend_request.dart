@@ -13,19 +13,13 @@ part of openapi.api;
 class AcceptOrRejectFriendRequest {
   /// Returns a new [AcceptOrRejectFriendRequest] instance.
   AcceptOrRejectFriendRequest({
-    this.friendRequestId,
-    this.action,
+    required this.friendRequestId,
+    required this.action,
   });
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? friendRequestId;
+  int friendRequestId;
 
-  AcceptOrRejectFriendRequestActionEnum? action;
+  AcceptOrRejectFriendRequestActionEnum action;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AcceptOrRejectFriendRequest &&
@@ -35,24 +29,16 @@ class AcceptOrRejectFriendRequest {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (friendRequestId == null ? 0 : friendRequestId!.hashCode) +
-    (action == null ? 0 : action!.hashCode);
+    (friendRequestId.hashCode) +
+    (action.hashCode);
 
   @override
   String toString() => 'AcceptOrRejectFriendRequest[friendRequestId=$friendRequestId, action=$action]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.friendRequestId != null) {
       json[r'friendRequestId'] = this.friendRequestId;
-    } else {
-      json[r'friendRequestId'] = null;
-    }
-    if (this.action != null) {
       json[r'action'] = this.action;
-    } else {
-      json[r'action'] = null;
-    }
     return json;
   }
 
@@ -75,8 +61,8 @@ class AcceptOrRejectFriendRequest {
       }());
 
       return AcceptOrRejectFriendRequest(
-        friendRequestId: mapValueOfType<int>(json, r'friendRequestId'),
-        action: AcceptOrRejectFriendRequestActionEnum.fromJson(json[r'action']),
+        friendRequestId: mapValueOfType<int>(json, r'friendRequestId')!,
+        action: AcceptOrRejectFriendRequestActionEnum.fromJson(json[r'action'])!,
       );
     }
     return null;
@@ -126,6 +112,8 @@ class AcceptOrRejectFriendRequest {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'friendRequestId',
+    'action',
   };
 }
 

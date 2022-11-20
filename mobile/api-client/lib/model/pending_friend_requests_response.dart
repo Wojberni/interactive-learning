@@ -55,7 +55,7 @@ class PendingFriendRequestsResponse {
       }());
 
       return PendingFriendRequestsResponse(
-        friendRequests: FriendRequest.listFromJson(json[r'friendRequests']) ?? const [],
+        friendRequests: FriendRequest.listFromJson(json[r'friendRequests'])!,
       );
     }
     return null;
@@ -105,6 +105,7 @@ class PendingFriendRequestsResponse {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'friendRequests',
   };
 }
 
