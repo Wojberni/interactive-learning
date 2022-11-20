@@ -73,12 +73,12 @@ jobs:
         with:
           name: apispec
       - name: Generate api client
-        run: ./setup.sh ../apispec.json
+        run: ./setup.sh ../apispec.json ./api-client
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update api client
           branch: generated-api-client
-          file_pattern: ./mobile/api/*
+          file_pattern: ./mobile/api-client/*
           disable_globbing: true
           add_options: -f
           commit_user_name: Interactive Learning Actions
