@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/common/custom_navigation_bar.dart';
+import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/home/widgets/home_tile.dart';
 
 class HomePage extends StatefulWidget {
