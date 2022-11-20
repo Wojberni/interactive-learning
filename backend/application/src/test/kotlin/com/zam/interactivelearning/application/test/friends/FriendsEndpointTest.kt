@@ -7,6 +7,8 @@ import com.zam.interactivelearning.domain.application.friends.FriendRequestEntit
 import com.zam.interactivelearning.domain.application.friends.FriendRequestRepository
 import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequest
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequestAction
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.AddFriendRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.PendingFriendRequestsResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
@@ -115,19 +117,25 @@ class FriendsEndpointTest(
     }
 
     @Test
-    @Disabled("TODO: enable when the friendship is implemented")
-    fun `should not create a friend request when there is one already accepted`() {
-        val targetUser = prepareUser()
-        saveFriendRequest(defaultUser, targetUser, FriendRequestStatus.ACCEPTED)
+    fun `should accept a friend request`() {
+        val sender = prepareUser()
+        val friendRequest = saveFriendRequest(sender, defaultUser, FriendRequestStatus.PENDING)
 
         Given {
             header(getAuthHeader(userJwt))
-            body(AddFriendRequest(targetUser.username))
+            body(AcceptOrRejectFriendRequest(friendRequest.id, AcceptOrRejectFriendRequestAction.ACCEPT))
         } When {
-            post("/friends/add")
+            post("/friends/requests/acceptOrReject")
                 .prettyPeek()
         } Then {
-            statusCode(400)
+            statusCode(200)
+            val updated = friendRequestRepository.findById(friendRequest.id).orElseThrow()
+            assertEquals(FriendRequestStatus.ACCEPTED, updated.status)
+
+            assertEquals(1, defaultUser.friends.size)
+            assertEquals(1, sender.friends.size)
+            assertEquals(defaultUser.id, sender.friends.first().id)
+            assertEquals(sender.id, defaultUser.friends.first().id)
         }
     }
 
