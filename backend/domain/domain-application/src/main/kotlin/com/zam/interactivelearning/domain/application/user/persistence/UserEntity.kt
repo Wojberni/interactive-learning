@@ -18,5 +18,12 @@ class UserEntity(
         joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
-    var roles: Set<RoleEntity> = setOf()
+    var roles: Set<RoleEntity> = setOf(),
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "USER_FRIENDS",
+        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "friend_id", referencedColumnName = "id")]
+    )
+    var friends: Set<UserEntity> = setOf()
 )

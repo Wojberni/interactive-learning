@@ -1,5 +1,6 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.friends
 
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.AddFriendRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.PendingFriendRequestsResponse
 import com.zam.interactivelearning.infrastructure.application.delivery.friends.helper.FriendsEndpointHelper
@@ -28,5 +29,10 @@ class FriendsEndpoint(
     @GetMapping("/requests/pending")
     fun getPendingFriendRequests(): PendingFriendRequestsResponse {
         return friendsEndpointHelper.getPendingFriendRequests()
+    }
+
+    @PostMapping("/requests/acceptOrReject")
+    fun acceptOrRejectFriendRequest(@RequestBody @Valid request: AcceptOrRejectFriendRequest) {
+        friendsEndpointHelper.acceptOrRejectFriendRequest(request)
     }
 }

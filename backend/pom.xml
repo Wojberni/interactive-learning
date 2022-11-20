@@ -26,6 +26,7 @@
         <module>application</module>
         <module>security</module>
         <module>cqrs</module>
+        <module>events</module>
     </modules>
 
     <dependencies>
