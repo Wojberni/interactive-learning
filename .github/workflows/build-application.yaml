@@ -64,6 +64,8 @@ jobs:
         working-directory: ./mobile
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: generated-api-client
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -76,9 +78,6 @@ jobs:
           name: apispec
       - name: Generate api client
         run: ./setup.sh ../apispec.json ./api-client
-      - uses: actions/checkout@v3
-        with:
-          ref: generated-api-client
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update api client
