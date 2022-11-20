@@ -189,10 +189,14 @@ class ApiClient {
           return CreateQuizRequest.fromJson(value);
         case 'FlashcardDetailsResponse':
           return FlashcardDetailsResponse.fromJson(value);
+        case 'FriendRequest':
+          return FriendRequest.fromJson(value);
         case 'LoginUserRequest':
           return LoginUserRequest.fromJson(value);
         case 'LoginUserResponse':
           return LoginUserResponse.fromJson(value);
+        case 'PendingFriendRequestsResponse':
+          return PendingFriendRequestsResponse.fromJson(value);
         case 'Quiz':
           return Quiz.fromJson(value);
         case 'QuizAnswer':

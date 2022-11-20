@@ -63,6 +63,7 @@ Class | Method | HTTP request | Description
 *FlashcardEndpointApi* | [**createFlashcard**](doc//FlashcardEndpointApi.md#createflashcard) | **POST** /flashcards | Create a flashcard
 *FlashcardEndpointApi* | [**getById**](doc//FlashcardEndpointApi.md#getbyid) | **GET** /flashcards/{id} | Get a flashcard by id
 *FriendsEndpointApi* | [**addFriend**](doc//FriendsEndpointApi.md#addfriend) | **POST** /friends/add | 
+*FriendsEndpointApi* | [**getPendingFriendRequests**](doc//FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
 *QuizEndpointApi* | [**createQuiz**](doc//QuizEndpointApi.md#createquiz) | **POST** /quizzes | Create a new quiz
 *QuizEndpointApi* | [**getAllQuizzes**](doc//QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 *QuizEndpointApi* | [**getQuizById**](doc//QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
@@ -75,8 +76,10 @@ Class | Method | HTTP request | Description
  - [CreateFlashcardRequest](doc//CreateFlashcardRequest.md)
  - [CreateQuizRequest](doc//CreateQuizRequest.md)
  - [FlashcardDetailsResponse](doc//FlashcardDetailsResponse.md)
+ - [FriendRequest](doc//FriendRequest.md)
  - [LoginUserRequest](doc//LoginUserRequest.md)
  - [LoginUserResponse](doc//LoginUserResponse.md)
+ - [PendingFriendRequestsResponse](doc//PendingFriendRequestsResponse.md)
  - [Quiz](doc//Quiz.md)
  - [QuizAnswer](doc//QuizAnswer.md)
  - [QuizDetailsResponse](doc//QuizDetailsResponse.md)
