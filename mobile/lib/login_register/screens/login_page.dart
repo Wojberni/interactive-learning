@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 
@@ -19,6 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
+  final _storage  = const FlutterSecureStorage();
 
   String _login = "";
   String _password = "";
@@ -87,9 +89,10 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       AuthEndpointApi(apiClient)
           .login(LoginUserRequest(username: _login, password: _password))
-          .then((value) => {
+          .then((value) async => {
                 apiClient.addDefaultHeader(
                     "Authorization", "Bearer ${value?.token}"),
+              await _storage.write(key: 'token', value: value?.token),
                 context.go("/home")
               })
           .catchError((err) => {
