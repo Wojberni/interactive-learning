@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 analysis_options.yaml
@@ -46,19 +45,3 @@ lib/model/quiz_question.dart
 lib/model/register_user_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/auth_endpoint_api_test.dart
-test/create_flashcard_request_test.dart
-test/create_quiz_request_test.dart
-test/flashcard_details_response_test.dart
-test/flashcard_endpoint_api_test.dart
-test/login_user_request_test.dart
-test/login_user_response_test.dart
-test/quiz_answer_test.dart
-test/quiz_details_response_test.dart
-test/quiz_endpoint_api_test.dart
-test/quiz_list_response_test.dart
-test/quiz_question_test.dart
-test/quiz_test.dart
-test/register_user_request_test.dart
-test/user_endpoint_api_test.dart
-test/user_profile_response_test.dart
