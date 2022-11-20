@@ -22,11 +22,6 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn clean install
-      - name: Persist specification file
-        uses: actions/upload-artifact@v3
-        with:
-          name: apispec
-          path: ./backend/application/target/apispec.json
       - name: Build and publish backend Docker image to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
@@ -57,12 +52,7 @@ jobs:
         with:
           flutter-version: '3.3.4'
       - run: flutter --version
-      - name: Download api specification
-        uses: actions/download-artifact@v2
-        with:
-          name: apispec
-      - name: Setup application
-        run: ./setup.sh ../apispec.json
+      - run: flutter pub get
       - name: Build web application
         run: flutter build web
       - name: Build and publish backend Docker image to Github Packages Registry
