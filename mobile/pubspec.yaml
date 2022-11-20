@@ -30,7 +30,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   learning_api:
-    path: ./api
+    git:
+      url: https://github.com/Wojberni/interactive-learning.git
+      ref: generated-api-client
+      path: mobile/api-client
   flutter:
     sdk: flutter
   http: 0.13.5

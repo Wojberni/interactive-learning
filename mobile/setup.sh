@@ -1,11 +1,13 @@
 openapiGeneratorVersion="6.2.0"
 generatorFilename="openapi-generator-cli-$openapiGeneratorVersion.jar"
 defaultSpecificationFile="http://localhost:8080/v3/api-docs"
-outputDir="api"
+defaultOutputDir="generated-api-client"
 
 specificationFile=${1:-$defaultSpecificationFile}
+outputDir=${2:-$defaultOutputDir}
 
 echo "Using specification file: $specificationFile"
+echo "Using output directory: $outputDir"
 
 if test -f $generatorFilename; then
     echo "Generator downloaded"
@@ -16,10 +18,7 @@ fi
 
 
 java -jar $generatorFilename generate \
-    -i $specificationFile \
+    -i "$specificationFile" \
     -g dart \
-    -o $outputDir \
+    -o "$outputDir" \
     --additional-properties=pubName=learning_api
-
-flutter pub get
-flutter pub run build_runner build
