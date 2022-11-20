@@ -2,6 +2,8 @@ package com.zam.interactivelearning.application.test.user
 
 import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
+import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
+import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
 import io.restassured.module.mockmvc.kotlin.extensions.Then
@@ -15,7 +17,9 @@ import org.springframework.web.context.WebApplicationContext
 @IntegrationTest
 class UserEndpointTest(
     @Autowired
-    val webApplicationContext: WebApplicationContext
+    val webApplicationContext: WebApplicationContext,
+    @Autowired
+    val userRepository: UserRepository
 ) : AuthenticatedTest() {
 
     @BeforeEach
@@ -25,6 +29,9 @@ class UserEndpointTest(
 
     @Test
     fun `should get the currently logged in user profile`() {
+        defaultUser.friends = setOf(prepareUser())
+        userRepository.save(defaultUser)
+
         Given {
             header(getAuthHeader(userJwt))
         } When {
@@ -35,9 +42,16 @@ class UserEndpointTest(
             body("username", equalTo("test_user"))
             body("email", equalTo("test@test.com"))
             body("finishedActivitiesCount", equalTo(0))
-            body("friendsCount", equalTo(0))
+            body("friendsCount", equalTo(1))
             body("dailyStreak", equalTo(0))
         }
     }
 
+    private fun prepareUser(): UserEntity {
+        return userRepository.save(
+            UserEntity(
+                username = "friend"
+            )
+        )
+    }
 }

@@ -36,11 +36,11 @@ class FriendsEndpointTest(
     val userRepository: UserRepository,
 ) : AuthenticatedTest() {
 
-    lateinit var defaultUser: UserEntity
-
     @BeforeEach
     fun setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext)
+         /*this repeated assignment is needed due to accessing the lazy initialized collection,
+         there is probably a better way to do this :( */
         defaultUser = userRepository.findByUsername("test_user").orElseThrow()
     }
 
