@@ -1,13 +1,12 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.friends.helper
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
-import com.zam.interactivelearning.domain.api.friends.ChangeFriendRequestStatusCommand
-import com.zam.interactivelearning.domain.api.friends.CreateAddFriendRequestCommand
-import com.zam.interactivelearning.domain.api.friends.FriendRequestStatus
-import com.zam.interactivelearning.domain.api.friends.GetPendingFriendRequestsQuery
+import com.zam.interactivelearning.domain.api.friends.*
 import com.zam.interactivelearning.domain.api.user.GetFriendsQuery
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.*
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.Friend
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.FriendRequest
 import com.zam.interactivelearning.security.api.UserContextHolder
 
 class FriendsEndpointHelper(
@@ -52,6 +51,10 @@ class FriendsEndpointHelper(
             AcceptOrRejectFriendRequestAction.ACCEPT -> FriendRequestStatus.ACCEPTED
             AcceptOrRejectFriendRequestAction.REJECT -> FriendRequestStatus.REJECTED
         }
+    }
+
+    fun removeFriend(friendId: Long) {
+        executor.executeCommand(RemoveFriendCommand(contextHolder.getCurrentUser().id, friendId))
     }
 
 

@@ -55,6 +55,7 @@ class BeanRegistry {
         bean<CreateFlashcardCommandHandler>()
         bean<CreateAddFriendRequestCommandHandler>()
         bean<ChangeFriendRequestStatusCommandHandler>()
+        bean<RemoveFriendCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {

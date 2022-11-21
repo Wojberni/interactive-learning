@@ -8,7 +8,9 @@ import com.zam.interactivelearning.infrastructure.application.delivery.friends.h
 import com.zam.interactivelearning.security.api.AuthenticatedUser
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -42,5 +44,11 @@ class FriendsEndpoint(
     @Operation(summary = "Returns a list of currently logged in user friends")
     fun getMyFriends(): FriendsListResponse {
         return friendsEndpointHelper.getMyFriends()
+    }
+
+    @DeleteMapping("/{friendId}")
+    @Operation(summary = "Ends a friendship with a user from currently logged in user's friends list")
+    fun removeMyFriend(@PathVariable friendId: Long) {
+        friendsEndpointHelper.removeFriend(friendId)
     }
 }

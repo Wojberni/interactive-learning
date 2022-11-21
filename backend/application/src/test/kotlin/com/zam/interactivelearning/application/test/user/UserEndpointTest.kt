@@ -31,7 +31,7 @@ class UserEndpointTest(
     @Test
     @Transactional
     fun `should get the currently logged in user profile`() {
-        defaultUser.friends = setOf(prepareUser())
+        defaultUser.friends = mutableSetOf(prepareUser())
         userRepository.save(defaultUser)
 
         Given {
