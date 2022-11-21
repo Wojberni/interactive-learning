@@ -7,10 +7,7 @@ import com.zam.interactivelearning.domain.application.friends.*
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
-import com.zam.interactivelearning.domain.application.user.CreateUserCommandHandler
-import com.zam.interactivelearning.domain.application.user.GetUserByIdQueryHandler
-import com.zam.interactivelearning.domain.application.user.GetUserByUsernameQueryHandler
-import com.zam.interactivelearning.domain.application.user.GetUsernameByIdQueryHandler
+import com.zam.interactivelearning.domain.application.user.*
 import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
 import com.zam.interactivelearning.events.EventPublisher
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.AuthEndpoint
@@ -69,6 +66,7 @@ class BeanRegistry {
         bean<GetFlashcardByIdQueryHandler>()
         bean<GetPendingFriendRequestsQueryHandler>()
         bean<GetFriendsCountByUserIdQueryHandler>()
+        bean<GetFriendsQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {

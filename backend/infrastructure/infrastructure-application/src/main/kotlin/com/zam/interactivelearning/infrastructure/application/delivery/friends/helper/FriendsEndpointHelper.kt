@@ -5,6 +5,7 @@ import com.zam.interactivelearning.domain.api.friends.ChangeFriendRequestStatusC
 import com.zam.interactivelearning.domain.api.friends.CreateAddFriendRequestCommand
 import com.zam.interactivelearning.domain.api.friends.FriendRequestStatus
 import com.zam.interactivelearning.domain.api.friends.GetPendingFriendRequestsQuery
+import com.zam.interactivelearning.domain.api.user.GetFriendsQuery
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
 import com.zam.interactivelearning.infrastructure.api.delivery.friends.*
 import com.zam.interactivelearning.security.api.UserContextHolder
@@ -32,6 +33,18 @@ class FriendsEndpointHelper(
 
     fun acceptOrRejectFriendRequest(request: AcceptOrRejectFriendRequest) {
         executor.executeCommand(ChangeFriendRequestStatusCommand(request.friendRequestId, getStatus(request.action)))
+    }
+
+    fun getMyFriends(): FriendsListResponse {
+        val friends = executor.executeQuery(GetFriendsQuery(contextHolder.getCurrentUser().id))
+        return FriendsListResponse(
+            friends.map {
+                Friend(
+                    it.id,
+                    it.username
+                )
+            }
+        )
     }
 
     private fun getStatus(action: AcceptOrRejectFriendRequestAction): FriendRequestStatus {

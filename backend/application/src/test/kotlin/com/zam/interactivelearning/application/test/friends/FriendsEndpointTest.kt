@@ -7,10 +7,7 @@ import com.zam.interactivelearning.domain.application.friends.FriendRequestEntit
 import com.zam.interactivelearning.domain.application.friends.FriendRequestRepository
 import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequestAction
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AddFriendRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.PendingFriendRequestsResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.*
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
@@ -136,6 +133,25 @@ class FriendsEndpointTest(
             assertEquals(1, sender.friends.size)
             assertEquals(defaultUser.id, sender.friends.first().id)
             assertEquals(sender.id, defaultUser.friends.first().id)
+        }
+    }
+
+    @Test
+    fun `should get my friends`() {
+        defaultUser.friends = mutableSetOf(prepareUser())
+        userRepository.save(defaultUser)
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/friends")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+
+            val response = extract().body().`as`(FriendsListResponse::class.java)
+            assertEquals(1, response.friends.size)
+            assertEquals("target", response.friends[0].username)
         }
     }
 
