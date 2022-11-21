@@ -7,19 +7,13 @@ import com.zam.interactivelearning.domain.application.friends.FriendRequestEntit
 import com.zam.interactivelearning.domain.application.friends.FriendRequestRepository
 import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AcceptOrRejectFriendRequestAction
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.AddFriendRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.friends.PendingFriendRequestsResponse
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.friends.*
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
 import io.restassured.module.mockmvc.kotlin.extensions.Then
 import io.restassured.module.mockmvc.kotlin.extensions.When
-import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -136,6 +130,58 @@ class FriendsEndpointTest(
             assertEquals(1, sender.friends.size)
             assertEquals(defaultUser.id, sender.friends.first().id)
             assertEquals(sender.id, defaultUser.friends.first().id)
+        }
+    }
+
+    @Test
+    fun `should get my friends`() {
+        defaultUser.friends = mutableSetOf(prepareUser())
+        userRepository.save(defaultUser)
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/friends")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+
+            val response = extract().body().`as`(FriendsListResponse::class.java)
+            assertEquals(1, response.friends.size)
+            assertEquals("target", response.friends[0].username)
+        }
+    }
+
+    @Test
+    fun `should remove a friend`() {
+        val friend = prepareUser()
+        defaultUser.friends = mutableSetOf(friend)
+        friend.friends = mutableSetOf(defaultUser)
+        userRepository.save(defaultUser)
+        userRepository.save(friend)
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            delete("/friends/${friend.id}")
+        } Then {
+            statusCode(200)
+
+            assertEquals(0, defaultUser.friends.size)
+            assertEquals(0, friend.friends.size)
+        }
+    }
+
+    @Test
+    fun `should not remove a friend when the users are not friends`() {
+        val notAFriend = prepareUser()
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            delete("/friends/${notAFriend.id}")
+        } Then {
+            statusCode(400)
         }
     }
 

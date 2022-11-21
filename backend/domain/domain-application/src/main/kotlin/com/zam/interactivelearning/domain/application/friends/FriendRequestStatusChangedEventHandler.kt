@@ -5,7 +5,9 @@ import com.zam.interactivelearning.domain.api.friends.FriendRequestStatus
 import com.zam.interactivelearning.domain.api.friends.FriendRequestStatusChangedEvent
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import com.zam.interactivelearning.events.EventHandler
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 class FriendRequestStatusChangedEventHandler(
     private val userRepository: UserRepository
 ): EventHandler<FriendRequestStatusChangedEvent>() {
@@ -22,10 +24,7 @@ class FriendRequestStatusChangedEventHandler(
             throw IllegalStateException("Users ${user.id} and ${friend.id}  are already friends")
         }
 
-        user.friends = user.friends.plus(friend)
-        friend.friends = friend.friends.plus(user)
-
-        userRepository.save(user)
-        userRepository.save(friend)
+        user.friends.add(friend)
+        friend.friends.add(user)
     }
 }
