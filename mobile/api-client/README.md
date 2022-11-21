@@ -64,7 +64,9 @@ Class | Method | HTTP request | Description
 *FlashcardEndpointApi* | [**getById**](doc//FlashcardEndpointApi.md#getbyid) | **GET** /flashcards/{id} | Get a flashcard by id
 *FriendsEndpointApi* | [**acceptOrRejectFriendRequest**](doc//FriendsEndpointApi.md#acceptorrejectfriendrequest) | **POST** /friends/requests/acceptOrReject | 
 *FriendsEndpointApi* | [**addFriend**](doc//FriendsEndpointApi.md#addfriend) | **POST** /friends/add | 
+*FriendsEndpointApi* | [**getMyFriends**](doc//FriendsEndpointApi.md#getmyfriends) | **GET** /friends | Returns a list of currently logged in user friends
 *FriendsEndpointApi* | [**getPendingFriendRequests**](doc//FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
+*FriendsEndpointApi* | [**removeMyFriend**](doc//FriendsEndpointApi.md#removemyfriend) | **DELETE** /friends/{friendId} | Ends a friendship with a user from currently logged in user's friends list
 *QuizEndpointApi* | [**createQuiz**](doc//QuizEndpointApi.md#createquiz) | **POST** /quizzes | Create a new quiz
 *QuizEndpointApi* | [**getAllQuizzes**](doc//QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 *QuizEndpointApi* | [**getQuizById**](doc//QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
@@ -78,7 +80,9 @@ Class | Method | HTTP request | Description
  - [CreateFlashcardRequest](doc//CreateFlashcardRequest.md)
  - [CreateQuizRequest](doc//CreateQuizRequest.md)
  - [FlashcardDetailsResponse](doc//FlashcardDetailsResponse.md)
+ - [Friend](doc//Friend.md)
  - [FriendRequest](doc//FriendRequest.md)
+ - [FriendsListResponse](doc//FriendsListResponse.md)
  - [LoginUserRequest](doc//LoginUserRequest.md)
  - [LoginUserResponse](doc//LoginUserResponse.md)
  - [PendingFriendRequestsResponse](doc//PendingFriendRequestsResponse.md)

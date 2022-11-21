@@ -11,7 +11,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**acceptOrRejectFriendRequest**](FriendsEndpointApi.md#acceptorrejectfriendrequest) | **POST** /friends/requests/acceptOrReject | 
 [**addFriend**](FriendsEndpointApi.md#addfriend) | **POST** /friends/add | 
+[**getMyFriends**](FriendsEndpointApi.md#getmyfriends) | **GET** /friends | Returns a list of currently logged in user friends
 [**getPendingFriendRequests**](FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
+[**removeMyFriend**](FriendsEndpointApi.md#removemyfriend) | **DELETE** /friends/{friendId} | Ends a friendship with a user from currently logged in user's friends list
 
 
 # **acceptOrRejectFriendRequest**
@@ -106,6 +108,49 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getMyFriends**
+> FriendsListResponse getMyFriends()
+
+Returns a list of currently logged in user friends
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = FriendsEndpointApi();
+
+try {
+    final result = api_instance.getMyFriends();
+    print(result);
+} catch (e) {
+    print('Exception when calling FriendsEndpointApi->getMyFriends: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**FriendsListResponse**](FriendsListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getPendingFriendRequests**
 > PendingFriendRequestsResponse getPendingFriendRequests()
 
@@ -146,6 +191,52 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeMyFriend**
+> removeMyFriend(friendId)
+
+Ends a friendship with a user from currently logged in user's friends list
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = FriendsEndpointApi();
+final friendId = 789; // int | 
+
+try {
+    api_instance.removeMyFriend(friendId);
+} catch (e) {
+    print('Exception when calling FriendsEndpointApi->removeMyFriend: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **friendId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
