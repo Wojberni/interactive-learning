@@ -4,6 +4,7 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.*
+import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
@@ -16,6 +17,8 @@ import com.zam.interactivelearning.infrastructure.application.delivery.flashcard
 import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.helper.FlashcardEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.friends.FriendsEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.friends.helper.FriendsEndpointHelper
+import com.zam.interactivelearning.infrastructure.application.delivery.notifications.NotificationsEndpoint
+import com.zam.interactivelearning.infrastructure.application.delivery.notifications.helper.NotificationsEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.validator.CreateQuizRequestValidator
@@ -56,6 +59,7 @@ class BeanRegistry {
         bean<CreateAddFriendRequestCommandHandler>()
         bean<ChangeFriendRequestStatusCommandHandler>()
         bean<RemoveFriendCommandHandler>()
+        bean<RegisterOrUpdateDeviceTokenCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -86,6 +90,8 @@ class BeanRegistry {
         bean<FlashcardEndpointHelper>()
         bean<FriendsEndpoint>()
         bean<FriendsEndpointHelper>()
+        bean<NotificationsEndpoint>()
+        bean<NotificationsEndpointHelper>()
     }
 
     private fun registerCqrsBeans() = beans {
