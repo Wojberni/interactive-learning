@@ -1,5 +1,6 @@
 package com.zam.interactivelearning.domain.application.user.persistence
 
+import com.zam.interactivelearning.domain.application.notifications.NotificationTargetEntity
 import javax.persistence.*
 
 @Entity
@@ -25,5 +26,7 @@ class UserEntity(
         joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "friend_id", referencedColumnName = "id")]
     )
-    var friends: MutableSet<UserEntity> = mutableSetOf()
+    var friends: MutableSet<UserEntity> = mutableSetOf(),
+    @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var notificationTarget: NotificationTargetEntity? = null,
 )
