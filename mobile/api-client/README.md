@@ -67,6 +67,7 @@ Class | Method | HTTP request | Description
 *FriendsEndpointApi* | [**getMyFriends**](doc//FriendsEndpointApi.md#getmyfriends) | **GET** /friends | Returns a list of currently logged in user friends
 *FriendsEndpointApi* | [**getPendingFriendRequests**](doc//FriendsEndpointApi.md#getpendingfriendrequests) | **GET** /friends/requests/pending | 
 *FriendsEndpointApi* | [**removeMyFriend**](doc//FriendsEndpointApi.md#removemyfriend) | **DELETE** /friends/{friendId} | Ends a friendship with a user from currently logged in user's friends list
+*NotificationsEndpointApi* | [**registerOrUpdateDeviceToken**](doc//NotificationsEndpointApi.md#registerorupdatedevicetoken) | **POST** /notifications/device-token | Registers or updates a firebase token associated with a device
 *QuizEndpointApi* | [**createQuiz**](doc//QuizEndpointApi.md#createquiz) | **POST** /quizzes | Create a new quiz
 *QuizEndpointApi* | [**getAllQuizzes**](doc//QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 *QuizEndpointApi* | [**getQuizById**](doc//QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
@@ -91,6 +92,7 @@ Class | Method | HTTP request | Description
  - [QuizDetailsResponse](doc//QuizDetailsResponse.md)
  - [QuizListResponse](doc//QuizListResponse.md)
  - [QuizQuestion](doc//QuizQuestion.md)
+ - [RegisterOrUpdateDeviceTokenRequest](doc//RegisterOrUpdateDeviceTokenRequest.md)
  - [RegisterUserRequest](doc//RegisterUserRequest.md)
  - [UserProfileResponse](doc//UserProfileResponse.md)
 

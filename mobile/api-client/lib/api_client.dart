@@ -213,6 +213,8 @@ class ApiClient {
           return QuizListResponse.fromJson(value);
         case 'QuizQuestion':
           return QuizQuestion.fromJson(value);
+        case 'RegisterOrUpdateDeviceTokenRequest':
+          return RegisterOrUpdateDeviceTokenRequest.fromJson(value);
         case 'RegisterUserRequest':
           return RegisterUserRequest.fromJson(value);
         case 'UserProfileResponse':

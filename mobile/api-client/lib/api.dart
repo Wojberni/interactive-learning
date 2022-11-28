@@ -30,6 +30,7 @@ part 'auth/http_bearer_auth.dart';
 part 'api/auth_endpoint_api.dart';
 part 'api/flashcard_endpoint_api.dart';
 part 'api/friends_endpoint_api.dart';
+part 'api/notifications_endpoint_api.dart';
 part 'api/quiz_endpoint_api.dart';
 part 'api/user_endpoint_api.dart';
 
@@ -49,6 +50,7 @@ part 'model/quiz_answer.dart';
 part 'model/quiz_details_response.dart';
 part 'model/quiz_list_response.dart';
 part 'model/quiz_question.dart';
+part 'model/register_or_update_device_token_request.dart';
 part 'model/register_user_request.dart';
 part 'model/user_profile_response.dart';
 

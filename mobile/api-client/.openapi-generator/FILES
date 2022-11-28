@@ -15,6 +15,7 @@ doc/FriendsEndpointApi.md
 doc/FriendsListResponse.md
 doc/LoginUserRequest.md
 doc/LoginUserResponse.md
+doc/NotificationsEndpointApi.md
 doc/PendingFriendRequestsResponse.md
 doc/Quiz.md
 doc/QuizAnswer.md
@@ -22,6 +23,7 @@ doc/QuizDetailsResponse.md
 doc/QuizEndpointApi.md
 doc/QuizListResponse.md
 doc/QuizQuestion.md
+doc/RegisterOrUpdateDeviceTokenRequest.md
 doc/RegisterUserRequest.md
 doc/UserEndpointApi.md
 doc/UserProfileResponse.md
@@ -30,6 +32,7 @@ lib/api.dart
 lib/api/auth_endpoint_api.dart
 lib/api/flashcard_endpoint_api.dart
 lib/api/friends_endpoint_api.dart
+lib/api/notifications_endpoint_api.dart
 lib/api/quiz_endpoint_api.dart
 lib/api/user_endpoint_api.dart
 lib/api_client.dart
@@ -56,8 +59,9 @@ lib/model/quiz_answer.dart
 lib/model/quiz_details_response.dart
 lib/model/quiz_list_response.dart
 lib/model/quiz_question.dart
+lib/model/register_or_update_device_token_request.dart
 lib/model/register_user_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/friend_test.dart
-test/friends_list_response_test.dart
+test/notifications_endpoint_api_test.dart
+test/register_or_update_device_token_request_test.dart
