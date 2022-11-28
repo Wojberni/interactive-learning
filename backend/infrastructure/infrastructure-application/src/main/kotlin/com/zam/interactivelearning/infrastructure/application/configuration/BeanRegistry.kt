@@ -4,6 +4,7 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.*
+import com.zam.interactivelearning.domain.application.notifications.GetNotificationTargetQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
@@ -27,6 +28,8 @@ import com.zam.interactivelearning.infrastructure.application.delivery.user.help
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.DomainExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.MethodArgumentNotValidHandler
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.RequestValidationExceptionHandler
+import com.zam.interactivelearning.infrastructure.application.notifications.FirebaseNotificationSender
+import com.zam.interactivelearning.infrastructure.application.notifications.SendNotificationEventHandler
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
 import com.zam.interactivelearning.security.application.context.UserContextHolderImpl
 import com.zam.interactivelearning.security.application.domain.LoginUserCommandHandler
@@ -72,10 +75,16 @@ class BeanRegistry {
         bean<GetPendingFriendRequestsQueryHandler>()
         bean<GetFriendsCountByUserIdQueryHandler>()
         bean<GetFriendsQueryHandler>()
+        bean<GetNotificationTargetQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
         bean<FriendRequestStatusChangedEventHandler>()
+
+        profile("notifications") {
+            bean<SendFriendRequestNotificationEventHandler>()
+            bean<SendNotificationEventHandler>()
+        }
     }
 
     private fun registerEndpointBeans() = beans {
@@ -115,6 +124,10 @@ class BeanRegistry {
         bean<MethodArgumentNotValidHandler>()
         bean<DomainExceptionHandler>()
         bean<RequestValidationExceptionHandler>()
+
+        profile("firebase") {
+            bean<FirebaseNotificationSender>()
+        }
     }
 
 }

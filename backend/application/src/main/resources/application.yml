@@ -1,6 +1,6 @@
 app:
   database:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://46.101.167.158:5432/maciek_dev
     username: postgres
     password: postgres
   security.jwt:
