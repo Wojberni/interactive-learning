@@ -8,6 +8,11 @@ import org.springframework.context.support.beans
 class BeansInitializer: ApplicationContextInitializer<GenericApplicationContext> {
     override fun initialize(applicationContext: GenericApplicationContext) {
         BeanRegistry().beans().forEach { it.initialize(applicationContext) }
-        beans { bean<CqrsInitializer>() }.initialize(applicationContext)
+        beans {
+            bean<CqrsInitializer>()
+            profile("firebase") {
+                bean<FirebaseInitializer>()
+            }
+        }.initialize(applicationContext)
     }
 }

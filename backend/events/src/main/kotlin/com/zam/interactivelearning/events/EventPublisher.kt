@@ -11,7 +11,7 @@ class EventPublisher(
 ) {
 
     fun publish(event: Event) {
-        logger.debug("Publishing event $event")
+        logger.info("Publishing event $event")
         applicationEventPublisher.publishEvent(event)
     }
 

@@ -12,7 +12,7 @@ abstract class EventHandler<T: Event>(
         abstract fun handle(event: T)
 
         override fun onApplicationEvent(event: T) {
-            logger.debug("Handling event $event")
+            logger.info("Handling event $event")
             handle(event)
         }
 
