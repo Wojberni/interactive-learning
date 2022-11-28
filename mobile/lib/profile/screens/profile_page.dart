@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
 import 'package:mobile/profile/widgets/navigation_button.dart';
@@ -150,5 +151,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> logout() async {
     var storage = const FlutterSecureStorage();
     await storage.delete(key: 'token');
+    apiClient.defaultHeaderMap.remove('Authorization');
   }
 }

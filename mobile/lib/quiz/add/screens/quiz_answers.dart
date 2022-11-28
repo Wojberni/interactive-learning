@@ -26,34 +26,52 @@ class _AddQuizAnswersState extends State<AddQuizAnswers>{
               children: [
                 const AddQuizHeader(),
                 CustomFormField(
-                  hintText: 'Tytuł quizu',
+                  hintText: 'Pytanie',
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(50),
                   ],
-                  validator: (value) => validateInput(value),
                 ),
                 CustomFormField(
-                  hintText: 'Opis',
+                  hintText: 'Odpowiedź 1',
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(100),
+                    LengthLimitingTextInputFormatter(50),
                   ],
-                  validator: (value) => validateInput(value),
                 ),
-                QuizButton(
-                  title: 'Dodaj quiz',
-                  onPressed: () => context.go('/search/add_quiz'),
-                )
+                CustomFormField(
+                  hintText: 'Odpowiedź 2',
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(50),
+                  ],
+                ),
+                CustomFormField(
+                  hintText: 'Odpowiedź 3',
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(50),
+                  ],
+                ),CustomFormField(
+                  hintText: 'Odpowiedź 4',
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(50),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                  child: QuizButton(
+                    title: 'Dodaj pytanie',
+                    onPressed: () => context.go('/search/add_quiz'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                  child: QuizButton(
+                    title: 'Zapisz quiz',
+                    onPressed: () => context.go('/home'),
+                  ),
+                ),
               ],
             ),
           )
       ),
     );
-  }
-
-  String? validateInput(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Pole nie może być puste';
-    }
-    return null;
   }
 }

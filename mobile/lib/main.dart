@@ -52,6 +52,7 @@ Future<String> getInitialRoute() async {
   var storage = const FlutterSecureStorage();
   await storage.read(key: 'token').then((value) {
     if (value != null) {
+      // todo: check if token is valid
       initialRoute = '/home';
       apiClient.addDefaultHeader(
           "Authorization", "Bearer $value");

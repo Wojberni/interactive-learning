@@ -6,19 +6,16 @@ class CustomFormField extends StatelessWidget {
     Key? key,
     required this.hintText,
     this.inputFormatters,
-    this.validator,
   }) : super(key: key);
 
   final String hintText;
   final List<TextInputFormatter>? inputFormatters;
-  final String? Function(String?)? validator;
   final _fillInputColor = const Color(0xFF82E6FF);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: 10, horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -28,7 +25,7 @@ class CustomFormField extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 inputFormatters: inputFormatters,
-                validator: validator,
+                validator: (value) => validateInput(value),
                 onTap: () {
                   FocusScope.of(context).unfocus();
                   TextEditingController().clear();
@@ -51,5 +48,12 @@ class CustomFormField extends StatelessWidget {
             ),
           ]),
     );
+  }
+
+  String? validateInput(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Pole nie może być puste';
+    }
+    return null;
   }
 }

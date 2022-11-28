@@ -31,14 +31,12 @@ class _AddQuizPageState extends State<AddQuizPage>{
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(50),
                 ],
-                validator: (value) => validateInput(value),
               ),
               CustomFormField(
                 hintText: 'Opis',
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(100),
                 ],
-                validator: (value) => validateInput(value),
               ),
               QuizButton(
                   title: 'Dodaj quiz',
@@ -50,12 +48,4 @@ class _AddQuizPageState extends State<AddQuizPage>{
       ),
     );
   }
-
-  String? validateInput(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Pole nie może być puste';
-    }
-    return null;
-  }
-
 }
