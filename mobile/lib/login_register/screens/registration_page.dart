@@ -102,7 +102,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
       AuthEndpointApi(apiClient)
           .register(RegisterUserRequest(
               email: _email, username: _login, password: _password))
-          .then((res) => context.go('auth/login'))
+          .then((res) => {
+        context.go('auth/login'),
+        showSnackBar(context,
+            'Zarejestrowano użytkownika!', SnackBarType.success)})
           .catchError((err) => {
                 if (err.code == 400)
                   {
