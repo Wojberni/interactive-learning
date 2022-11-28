@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/flashcard/screens/flashcard_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/quiz/add/screens/quiz_answers.dart';
 import 'package:mobile/quiz/add/screens/quiz_page.dart';
@@ -10,8 +11,8 @@ import '../home/screens/home_page.dart';
 import '../login_register/screens/login_page.dart';
 import '../login_register/screens/registration_page.dart';
 
-List<GoRoute> myRoutes(){
-  return[
+List<GoRoute> myRoutes() {
+  return [
     GoRoute(
       path: '/auth/login',
       builder: (BuildContext context, GoRouterState state) =>
@@ -36,6 +37,11 @@ List<GoRoute> myRoutes(){
       path: '/random_task/question', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuestionPage(),
+    ),
+    GoRoute(
+      path: '/random_task/flashcard', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const FlashcardPage(),
     ),
     GoRoute(
       path: '/profile',
