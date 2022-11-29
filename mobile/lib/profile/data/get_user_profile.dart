@@ -11,8 +11,7 @@ Future<ProfilePageData> getUserProfileData() async {
     profilePageData.friendsCount = value?.friendsCount,
     profilePageData.finishedActivitiesCount =
         value?.finishedActivitiesCount,
-    // add daily streak data
-    // profilePageData.dailyStreak = value?.dailyStreak
+    profilePageData.dailyStreak = value?.dailyStreak
   });
 
   return profilePageData;
