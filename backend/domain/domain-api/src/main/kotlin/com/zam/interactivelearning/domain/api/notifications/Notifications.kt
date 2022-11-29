@@ -4,4 +4,5 @@ enum class Notifications(
     val notificationName: String
 ) {
     INCOMING_FRIEND_REQUEST("INCOMING_FRIEND_REQUEST"),
+    NEW_DAILY_CHALLENGE("NEW_DAILY_CHALLENGE")
 }

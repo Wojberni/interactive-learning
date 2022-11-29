@@ -1,9 +1,11 @@
 package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.application.dailychallenge.RotateDailyChallengeCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.*
+import com.zam.interactivelearning.domain.application.notifications.GetAllNotificationTargetsQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.GetNotificationTargetQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
@@ -30,6 +32,7 @@ import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.RequestValidationExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.notifications.FirebaseNotificationSender
 import com.zam.interactivelearning.infrastructure.application.notifications.SendNotificationEventHandler
+import com.zam.interactivelearning.infrastructure.application.timers.RotateDailyChallengeTimer
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
 import com.zam.interactivelearning.security.application.context.UserContextHolderImpl
 import com.zam.interactivelearning.security.application.domain.LoginUserCommandHandler
@@ -50,6 +53,7 @@ class BeanRegistry {
             registerCqrsBeans(),
             registerSecurityBeans(),
             registerEventBeans(),
+            registerTimers(),
             registerOtherBeans()
         )
     }
@@ -63,6 +67,7 @@ class BeanRegistry {
         bean<ChangeFriendRequestStatusCommandHandler>()
         bean<RemoveFriendCommandHandler>()
         bean<RegisterOrUpdateDeviceTokenCommandHandler>()
+        bean<RotateDailyChallengeCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -76,6 +81,7 @@ class BeanRegistry {
         bean<GetFriendsCountByUserIdQueryHandler>()
         bean<GetFriendsQueryHandler>()
         bean<GetNotificationTargetQueryHandler>()
+        bean<GetAllNotificationTargetsQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
@@ -118,6 +124,10 @@ class BeanRegistry {
     private fun registerEventBeans() = beans {
         bean<AsynchronousEventsConfiguration>()
         bean<EventPublisher>()
+    }
+
+    private fun registerTimers() = beans {
+        bean<RotateDailyChallengeTimer>()
     }
 
     private fun registerOtherBeans() = beans {
