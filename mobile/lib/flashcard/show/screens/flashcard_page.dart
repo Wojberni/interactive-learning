@@ -1,6 +1,6 @@
 import '../widgets/flashcard_answer.dart';
 import '../widgets/flashcard_question.dart';
-import '../widgets/header_flashcard_page.dart';
+import '../widgets/header_flashcard.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
@@ -42,7 +42,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    const HeaderFlashcardPage(),
+                    const HeaderFlashcard(),
                     Expanded(
                       flex: 6,
                       child: _renderContent(context, question, answer),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HeaderFlashcardPage extends StatelessWidget {
-  const HeaderFlashcardPage({super.key});
+class HeaderFlashcard extends StatelessWidget {
+  const HeaderFlashcard({super.key});
 
   @override
   Widget build(BuildContext context) {
