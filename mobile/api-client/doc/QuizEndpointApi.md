@@ -11,6 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createQuiz**](QuizEndpointApi.md#createquiz) | **POST** /quizzes | Create a new quiz
 [**getAllQuizzes**](QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
+[**getDailyChallenge**](QuizEndpointApi.md#getdailychallenge) | **GET** /quizzes/daily-challenge | Get the daily challenge
 [**getQuizById**](QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
 
 
@@ -94,6 +95,51 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**QuizListResponse**](QuizListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDailyChallenge**
+> QuizDetailsResponse getDailyChallenge()
+
+Get the daily challenge
+
+Returns the daily challenge quiz with all questions and answers
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = QuizEndpointApi();
+
+try {
+    final result = api_instance.getDailyChallenge();
+    print(result);
+} catch (e) {
+    print('Exception when calling QuizEndpointApi->getDailyChallenge: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**QuizDetailsResponse**](QuizDetailsResponse.md)
 
 ### Authorization
 
