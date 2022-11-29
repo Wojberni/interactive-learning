@@ -43,4 +43,10 @@ class QuizEndpoint(
     fun getQuizById(@PathVariable id: Long): QuizDetailsResponse {
         return helper.getQuizById(id)
     }
+
+    @GetMapping("/daily-challenge")
+    @Operation(summary = "Get the daily challenge", description = "Returns the daily challenge quiz with all questions and answers")
+    fun getDailyChallenge(): QuizDetailsResponse {
+        return helper.getDailyChallenge()
+    }
 }
