@@ -8,6 +8,7 @@ import com.zam.interactivelearning.events.EventPublisher
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 import kotlin.reflect.KClass
 
 @Transactional
@@ -22,7 +23,9 @@ class RotateDailyChallengeCommandHandler(
         val currentDailyChallenge = challengeRepository.findAll().firstOrNull()
         if (currentDailyChallenge == null) {
             logger.info("No daily challenge found, creating new one")
-            challengeRepository.save(DailyChallengeEntity(quiz = quizRepository.findById(1).get()))
+            val quiz = Optional.ofNullable(quizRepository.findAll().firstOrNull())
+                .orElseThrow { IllegalStateException("No quiz found") }
+            challengeRepository.save(DailyChallengeEntity(quiz = quiz))
             return
         }
 
