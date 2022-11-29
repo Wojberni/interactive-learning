@@ -1,11 +1,11 @@
-import 'answer.dart';
+import 'answer_model.dart';
 
-class Question{
+class QuestionModel{
 
   final String content;
-  final List<Answer> answers;
+  final List<AnswerModel> answers;
 
-  Question({
+  QuestionModel({
     required this.content,
     required this.answers});
 

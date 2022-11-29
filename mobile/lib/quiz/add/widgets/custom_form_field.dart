@@ -5,11 +5,13 @@ class CustomFormField extends StatelessWidget {
   const CustomFormField({
     Key? key,
     required this.hintText,
-    this.inputFormatters,
+    required this.inputFormatters,
+    required this.validator,
   }) : super(key: key);
 
   final String hintText;
   final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
   final _fillInputColor = const Color(0xFF82E6FF);
 
   @override
@@ -25,7 +27,7 @@ class CustomFormField extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 inputFormatters: inputFormatters,
-                validator: (value) => validateInput(value),
+                validator: validator,
                 onTap: () {
                   FocusScope.of(context).unfocus();
                   TextEditingController().clear();
@@ -48,12 +50,5 @@ class CustomFormField extends StatelessWidget {
             ),
           ]),
     );
-  }
-
-  String? validateInput(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Pole nie może być puste';
-    }
-    return null;
   }
 }

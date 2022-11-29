@@ -9,9 +9,9 @@ class AnswerCarousel extends StatelessWidget {
     return Row(
         children: [
           AnswerNrContainer(answerNr: 1, isSelected: true, onAnswerNrSelected: () => print('1')),
-          AnswerNrContainer(answerNr: 1, isSelected: true, onAnswerNrSelected: () => print('2')),
-          AnswerNrContainer(answerNr: 1, isSelected: true, onAnswerNrSelected: () => print('3')),
-          AnswerNrContainer(answerNr: 1, isSelected: true, onAnswerNrSelected: () => print('4')),
+          AnswerNrContainer(answerNr: 2, isSelected: false, onAnswerNrSelected: () => print('2')),
+          AnswerNrContainer(answerNr: 3, isSelected: false, onAnswerNrSelected: () => print('3')),
+          AnswerNrContainer(answerNr: 4, isSelected: false, onAnswerNrSelected: () => print('4')),
         ],
     );
   }
