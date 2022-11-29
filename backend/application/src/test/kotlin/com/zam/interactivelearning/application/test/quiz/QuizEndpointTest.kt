@@ -2,6 +2,8 @@ package com.zam.interactivelearning.application.test.quiz
 
 import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
+import com.zam.interactivelearning.domain.application.dailychallenge.DailyChallengeEntity
+import com.zam.interactivelearning.domain.application.dailychallenge.DailyChallengeRepository
 import com.zam.interactivelearning.domain.application.quiz.AnswerEntity
 import com.zam.interactivelearning.domain.application.quiz.QuestionEntity
 import com.zam.interactivelearning.domain.application.quiz.QuizEntity
@@ -24,6 +26,8 @@ class QuizEndpointTest(
     val webApplicationContext: WebApplicationContext,
     @Autowired
     val quizRepository: QuizRepository,
+    @Autowired
+    val dailyChallengeRepository: DailyChallengeRepository
 ) : AuthenticatedTest() {
 
     @BeforeEach
@@ -107,6 +111,24 @@ class QuizEndpointTest(
                 .prettyPeek()
         } Then {
             statusCode(400)
+        }
+    }
+
+    @Test
+    fun `should get the daily challenge`() {
+        val quiz = quizRepository.findAll().first()
+        dailyChallengeRepository.save(DailyChallengeEntity(quiz = quiz))
+
+        Given {
+            header(getAuthHeader(userJwt))
+        } When {
+            get("/quizzes/daily-challenge")
+                .prettyPeek()
+        } Then {
+            statusCode(200)
+
+            val response = extract().body().`as`(QuizDetailsResponse::class.java)
+            assertEquals(quiz.id, response.quizId)
         }
     }
 
