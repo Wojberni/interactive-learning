@@ -5,11 +5,11 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
 import com.google.firebase.messaging.Notification
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.api.notifications.GetAllNotificationTargetsQuery
 import com.zam.interactivelearning.domain.api.notifications.GetNotificationTargetQuery
 import com.zam.interactivelearning.infrastructure.api.notifications.NotificationSender
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Profile
 
 class FirebaseNotificationSender(
     private val executor: CqrsExecutor,
@@ -22,7 +22,18 @@ class FirebaseNotificationSender(
             logger.info("No target found for id $targetId")
             return
         }
+        sendNotification(target.token, title, content)
+    }
 
+    override fun sendGlobalNotification(title: String, content: String) {
+        val targets = executor.executeQuery(GetAllNotificationTargetsQuery())
+
+        targets.forEach {
+            sendNotification(it.token, title, content)
+        }
+    }
+
+    private fun sendNotification(targetToken: String, title: String, content: String) {
         val notification = Message.builder()
             .setNotification(
                 Notification.builder()
@@ -32,14 +43,14 @@ class FirebaseNotificationSender(
             )
             .setAndroidConfig(
                 AndroidConfig.builder()
-                .setPriority(AndroidConfig.Priority.HIGH)
-                .build()
+                    .setPriority(AndroidConfig.Priority.HIGH)
+                    .build()
             )
-            .setToken(target.token)
+            .setToken(targetToken)
             .build()
 
-        logger.info("Sending notification to $targetId")
+        logger.info("Sending notification to $targetToken")
         val response = FirebaseMessaging.getInstance().send(notification)
-        logger.info("Notification sent to $targetId with response $response")
+        logger.info("Notification sent to $targetToken with response $response")
     }
 }

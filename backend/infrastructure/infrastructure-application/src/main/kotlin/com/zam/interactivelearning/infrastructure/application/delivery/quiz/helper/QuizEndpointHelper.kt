@@ -1,6 +1,7 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.api.dailychallenge.GetDailyChallengeQuery
 import com.zam.interactivelearning.domain.api.quiz.GetAllQuizzesQuery
 import com.zam.interactivelearning.domain.api.quiz.GetQuizByIdQuery
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
@@ -42,5 +43,10 @@ class QuizEndpointHelper(
 
     private fun getUsername(id: Long): String {
         return executor.executeQuery(GetUsernameByIdQuery(id))
+    }
+
+    fun getDailyChallenge(): QuizDetailsResponse {
+        return executor.executeQuery(GetDailyChallengeQuery())
+            .toQuizDetailsResponse()
     }
 }

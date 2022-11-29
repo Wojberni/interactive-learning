@@ -1,0 +1,1 @@
+ALTER TABLE friend_requests ADD UNIQUE (sender_id, receiver_id);
