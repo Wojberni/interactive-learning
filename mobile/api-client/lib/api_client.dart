@@ -217,6 +217,8 @@ class ApiClient {
           return RegisterOrUpdateDeviceTokenRequest.fromJson(value);
         case 'RegisterUserRequest':
           return RegisterUserRequest.fromJson(value);
+        case 'ReportQuizScoreRequest':
+          return ReportQuizScoreRequest.fromJson(value);
         case 'UserProfileResponse':
           return UserProfileResponse.fromJson(value);
         default:

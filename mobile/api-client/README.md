@@ -72,6 +72,7 @@ Class | Method | HTTP request | Description
 *QuizEndpointApi* | [**getAllQuizzes**](doc//QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 *QuizEndpointApi* | [**getDailyChallenge**](doc//QuizEndpointApi.md#getdailychallenge) | **GET** /quizzes/daily-challenge | Get the daily challenge
 *QuizEndpointApi* | [**getQuizById**](doc//QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
+*QuizEndpointApi* | [**reportQuizScore**](doc//QuizEndpointApi.md#reportquizscore) | **POST** /quizzes/report-score | Report quiz score
 *UserEndpointApi* | [**getCurrentUserProfile**](doc//UserEndpointApi.md#getcurrentuserprofile) | **GET** /users/profile/me | Get the current user's profile
 
 
@@ -95,6 +96,7 @@ Class | Method | HTTP request | Description
  - [QuizQuestion](doc//QuizQuestion.md)
  - [RegisterOrUpdateDeviceTokenRequest](doc//RegisterOrUpdateDeviceTokenRequest.md)
  - [RegisterUserRequest](doc//RegisterUserRequest.md)
+ - [ReportQuizScoreRequest](doc//ReportQuizScoreRequest.md)
  - [UserProfileResponse](doc//UserProfileResponse.md)
 
 

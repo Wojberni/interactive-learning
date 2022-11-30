@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**getAllQuizzes**](QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 [**getDailyChallenge**](QuizEndpointApi.md#getdailychallenge) | **GET** /quizzes/daily-challenge | Get the daily challenge
 [**getQuizById**](QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
+[**reportQuizScore**](QuizEndpointApi.md#reportquizscore) | **POST** /quizzes/report-score | Report quiz score
 
 
 # **createQuiz**
@@ -197,6 +198,55 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **reportQuizScore**
+> Object reportQuizScore(reportQuizScoreRequest)
+
+Report quiz score
+
+Reports the score for a quiz so that it is persisted
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = QuizEndpointApi();
+final reportQuizScoreRequest = ReportQuizScoreRequest(); // ReportQuizScoreRequest | 
+
+try {
+    final result = api_instance.reportQuizScore(reportQuizScoreRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling QuizEndpointApi->reportQuizScore: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reportQuizScoreRequest** | [**ReportQuizScoreRequest**](ReportQuizScoreRequest.md)|  | 
+
+### Return type
+
+[**Object**](Object.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -52,6 +52,7 @@ part 'model/quiz_list_response.dart';
 part 'model/quiz_question.dart';
 part 'model/register_or_update_device_token_request.dart';
 part 'model/register_user_request.dart';
+part 'model/report_quiz_score_request.dart';
 part 'model/user_profile_response.dart';
 
 
