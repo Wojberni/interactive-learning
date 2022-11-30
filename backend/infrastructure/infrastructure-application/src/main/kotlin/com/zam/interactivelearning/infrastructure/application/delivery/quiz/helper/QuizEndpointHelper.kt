@@ -4,18 +4,18 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.api.dailychallenge.GetDailyChallengeQuery
 import com.zam.interactivelearning.domain.api.quiz.GetAllQuizzesQuery
 import com.zam.interactivelearning.domain.api.quiz.GetQuizByIdQuery
+import com.zam.interactivelearning.domain.api.quiz.SaveQuizScoreCommand
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
 import com.zam.interactivelearning.infrastructure.api.delivery.common.RequestValidator
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.Quiz
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
-import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.*
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.converter.toCommand
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.converter.toQuizDetailsResponse
+import com.zam.interactivelearning.security.api.UserContextHolder
 
 class QuizEndpointHelper(
     private val executor: CqrsExecutor,
-    private val requestValidator: RequestValidator<CreateQuizRequest>
+    private val requestValidator: RequestValidator<CreateQuizRequest>,
+    private val contextHolder: UserContextHolder
 ) {
     fun createQuiz(createQuizRequest: CreateQuizRequest) {
         requestValidator.validate(createQuizRequest)
@@ -48,5 +48,13 @@ class QuizEndpointHelper(
     fun getDailyChallenge(): QuizDetailsResponse {
         return executor.executeQuery(GetDailyChallengeQuery())
             .toQuizDetailsResponse()
+    }
+
+    fun reportQuizScore(reportQuizScoreRequest: ReportQuizScoreRequest) {
+        executor.executeCommand(SaveQuizScoreCommand(
+            contextHolder.getCurrentUser().id,
+            reportQuizScoreRequest.quizId,
+            reportQuizScoreRequest.correctAnswersCount,
+        ))
     }
 }

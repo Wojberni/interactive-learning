@@ -4,6 +4,7 @@ import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyRespo
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.ReportQuizScoreRequest
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.security.api.AuthenticatedUser
 import io.swagger.v3.oas.annotations.Operation
@@ -48,5 +49,13 @@ class QuizEndpoint(
     @Operation(summary = "Get the daily challenge", description = "Returns the daily challenge quiz with all questions and answers")
     fun getDailyChallenge(): QuizDetailsResponse {
         return helper.getDailyChallenge()
+    }
+
+    @PostMapping("/report-score")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Report quiz score", description = "Reports the score for a quiz so that it is persisted")
+    fun reportQuizScore(@RequestBody @Valid reportQuizScoreRequest: ReportQuizScoreRequest): EmptyResponse {
+        helper.reportQuizScore(reportQuizScoreRequest)
+        return EmptyResponse()
     }
 }
