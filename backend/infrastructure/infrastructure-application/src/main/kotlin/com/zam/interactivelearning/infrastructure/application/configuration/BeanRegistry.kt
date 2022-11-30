@@ -1,6 +1,7 @@
 package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.api.user.GetFinishedActivitiesCountQuery
 import com.zam.interactivelearning.domain.application.dailychallenge.GetDailyChallengeQueryHandler
 import com.zam.interactivelearning.domain.application.dailychallenge.RotateDailyChallengeCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
@@ -86,10 +87,12 @@ class BeanRegistry {
         bean<GetNotificationTargetQueryHandler>()
         bean<GetAllNotificationTargetsQueryHandler>()
         bean<GetDailyChallengeQueryHandler>()
+        bean<GetFinishedActivitiesCountQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
         bean<FriendRequestStatusChangedEventHandler>()
+        bean<IncrementDailyStreakEventHandler>()
 
         profile("notifications") {
             bean<SendFriendRequestNotificationEventHandler>()
