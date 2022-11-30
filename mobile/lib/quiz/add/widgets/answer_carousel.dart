@@ -6,13 +6,17 @@ class AnswerCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        children: [
-          AnswerNrContainer(answerNr: 1, isSelected: true, onAnswerNrSelected: () => print('1')),
-          AnswerNrContainer(answerNr: 2, isSelected: false, onAnswerNrSelected: () => print('2')),
-          AnswerNrContainer(answerNr: 3, isSelected: false, onAnswerNrSelected: () => print('3')),
-          AnswerNrContainer(answerNr: 4, isSelected: false, onAnswerNrSelected: () => print('4')),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: const [
+            AnswerNrContainer(answerNr: 1),
+            AnswerNrContainer(answerNr: 2),
+            AnswerNrContainer(answerNr: 3),
+            AnswerNrContainer(answerNr: 4),
+          ],
+      ),
     );
   }
 }

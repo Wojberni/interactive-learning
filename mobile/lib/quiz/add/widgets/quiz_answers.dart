@@ -16,7 +16,6 @@ class QuizAnswers extends StatefulWidget {
 
 class _QuizAnswersState extends State<QuizAnswers> {
   final _formKey = GlobalKey<FormState>();
-  var rightAnswer = 0;
   var _question = "";
   var _answer1 = "";
   var _answer2 = "";
@@ -89,9 +88,7 @@ class _QuizAnswersState extends State<QuizAnswers> {
     }
     context.read<AddQuizProvider>().addQuestion(
         _question,
-        [_answer1, _answer2, _answer3, _answer4],
-        rightAnswer);
-
+        [_answer1, _answer2, _answer3, _answer4]);
   }
 
   String? validateQuestion(String? value) {

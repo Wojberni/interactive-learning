@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/quiz/add/provider/add_quiz_provider.dart';
+import 'package:provider/provider.dart';
 
 class AnswerNrContainer extends StatelessWidget {
   final int answerNr;
-  final bool isSelected;
-  final VoidCallback onAnswerNrSelected;
 
   final _firstColor = const Color(0xFFFFB1B6);
 
-  const AnswerNrContainer({super.key, required this.answerNr, required this.isSelected, required this.onAnswerNrSelected});
+  const AnswerNrContainer({super.key, required this.answerNr});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onAnswerNrSelected,
+      onTap: () => context.read<AddQuizProvider>().setAnswerNr(answerNr),
       child: Container(
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.red : _firstColor,
-          borderRadius: BorderRadius.circular(20),
+          color: context.watch<AddQuizProvider>().correctAnswer == answerNr
+              ? Colors.red
+              : _firstColor,
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
           child: Text(

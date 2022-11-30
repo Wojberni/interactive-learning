@@ -22,8 +22,4 @@ class QuizModel {
   void setQuestions(List<QuestionModel> questions) {
     this.questions = questions;
   }
-
-  get getName => name;
-
-  get getDescription => description;
 }
