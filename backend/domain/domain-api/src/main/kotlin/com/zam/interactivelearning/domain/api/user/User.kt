@@ -5,5 +5,6 @@ class User(
     val username: String,
     val email: String,
     val password: String,
-    val roleNames: List<String>
+    val roleNames: List<String>,
+    val dailyStreak: Int,
 )
