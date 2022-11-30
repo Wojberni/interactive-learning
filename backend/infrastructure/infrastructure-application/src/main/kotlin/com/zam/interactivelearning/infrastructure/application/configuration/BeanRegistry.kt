@@ -12,6 +12,7 @@ import com.zam.interactivelearning.domain.application.notifications.RegisterOrUp
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
+import com.zam.interactivelearning.domain.application.quiz.SaveQuizScoreCommandHandler
 import com.zam.interactivelearning.domain.application.user.*
 import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
 import com.zam.interactivelearning.events.EventPublisher
@@ -69,6 +70,7 @@ class BeanRegistry {
         bean<RemoveFriendCommandHandler>()
         bean<RegisterOrUpdateDeviceTokenCommandHandler>()
         bean<RotateDailyChallengeCommandHandler>()
+        bean<SaveQuizScoreCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {

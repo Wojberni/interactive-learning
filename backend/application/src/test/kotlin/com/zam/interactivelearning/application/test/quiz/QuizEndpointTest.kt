@@ -4,10 +4,7 @@ import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
 import com.zam.interactivelearning.domain.application.dailychallenge.DailyChallengeEntity
 import com.zam.interactivelearning.domain.application.dailychallenge.DailyChallengeRepository
-import com.zam.interactivelearning.domain.application.quiz.AnswerEntity
-import com.zam.interactivelearning.domain.application.quiz.QuestionEntity
-import com.zam.interactivelearning.domain.application.quiz.QuizEntity
-import com.zam.interactivelearning.domain.application.quiz.QuizRepository
+import com.zam.interactivelearning.domain.application.quiz.*
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.*
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.kotlin.extensions.Given
@@ -27,7 +24,9 @@ class QuizEndpointTest(
     @Autowired
     val quizRepository: QuizRepository,
     @Autowired
-    val dailyChallengeRepository: DailyChallengeRepository
+    val dailyChallengeRepository: DailyChallengeRepository,
+    @Autowired
+    val quizScoreRepository: QuizScoreRepository,
 ) : AuthenticatedTest() {
 
     @BeforeEach
@@ -129,6 +128,27 @@ class QuizEndpointTest(
 
             val response = extract().body().`as`(QuizDetailsResponse::class.java)
             assertEquals(quiz.id, response.quizId)
+        }
+    }
+
+    @Test
+    @Transactional
+    fun `should save the quiz score`() {
+        val quiz = quizRepository.findAll().first()
+        Given {
+            header(getAuthHeader(userJwt))
+            body(ReportQuizScoreRequest(quiz.id, 1))
+        } When {
+            post("/quizzes/report-score")
+                .prettyPeek()
+        } Then {
+            statusCode(201)
+
+            assertEquals(1, quizScoreRepository.count())
+            val score = quizScoreRepository.findAll().first()
+            assertEquals(1, score.score)
+            assertEquals(quiz.id, score.quiz.id)
+            assertEquals(defaultUser.id, score.user.id)
         }
     }
 

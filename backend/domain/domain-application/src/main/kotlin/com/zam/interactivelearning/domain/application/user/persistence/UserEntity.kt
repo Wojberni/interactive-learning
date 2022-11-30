@@ -1,6 +1,7 @@
 package com.zam.interactivelearning.domain.application.user.persistence
 
 import com.zam.interactivelearning.domain.application.notifications.NotificationTargetEntity
+import com.zam.interactivelearning.domain.application.quiz.QuizScoreEntity
 import javax.persistence.*
 
 @Entity
@@ -29,4 +30,6 @@ class UserEntity(
     var friends: MutableSet<UserEntity> = mutableSetOf(),
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var notificationTarget: NotificationTargetEntity? = null,
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var quizScores: List<QuizScoreEntity> = listOf(),
 )
