@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
@@ -76,6 +77,9 @@ class _FriendsPageState extends State<FriendsPage> {
                       CustomFormField(
                         hintText: 'Wpisz login znajomego...',
                         validator: (login) => validateLoginInput(login),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(50),
+                        ],
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -114,7 +118,7 @@ class _FriendsPageState extends State<FriendsPage> {
                                             .elementAt(index)
                                             .username),
                                         tileColor: Colors.grey[200],
-                                        onLongPress: () {
+                                        onTap: () {
                                           showDialog<String>(
                                             context: context,
                                             builder: (BuildContext context) =>
