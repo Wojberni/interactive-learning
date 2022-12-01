@@ -76,6 +76,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: apispec
+      - name: Set permissions & owner
+        run: |
+          sudo chown -R $USER:$USER .
+          sudo chmod -R 777 .
+          chmod +x ./setup.sh
       - name: Generate api client
         run: ./setup.sh ../apispec.json ./api-client
       - uses: stefanzweifel/git-auto-commit-action@v4
