@@ -14,6 +14,7 @@ import java.util.*
 class SendFriendAchievedHigherScoreNotificationEventHandler(
     private val notificationTemplateRepository: NotificationTemplateRepository,
     private val quizScoreRepository: QuizScoreRepository,
+    private val quizRepository: QuizRepository,
     private val userRepository: UserRepository,
     private val eventPublisher: EventPublisher
 ): EventHandler<QuizScoreSavedEvent>() {
@@ -25,12 +26,13 @@ class SendFriendAchievedHigherScoreNotificationEventHandler(
         friends.forEach {
             val highScore = quizScoreRepository.findTopByUserIdAndQuizIdOrderByScore(it.id, event.quizId)
             if (highScore != null && highScore.score < event.score) {
+                val quiz = quizRepository.findById(event.quizId).orElseThrow()
                 val template = Optional.ofNullable(
                     notificationTemplateRepository.findByNotificationName("FRIEND_ACHIEVED_HIGHER_SCORE")
                 ).orElseThrow{ IllegalStateException("Notification template not found") }
-                val content = String.format(template.notificationTemplate, user.username, event.score)
+                val content = String.format(template.notificationTemplate, user.username, quiz.name)
 
-                eventPublisher.publish(SendNotificationEvent(it.id, content, template.notificationTitle))
+                eventPublisher.publish(SendNotificationEvent(it.id, template.notificationTitle, content))
             }
         }
     }
