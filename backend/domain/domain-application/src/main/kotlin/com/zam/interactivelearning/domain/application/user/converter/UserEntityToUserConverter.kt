@@ -9,6 +9,7 @@ fun UserEntity.toUser(): User {
         this.username,
         this.email,
         this.password,
-        this.roles.map { it.name }
+        this.roles.map { it.name },
+        this.dailyStreak
     )
 }

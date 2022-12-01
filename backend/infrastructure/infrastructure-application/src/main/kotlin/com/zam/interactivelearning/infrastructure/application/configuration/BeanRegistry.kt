@@ -1,14 +1,19 @@
 package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
+import com.zam.interactivelearning.domain.api.user.GetFinishedActivitiesCountQuery
+import com.zam.interactivelearning.domain.application.dailychallenge.GetDailyChallengeQueryHandler
+import com.zam.interactivelearning.domain.application.dailychallenge.RotateDailyChallengeCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.*
+import com.zam.interactivelearning.domain.application.notifications.GetAllNotificationTargetsQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.GetNotificationTargetQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
 import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
+import com.zam.interactivelearning.domain.application.quiz.SaveQuizScoreCommandHandler
 import com.zam.interactivelearning.domain.application.user.*
 import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
 import com.zam.interactivelearning.events.EventPublisher
@@ -30,6 +35,7 @@ import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.RequestValidationExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.notifications.FirebaseNotificationSender
 import com.zam.interactivelearning.infrastructure.application.notifications.SendNotificationEventHandler
+import com.zam.interactivelearning.infrastructure.application.timers.RotateDailyChallengeTimer
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
 import com.zam.interactivelearning.security.application.context.UserContextHolderImpl
 import com.zam.interactivelearning.security.application.domain.LoginUserCommandHandler
@@ -50,6 +56,7 @@ class BeanRegistry {
             registerCqrsBeans(),
             registerSecurityBeans(),
             registerEventBeans(),
+            registerTimers(),
             registerOtherBeans()
         )
     }
@@ -63,6 +70,8 @@ class BeanRegistry {
         bean<ChangeFriendRequestStatusCommandHandler>()
         bean<RemoveFriendCommandHandler>()
         bean<RegisterOrUpdateDeviceTokenCommandHandler>()
+        bean<RotateDailyChallengeCommandHandler>()
+        bean<SaveQuizScoreCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -76,10 +85,14 @@ class BeanRegistry {
         bean<GetFriendsCountByUserIdQueryHandler>()
         bean<GetFriendsQueryHandler>()
         bean<GetNotificationTargetQueryHandler>()
+        bean<GetAllNotificationTargetsQueryHandler>()
+        bean<GetDailyChallengeQueryHandler>()
+        bean<GetFinishedActivitiesCountQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
         bean<FriendRequestStatusChangedEventHandler>()
+        bean<IncrementDailyStreakEventHandler>()
 
         profile("notifications") {
             bean<SendFriendRequestNotificationEventHandler>()
@@ -118,6 +131,10 @@ class BeanRegistry {
     private fun registerEventBeans() = beans {
         bean<AsynchronousEventsConfiguration>()
         bean<EventPublisher>()
+    }
+
+    private fun registerTimers() = beans {
+        bean<RotateDailyChallengeTimer>()
     }
 
     private fun registerOtherBeans() = beans {

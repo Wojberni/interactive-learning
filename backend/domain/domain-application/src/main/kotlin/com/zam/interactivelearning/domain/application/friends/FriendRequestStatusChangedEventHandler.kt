@@ -1,6 +1,5 @@
 package com.zam.interactivelearning.domain.application.friends
 
-import com.zam.interactivelearning.domain.api.common.DomainException
 import com.zam.interactivelearning.domain.api.friends.FriendRequestStatus
 import com.zam.interactivelearning.domain.api.friends.FriendRequestStatusChangedEvent
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
@@ -26,5 +25,7 @@ class FriendRequestStatusChangedEventHandler(
 
         user.friends.add(friend)
         friend.friends.add(user)
+
+        userRepository.saveAll(listOf(user, friend))
     }
 }

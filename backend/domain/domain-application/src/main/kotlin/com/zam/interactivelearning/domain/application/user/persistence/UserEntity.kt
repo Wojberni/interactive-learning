@@ -1,6 +1,8 @@
 package com.zam.interactivelearning.domain.application.user.persistence
 
 import com.zam.interactivelearning.domain.application.notifications.NotificationTargetEntity
+import com.zam.interactivelearning.domain.application.quiz.QuizScoreEntity
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -29,4 +31,21 @@ class UserEntity(
     var friends: MutableSet<UserEntity> = mutableSetOf(),
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var notificationTarget: NotificationTargetEntity? = null,
-)
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var quizScores: List<QuizScoreEntity> = listOf(),
+    var dailyStreak: Int = 0,
+    var streakUpdatedAt: LocalDateTime? = null,
+) {
+    fun incrementDailyStreak() {
+        if (streakUpdatedAt == null) {
+            dailyStreak = 1
+            streakUpdatedAt = LocalDateTime.now()
+            return
+        }
+
+        if (streakUpdatedAt!!.toLocalDate() == LocalDateTime.now().toLocalDate()) {
+            return
+        }
+        dailyStreak++
+    }
+}
