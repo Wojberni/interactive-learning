@@ -9,7 +9,7 @@ class QuestionModel{
     required this.content,
     required this.answers});
 
-  Map<String, Object?> toJson() => {
+  Map<String, dynamic> toJson() => {
     'content': content,
     'answers': answers.map((e) => e.toJson()).toList(),
   };

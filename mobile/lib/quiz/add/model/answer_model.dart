@@ -4,7 +4,7 @@ class AnswerModel{
 
   AnswerModel({required this.content, required this.isCorrect});
 
-  Map<String, Object?> toJson() => {
+  Map<String, dynamic> toJson() => {
     'content': content,
     'isCorrect': isCorrect,
   };

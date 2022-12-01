@@ -14,24 +14,24 @@ class AddQuizPage extends StatefulWidget {
 }
 
 class _AddQuizPageState extends State<AddQuizPage> {
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AddQuizProvider(),
-      child: Builder(builder: (BuildContext context){
-        return Scaffold(
-            body: SafeArea(
-              child: ListView(
-                children: [
-                  const AddQuizHeader(),
-                  context.watch<AddQuizProvider>().addQuestions == false
-                      ? const QuizPage()
-                      : const QuizAnswers(),
-                ],
-              ),
-            ));
-      }),
+      create: (context) => AddQuizProvider(),
+      child: Scaffold(
+        body: SafeArea(
+          child: Consumer<AddQuizProvider>(builder: (context, provider, child) {
+            return ListView(
+              children: [
+                const AddQuizHeader(),
+                provider.addQuestions == false
+                    ? const QuizPage()
+                    : const QuizAnswers(),
+              ],
+            );
+          }),
+        ),
+      ),
     );
   }
 }

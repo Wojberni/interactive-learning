@@ -5,7 +5,7 @@ class QuizModel {
   String description = "";
   List<QuestionModel> questions = [];
 
-  Map<String, Object?> toJson() => {
+  Map<String, dynamic> toJson() => {
         'name': name,
         'description': description,
         'questions': questions.map((e) => e.toJson()).toList(),

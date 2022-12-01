@@ -68,13 +68,14 @@ class _QuizAnswersState extends State<QuizAnswers> {
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
             child: QuizButton(
               title: 'Dodaj pytanie',
-              onPressed: () => handleAddQuestion(),),
+              onPressed: () => handleAddQuestion(),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
             child: QuizButton(
               title: 'Zapisz quiz',
-              onPressed: () => context.read<AddQuizProvider>().addQuiz(context),
+              onPressed: () => handleSaveQuiz(),
             ),
           ),
         ],
@@ -82,13 +83,16 @@ class _QuizAnswersState extends State<QuizAnswers> {
     );
   }
 
-  void handleAddQuestion(){
+  void handleAddQuestion() {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     context.read<AddQuizProvider>().addQuestion(
-        _question,
-        [_answer1, _answer2, _answer3, _answer4]);
+        context, _question, [_answer1, _answer2, _answer3, _answer4]);
+  }
+
+  void handleSaveQuiz() {
+    context.read<AddQuizProvider>().addQuiz(context);
   }
 
   String? validateQuestion(String? value) {

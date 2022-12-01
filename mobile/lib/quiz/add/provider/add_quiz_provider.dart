@@ -13,20 +13,26 @@ class AddQuizProvider with ChangeNotifier {
   bool addQuestions = false;
   int correctAnswer = 0;
 
-  void addQuizTitleAndDescription(String name, String description) {
+  void addQuizTitleAndDescription(BuildContext context, String name, String description) {
     quiz.setName(name);
     quiz.setDescription(description);
     addQuestions = true;
+    showSnackBar(context, 'Dodano tytuł oraz opis!', SnackBarType.success);
     notifyListeners();
   }
 
-  void addQuestion(String content, List<String> answers) {
+  void addQuestion(BuildContext context, String content, List<String> answers) {
+    if(correctAnswer == 0) {
+      showSnackBar(context, 'Podaj poprawną odpowiedź!', SnackBarType.error);
+      return;
+    }
     List<AnswerModel> answerModels = [];
     for (int i = 0; i < answers.length; i++) {
       answerModels
           .add(AnswerModel(content: answers[i], isCorrect: i+1 == correctAnswer));
     }
     quiz.questions.add(QuestionModel(content: content, answers: answerModels));
+    showSnackBar(context, 'Dodano pytanie oraz odpowiedzi!', SnackBarType.success);
     notifyListeners();
   }
 
@@ -38,13 +44,13 @@ class AddQuizProvider with ChangeNotifier {
     }
     QuizEndpointApi(apiClient)
         .createQuiz(request)
-        .then((value) => {
+        .then((value) async => {
               showSnackBar(context, "Dodano quiz!", SnackBarType.success),
               context.go('/home'),
             })
         .catchError((error) => {
-              if (error.code == 403)
-                {showSnackBar(context, "Błąd serwera!", SnackBarType.error)}
+          print(error.toString()),
+              showSnackBar(context, "Błąd serwera!", SnackBarType.error),
             });
     notifyListeners();
   }

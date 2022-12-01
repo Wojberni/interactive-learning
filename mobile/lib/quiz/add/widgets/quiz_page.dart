@@ -54,7 +54,7 @@ class _QuizPageState extends State<QuizPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    context.read<AddQuizProvider>().addQuizTitleAndDescription(_title, _description);
+    context.read<AddQuizProvider>().addQuizTitleAndDescription(context, _title, _description);
   }
 
   String? validateTitle(String? value) {
