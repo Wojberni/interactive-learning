@@ -1,6 +1,6 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.flashcard
 
-import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.common.DefaultResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.flashcard.CreateFlashcardRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.flashcard.FlashcardDetailsResponse
 import com.zam.interactivelearning.infrastructure.application.delivery.flashcard.helper.FlashcardEndpointHelper
@@ -20,9 +20,9 @@ class FlashcardEndpoint(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a flashcard")
-    fun createFlashcard(@RequestBody @Valid request: CreateFlashcardRequest): EmptyResponse {
+    fun createFlashcard(@RequestBody @Valid request: CreateFlashcardRequest): DefaultResponse {
         helper.createFlashcard(request)
-        return EmptyResponse()
+        return DefaultResponse()
     }
 
     @GetMapping("/{id}")

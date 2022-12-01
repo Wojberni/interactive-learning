@@ -3,7 +3,7 @@ package com.zam.interactivelearning.infrastructure.application.delivery.auth
 import com.zam.interactivelearning.infrastructure.api.delivery.auth.LoginUserRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.auth.LoginUserResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.auth.RegisterUserRequest
-import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.common.DefaultResponse
 import com.zam.interactivelearning.infrastructure.application.delivery.auth.helper.AuthEndpointHelper
 import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import org.springframework.http.HttpStatus
@@ -19,9 +19,9 @@ class AuthEndpoint(
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    fun register(@RequestBody @Valid registerUserRequest: RegisterUserRequest): EmptyResponse {
+    fun register(@RequestBody @Valid registerUserRequest: RegisterUserRequest): DefaultResponse {
         authHelper.registerUser(registerUserRequest)
-        return EmptyResponse()
+        return DefaultResponse()
     }
 
     @PostMapping("/login")
