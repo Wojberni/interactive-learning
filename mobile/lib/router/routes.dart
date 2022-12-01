@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/flashcard/show/screens/flashcard_page.dart';
+import 'package:mobile/friends/screens/friends_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/quiz/add/screens/add_quiz_page.dart';
 
+import '../flashcard/add/screens/flashcard_add.dart';
 import '../home/screens/home_page.dart';
 import '../login_register/screens/login_page.dart';
 import '../login_register/screens/registration_page.dart';
@@ -24,11 +27,21 @@ List<GoRoute> myRoutes(){
       builder: (BuildContext context, GoRouterState state) =>
       const HomePage(),
     ),
-/*    GoRoute(
+    GoRoute(
       path: '/random_task', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuizPage(),
-    ),*/
+    ),
+    GoRoute(
+      path: '/random_task/question', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const QuestionPage(),
+    ),
+    GoRoute(
+      path: '/random_task/flashcard', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const FlashcardPage(),
+    ),
     GoRoute(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) =>
@@ -39,5 +52,20 @@ List<GoRoute> myRoutes(){
       builder: (BuildContext context, GoRouterState state) =>
       const AddQuizPage(),
     ),
+    GoRoute(
+      path: '/search/add_quiz', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const AddQuizAnswers(),
+    ),
+    GoRoute(
+      path: '/friends', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const FriendsPage(),
+    ),
+    GoRoute(
+      path: '/search/add_flashcard',
+      builder: (BuildContext context, GoRouterState state) =>
+      const AddFlashcardPage(),
+    )
   ];
 }

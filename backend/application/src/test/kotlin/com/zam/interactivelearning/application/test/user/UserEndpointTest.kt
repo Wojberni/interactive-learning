@@ -2,6 +2,8 @@ package com.zam.interactivelearning.application.test.user
 
 import com.zam.interactivelearning.application.AuthenticatedTest
 import com.zam.interactivelearning.application.IntegrationTest
+import com.zam.interactivelearning.domain.application.quiz.QuizRepository
+import com.zam.interactivelearning.domain.application.quiz.QuizScoreEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserEntity
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import io.restassured.module.mockmvc.RestAssuredMockMvc
@@ -20,7 +22,9 @@ class UserEndpointTest(
     @Autowired
     val webApplicationContext: WebApplicationContext,
     @Autowired
-    val userRepository: UserRepository
+    val userRepository: UserRepository,
+    @Autowired
+    val quizRepository: QuizRepository
 ) : AuthenticatedTest() {
 
     @BeforeEach
@@ -31,7 +35,16 @@ class UserEndpointTest(
     @Test
     @Transactional
     fun `should get the currently logged in user profile`() {
+        val defaultQuiz = quizRepository.findAll().first()
         defaultUser.friends = mutableSetOf(prepareUser())
+        defaultUser.dailyStreak = 3
+        defaultUser.quizScores = listOf(
+            QuizScoreEntity(
+                quiz = defaultQuiz,
+                user = defaultUser,
+                score = 1
+            )
+        )
         userRepository.save(defaultUser)
 
         Given {
@@ -43,9 +56,9 @@ class UserEndpointTest(
 
             body("username", equalTo("test_user"))
             body("email", equalTo("test@test.com"))
-            body("finishedActivitiesCount", equalTo(0))
+            body("finishedActivitiesCount", equalTo(1))
             body("friendsCount", equalTo(1))
-            body("dailyStreak", equalTo(0))
+            body("dailyStreak", equalTo(3))
         }
     }
 

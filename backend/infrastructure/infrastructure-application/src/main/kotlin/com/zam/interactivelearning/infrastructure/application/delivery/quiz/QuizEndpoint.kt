@@ -1,9 +1,10 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.quiz
 
-import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.common.DefaultResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.quiz.ReportQuizScoreRequest
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.security.api.AuthenticatedUser
 import io.swagger.v3.oas.annotations.Operation
@@ -27,9 +28,9 @@ class QuizEndpoint(
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new quiz")
-    fun createQuiz(@RequestBody @Valid createQuizRequest: CreateQuizRequest): EmptyResponse {
+    fun createQuiz(@RequestBody @Valid createQuizRequest: CreateQuizRequest): DefaultResponse {
         helper.createQuiz(createQuizRequest)
-        return EmptyResponse()
+        return DefaultResponse()
     }
 
     @GetMapping()
@@ -42,5 +43,19 @@ class QuizEndpoint(
     @Operation(summary = "Get a quiz by id", description = "Returns a quiz with all questions and answers")
     fun getQuizById(@PathVariable id: Long): QuizDetailsResponse {
         return helper.getQuizById(id)
+    }
+
+    @GetMapping("/daily-challenge")
+    @Operation(summary = "Get the daily challenge", description = "Returns the daily challenge quiz with all questions and answers")
+    fun getDailyChallenge(): QuizDetailsResponse {
+        return helper.getDailyChallenge()
+    }
+
+    @PostMapping("/report-score")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Report quiz score", description = "Reports the score for a quiz so that it is persisted")
+    fun reportQuizScore(@RequestBody @Valid reportQuizScoreRequest: ReportQuizScoreRequest): DefaultResponse {
+        helper.reportQuizScore(reportQuizScoreRequest)
+        return DefaultResponse()
     }
 }

@@ -25,7 +25,7 @@ class NavigationButton extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: const TextStyle(
-          fontSize: 34,
+          fontSize: 26,
           color: Colors.deepPurpleAccent,
           fontWeight: FontWeight.w300,
         ),

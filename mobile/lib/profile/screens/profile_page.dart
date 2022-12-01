@@ -128,9 +128,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            NavigationButton('Znajomi', () => print('Znajomi')),
                             NavigationButton(
-                                'Wyloguj', () => {logout(), context.go('/auth/login')}),
+                                'Znajomi', () => context.go('/friends')),
+                            NavigationButton('Wyloguj',
+                                () => {logout(), context.go('/auth/login')}),
                           ],
                         ),
                       ),
