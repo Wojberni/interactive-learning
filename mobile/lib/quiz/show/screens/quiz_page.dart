@@ -42,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
               children: <Widget>[
                 QuizButton(
                   title: 'Start',
-                  onPressed: () => context.go('/random_task/question/'),
+                  onPressed: () => context.go('/daily_challenge/question/'),
                 ),
                 const HeartFavourite(), // todo: change for stateless widget
               ],

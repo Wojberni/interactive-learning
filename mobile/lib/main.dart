@@ -19,7 +19,7 @@ Future main() async {
   final fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
 
   String initialRoute = await getInitialRoute();
-  if (initialRoute == '/home') {
+  if (initialRoute == '/') {
     NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
         RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
   }

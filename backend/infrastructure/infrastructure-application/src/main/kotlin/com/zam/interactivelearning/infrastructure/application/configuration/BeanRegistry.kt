@@ -33,6 +33,7 @@ import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.RequestValidationExceptionHandler
 import com.zam.interactivelearning.infrastructure.application.notifications.FirebaseNotificationSender
 import com.zam.interactivelearning.infrastructure.application.notifications.SendNotificationEventHandler
+import com.zam.interactivelearning.infrastructure.application.timers.ResetDailyStreakTimer
 import com.zam.interactivelearning.infrastructure.application.timers.RotateDailyChallengeTimer
 import com.zam.interactivelearning.security.application.configuration.SecurityConfiguration
 import com.zam.interactivelearning.security.application.context.UserContextHolderImpl
@@ -70,6 +71,7 @@ class BeanRegistry {
         bean<RegisterOrUpdateDeviceTokenCommandHandler>()
         bean<RotateDailyChallengeCommandHandler>()
         bean<SaveQuizScoreCommandHandler>()
+        bean<ResetDailyStreakCommandHandler>()
     }
 
     private fun registerQueryHandlerBeans() = beans {
@@ -135,6 +137,7 @@ class BeanRegistry {
 
     private fun registerTimers() = beans {
         bean<RotateDailyChallengeTimer>()
+        bean<ResetDailyStreakTimer>()
     }
 
     private fun registerOtherBeans() = beans {

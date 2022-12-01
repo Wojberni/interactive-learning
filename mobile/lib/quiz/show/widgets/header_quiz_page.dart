@@ -17,7 +17,7 @@ class HeaderQuizPage extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: () => context.go('/home'),
+              onTap: () => context.go('/'),
               child:
                   Image.asset('assets/images/close.png', width: 35, height: 35, alignment: Alignment.centerRight,),
             ),

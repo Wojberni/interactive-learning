@@ -48,4 +48,13 @@ class UserEntity(
         }
         dailyStreak++
     }
+
+    fun resetDailyStreak(): Boolean {
+        if (streakUpdatedAt == null || streakUpdatedAt!!.toLocalDate() != LocalDateTime.now().toLocalDate()) {
+            return false
+        }
+
+        dailyStreak = 0
+        return true
+    }
 }

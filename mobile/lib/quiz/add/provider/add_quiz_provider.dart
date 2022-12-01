@@ -46,10 +46,9 @@ class AddQuizProvider with ChangeNotifier {
         .createQuiz(request)
         .then((value) async => {
               showSnackBar(context, "Dodano quiz!", SnackBarType.success),
-              context.go('/home'),
+              context.go('/'),
             })
         .catchError((error) => {
-          print(error.toString()),
               showSnackBar(context, "Błąd serwera!", SnackBarType.error),
             });
     notifyListeners();
