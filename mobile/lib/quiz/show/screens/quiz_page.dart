@@ -7,20 +7,15 @@ import '../../common/widgets/quiz_button.dart';
 import '../widgets/quiz_page_text_container.dart';
 
 
-class QuizPage extends StatefulWidget {
+class QuizPage extends StatelessWidget {
+
   const QuizPage({super.key});
-
-  @override
-  State<QuizPage> createState() => _QuizPageState();
-}
-
-class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             const HeaderQuizPage(),
             const Text(
@@ -44,7 +39,7 @@ class _QuizPageState extends State<QuizPage> {
                   title: 'Start',
                   onPressed: () => context.go('/daily_challenge/question/'),
                 ),
-                const HeartFavourite(), // todo: change for stateless widget
+                // const HeartFavourite(isFavourite: true),
               ],
             ),
           ],

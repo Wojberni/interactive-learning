@@ -1,51 +1,28 @@
 import 'package:flutter/material.dart';
 
-class HeartFavourite extends StatefulWidget {
-  const HeartFavourite({super.key});
+class HeartFavourite extends StatelessWidget {
+  final bool isFavourite;
 
-  @override
-  State<HeartFavourite> createState() => _HeartFavouriteState();
-}
-
-class _HeartFavouriteState extends State<HeartFavourite> {
-  var _isFavourite = false;
+  const HeartFavourite({super.key, required this.isFavourite});
 
   @override
   Widget build(BuildContext context) {
-    return _isFavourite
-        ? ElevatedButton(
-            onPressed: () => setState(() => _isFavourite = false),
-            style: ButtonStyle(
-              shadowColor: MaterialStateProperty.all<Color>(Colors.blue),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
-              backgroundColor:
-                  const MaterialStatePropertyAll(Color(0xFFECECEC)),
-            ),
-            child: Image.asset(
-              'assets/images/unfilled_heart.png',
-              width: 30,
-              height: 30,
-            ),
-          )
-        : ElevatedButton(
-            onPressed: () => setState(() => _isFavourite = true),
-            style: ButtonStyle(
-              shadowColor: MaterialStateProperty.all<Color>(Colors.blue),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
-              backgroundColor:
-                  const MaterialStatePropertyAll(Color(0xFFECECEC)),
-            ),
-            child: Image.asset(
-              'assets/images/filled_heart.png',
-              width: 30,
-              height: 30,
-            ),
-          );
+    return Container(
+      width: 40,
+      height: 40,
+      color: const Color(0xFFECECEC),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xFFECECEC),
+      ),
+      child: Image.asset(
+        isFavourite
+            ? 'assets/images/unfilled_heart.png'
+            : 'assets/images/filled_heart.png',
+        width: 30,
+        height: 30,
+      ),
+    );
   }
 }
