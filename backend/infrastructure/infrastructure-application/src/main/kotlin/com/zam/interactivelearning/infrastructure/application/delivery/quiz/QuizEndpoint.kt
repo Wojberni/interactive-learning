@@ -1,6 +1,6 @@
 package com.zam.interactivelearning.infrastructure.application.delivery.quiz
 
-import com.zam.interactivelearning.infrastructure.api.delivery.common.EmptyResponse
+import com.zam.interactivelearning.infrastructure.api.delivery.common.DefaultResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.CreateQuizRequest
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizDetailsResponse
 import com.zam.interactivelearning.infrastructure.api.delivery.quiz.QuizListResponse
@@ -28,9 +28,9 @@ class QuizEndpoint(
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new quiz")
-    fun createQuiz(@RequestBody @Valid createQuizRequest: CreateQuizRequest): EmptyResponse {
+    fun createQuiz(@RequestBody @Valid createQuizRequest: CreateQuizRequest): DefaultResponse {
         helper.createQuiz(createQuizRequest)
-        return EmptyResponse()
+        return DefaultResponse()
     }
 
     @GetMapping()
@@ -54,8 +54,8 @@ class QuizEndpoint(
     @PostMapping("/report-score")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Report quiz score", description = "Reports the score for a quiz so that it is persisted")
-    fun reportQuizScore(@RequestBody @Valid reportQuizScoreRequest: ReportQuizScoreRequest): EmptyResponse {
+    fun reportQuizScore(@RequestBody @Valid reportQuizScoreRequest: ReportQuizScoreRequest): DefaultResponse {
         helper.reportQuizScore(reportQuizScoreRequest)
-        return EmptyResponse()
+        return DefaultResponse()
     }
 }
