@@ -12,7 +12,7 @@ class ShowQuizProvider with ChangeNotifier {
   int currentQuestion = 0;
 
   void nextQuestion(){
-    currentQuestion++;
+    currentQuestion += 1;
     question = quiz.questions[currentQuestion];
     notifyListeners();
   }
@@ -25,7 +25,7 @@ class ShowQuizProvider with ChangeNotifier {
     else{
       print('Incorrect');
     }
-    notifyListeners();
+    // notifyListeners();
   }
 
 }

@@ -4,6 +4,7 @@ import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/quiz/show/provider/show_quiz_provider.dart';
 import 'package:mobile/quiz/show/widgets/answer_container.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 import '../model/quiz_dto.dart';
 import '../widgets/header_quiz_page.dart';
@@ -23,7 +24,11 @@ class QuestionPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 QuizDto? quiz = snapshot.data;
-                context.read<ShowQuizProvider>().quiz = quiz!;
+                ShowQuizProvider provider = context.read<ShowQuizProvider>();
+                if(quiz != null){
+                  provider.quiz = quiz;
+                  provider.question = quiz.questions[provider.currentQuestion];
+                }
                 return Consumer<ShowQuizProvider>(
                   builder: (context, provider, child) => _listView(provider),
                 );
@@ -43,15 +48,13 @@ class QuestionPage extends StatelessWidget {
     );
   }
 
-  _listView(ShowQuizProvider provider) {
-    ListView(
+  Widget _listView(ShowQuizProvider provider) {
+    return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
         QuestionContainer(question: provider.question.content),
-        AnswerContainer(containerIndex: 0, provider: provider),
-        AnswerContainer(containerIndex: 1, provider: provider),
-        AnswerContainer(containerIndex: 2, provider: provider),
-        AnswerContainer(containerIndex: 3, provider: provider),
+        for (int i = 0; i < provider.question.answers.length; i++)
+          AnswerContainer(containerIndex: i, provider: provider)
       ],);
   }
 
@@ -59,7 +62,8 @@ class QuestionPage extends StatelessWidget {
   Future<QuizDto?> _getQuiz(BuildContext context) async {
     QuizDetailsResponse? response = await QuizEndpointApi(apiClient).getDailyChallenge();
     if(response != null){
-      return QuizDto.fromJson(response.toJson());
+      Map<String, dynamic> json = jsonDecode(jsonEncode(response));
+      return QuizDto.fromJson(json);
     }
     return null;
   }

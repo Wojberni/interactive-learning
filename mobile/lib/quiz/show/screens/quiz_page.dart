@@ -19,13 +19,13 @@ class QuizPage extends StatelessWidget {
           children: <Widget>[
             const HeaderQuizPage(),
             const Text(
-              'Name of quiz',
+              'Daily Challenge',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             const Padding(
               padding: EdgeInsets.only(left: 20, right: 20, top: 20),
               child: Text(
-                'This will be a description of the quiz. ',
+                'This is your daily challenge. ',
                 style: TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
               ),
             ),
