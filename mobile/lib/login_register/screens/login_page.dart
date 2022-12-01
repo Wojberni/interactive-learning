@@ -93,6 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                 apiClient.addDefaultHeader(
                     "Authorization", "Bearer ${value?.token}"),
               await _storage.write(key: 'token', value: value?.token),
+                showSnackBar(context,
+                    'Zalogowano użytkownika!', SnackBarType.success),
                 context.go("/home")
               })
           .catchError((err) => {

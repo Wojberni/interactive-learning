@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-enum SnackBarType { info, error }
+enum SnackBarType { success, error, info }
 
 const errorBackgroundColor = Colors.red;
 var infoBackgroundColor = const SnackBarThemeData().backgroundColor;
+const successBackgroundColor = Colors.green;
 
 void showSnackBar(BuildContext context, String message, SnackBarType type,
     {bool unfocus = true}) {
@@ -11,11 +12,22 @@ void showSnackBar(BuildContext context, String message, SnackBarType type,
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
+  Color? snackBarColor;
+  switch (type) {
+    case SnackBarType.error:
+      snackBarColor = errorBackgroundColor;
+      break;
+    case SnackBarType.info:
+      snackBarColor = infoBackgroundColor;
+      break;
+    case SnackBarType.success:
+      snackBarColor = successBackgroundColor;
+      break;
+  }
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: type == SnackBarType.error
-          ? errorBackgroundColor
-          : infoBackgroundColor,
+      backgroundColor: snackBarColor,
       content: Text(
         message,
         style: const TextStyle(fontSize: 20),

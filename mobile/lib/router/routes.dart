@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/flashcard/show/screens/flashcard_page.dart';
 import 'package:mobile/friends/screens/friends_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
-import 'package:mobile/quiz/add/screens/quiz_answers.dart';
-import 'package:mobile/quiz/add/screens/quiz_page.dart';
-import 'package:mobile/quiz/show/screens/question_page.dart';
-import 'package:mobile/quiz/show/screens/quiz_page.dart';
+import 'package:mobile/quiz/add/screens/add_quiz_page.dart';
 
 import '../flashcard/add/screens/flashcard_add.dart';
 import '../home/screens/home_page.dart';
@@ -30,7 +27,7 @@ List<GoRoute> myRoutes(){
       builder: (BuildContext context, GoRouterState state) =>
       const HomePage(),
     ),
-    GoRoute(
+/*    GoRoute(
       path: '/random_task', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuizPage(),
@@ -39,7 +36,7 @@ List<GoRoute> myRoutes(){
       path: '/random_task/question', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuestionPage(),
-    ),
+    ),*/
     GoRoute(
       path: '/random_task/flashcard', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
@@ -54,11 +51,6 @@ List<GoRoute> myRoutes(){
       path: '/search', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const AddQuizPage(),
-    ),
-    GoRoute(
-      path: '/search/add_quiz', // temporary path
-      builder: (BuildContext context, GoRouterState state) =>
-      const AddQuizAnswers(),
     ),
     GoRoute(
       path: '/friends', // temporary path

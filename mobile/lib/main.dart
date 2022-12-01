@@ -3,9 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/router/custom_router.dart';
+import 'package:mobile/router/initialize_route.dart';
 
 import 'api/ApiClient.dart';
 import 'firebase_options.dart';
@@ -18,12 +18,10 @@ Future main() async {
 
   final fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
 
-
   String initialRoute = await getInitialRoute();
   if (initialRoute == '/home') {
-      NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
-          RegisterOrUpdateDeviceTokenRequest(token: fcmToken)
-      );
+    NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
+        RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
   }
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +32,8 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.initialRoute});
+  const MyApp(
+      {super.key, required this.initialRoute});
 
   final String initialRoute;
 
@@ -45,17 +44,4 @@ class MyApp extends StatelessWidget {
       routerConfig: CustomRouter(initialRoute: initialRoute),
     );
   }
-}
-
-Future<String> getInitialRoute() async {
-  String initialRoute = '/auth/login';
-  var storage = const FlutterSecureStorage();
-  await storage.read(key: 'token').then((value) {
-    if (value != null) {
-      initialRoute = '/home';
-      apiClient.addDefaultHeader(
-          "Authorization", "Bearer $value");
-    }
-  });
-  return initialRoute;
 }
