@@ -4,16 +4,14 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.api.user.GetFinishedActivitiesCountQuery
 import com.zam.interactivelearning.domain.application.dailychallenge.GetDailyChallengeQueryHandler
 import com.zam.interactivelearning.domain.application.dailychallenge.RotateDailyChallengeCommandHandler
+import com.zam.interactivelearning.domain.application.dailychallenge.SendDailyChallengeNotificationEventHandler
 import com.zam.interactivelearning.domain.application.flashcard.CreateFlashcardCommandHandler
 import com.zam.interactivelearning.domain.application.flashcard.GetFlashcardByIdQueryHandler
 import com.zam.interactivelearning.domain.application.friends.*
 import com.zam.interactivelearning.domain.application.notifications.GetAllNotificationTargetsQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.GetNotificationTargetQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
-import com.zam.interactivelearning.domain.application.quiz.CreateQuizCommandHandler
-import com.zam.interactivelearning.domain.application.quiz.GetAllQuizzesQueryHandler
-import com.zam.interactivelearning.domain.application.quiz.GetQuizByIdQueryHandler
-import com.zam.interactivelearning.domain.application.quiz.SaveQuizScoreCommandHandler
+import com.zam.interactivelearning.domain.application.quiz.*
 import com.zam.interactivelearning.domain.application.user.*
 import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
 import com.zam.interactivelearning.events.EventPublisher
@@ -96,6 +94,8 @@ class BeanRegistry {
 
         profile("notifications") {
             bean<SendFriendRequestNotificationEventHandler>()
+            bean<SendFriendAchievedHigherScoreNotificationEventHandler>()
+            bean<SendDailyChallengeNotificationEventHandler>()
             bean<SendNotificationEventHandler>()
         }
     }
