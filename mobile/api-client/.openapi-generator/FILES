@@ -67,4 +67,3 @@ lib/model/register_user_request.dart
 lib/model/report_quiz_score_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/default_response_test.dart
