@@ -7,6 +7,7 @@ doc/AddFriendRequest.md
 doc/AuthEndpointApi.md
 doc/CreateFlashcardRequest.md
 doc/CreateQuizRequest.md
+doc/DefaultResponse.md
 doc/FlashcardDetailsResponse.md
 doc/FlashcardEndpointApi.md
 doc/Friend.md
@@ -48,6 +49,7 @@ lib/model/accept_or_reject_friend_request.dart
 lib/model/add_friend_request.dart
 lib/model/create_flashcard_request.dart
 lib/model/create_quiz_request.dart
+lib/model/default_response.dart
 lib/model/flashcard_details_response.dart
 lib/model/friend.dart
 lib/model/friend_request.dart
@@ -65,3 +67,4 @@ lib/model/register_user_request.dart
 lib/model/report_quiz_score_request.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
+test/default_response_test.dart

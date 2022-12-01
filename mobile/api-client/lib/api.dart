@@ -38,6 +38,7 @@ part 'model/accept_or_reject_friend_request.dart';
 part 'model/add_friend_request.dart';
 part 'model/create_flashcard_request.dart';
 part 'model/create_quiz_request.dart';
+part 'model/default_response.dart';
 part 'model/flashcard_details_response.dart';
 part 'model/friend.dart';
 part 'model/friend_request.dart';

@@ -189,6 +189,8 @@ class ApiClient {
           return CreateFlashcardRequest.fromJson(value);
         case 'CreateQuizRequest':
           return CreateQuizRequest.fromJson(value);
+        case 'DefaultResponse':
+          return DefaultResponse.fromJson(value);
         case 'FlashcardDetailsResponse':
           return FlashcardDetailsResponse.fromJson(value);
         case 'Friend':

@@ -53,7 +53,7 @@ class QuizEndpointApi {
   /// Parameters:
   ///
   /// * [CreateQuizRequest] createQuizRequest (required):
-  Future<Object?> createQuiz(CreateQuizRequest createQuizRequest,) async {
+  Future<DefaultResponse?> createQuiz(CreateQuizRequest createQuizRequest,) async {
     final response = await createQuizWithHttpInfo(createQuizRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -62,7 +62,7 @@ class QuizEndpointApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DefaultResponse',) as DefaultResponse;
     
     }
     return null;
@@ -262,7 +262,7 @@ class QuizEndpointApi {
   /// Parameters:
   ///
   /// * [ReportQuizScoreRequest] reportQuizScoreRequest (required):
-  Future<Object?> reportQuizScore(ReportQuizScoreRequest reportQuizScoreRequest,) async {
+  Future<DefaultResponse?> reportQuizScore(ReportQuizScoreRequest reportQuizScoreRequest,) async {
     final response = await reportQuizScoreWithHttpInfo(reportQuizScoreRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -271,7 +271,7 @@ class QuizEndpointApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DefaultResponse',) as DefaultResponse;
     
     }
     return null;

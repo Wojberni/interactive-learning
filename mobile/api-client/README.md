@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
  - [AddFriendRequest](doc//AddFriendRequest.md)
  - [CreateFlashcardRequest](doc//CreateFlashcardRequest.md)
  - [CreateQuizRequest](doc//CreateQuizRequest.md)
+ - [DefaultResponse](doc//DefaultResponse.md)
  - [FlashcardDetailsResponse](doc//FlashcardDetailsResponse.md)
  - [Friend](doc//Friend.md)
  - [FriendRequest](doc//FriendRequest.md)

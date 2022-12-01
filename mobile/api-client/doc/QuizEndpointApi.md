@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **createQuiz**
-> Object createQuiz(createQuizRequest)
+> DefaultResponse createQuiz(createQuizRequest)
 
 Create a new quiz
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Object**](Object.md)
+[**DefaultResponse**](DefaultResponse.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reportQuizScore**
-> Object reportQuizScore(reportQuizScoreRequest)
+> DefaultResponse reportQuizScore(reportQuizScoreRequest)
 
 Report quiz score
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Object**](Object.md)
+[**DefaultResponse**](DefaultResponse.md)
 
 ### Authorization
 

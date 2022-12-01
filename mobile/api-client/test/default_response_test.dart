@@ -11,16 +11,17 @@
 import 'package:learning_api/api.dart';
 import 'package:test/test.dart';
 
-
-/// tests for FriendsEndpointApi
+// tests for DefaultResponse
 void main() {
-  // final instance = FriendsEndpointApi();
+  // final instance = DefaultResponse();
 
-  group('tests for FriendsEndpointApi', () {
-    //Future addFriend(AddFriendRequest addFriendRequest) async
-    test('test addFriend', () async {
+  group('test DefaultResponse', () {
+    // String message
+    test('to test the property `message`', () async {
       // TODO
     });
 
+
   });
+
 }

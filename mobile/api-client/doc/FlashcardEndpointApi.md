@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **createFlashcard**
-> Object createFlashcard(createFlashcardRequest)
+> DefaultResponse createFlashcard(createFlashcardRequest)
 
 Create a flashcard
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Object**](Object.md)
+[**DefaultResponse**](DefaultResponse.md)
 
 ### Authorization
 
