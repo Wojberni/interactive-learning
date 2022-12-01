@@ -18,7 +18,7 @@ class AnswerNrContainer extends StatelessWidget {
         height: 60,
         decoration: BoxDecoration(
           color: context.watch<AddQuizProvider>().correctAnswer == answerNr
-              ? Colors.red
+              ? Colors.green
               : _firstColor,
           borderRadius: BorderRadius.circular(5),
         ),
