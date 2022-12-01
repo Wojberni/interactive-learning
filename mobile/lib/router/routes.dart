@@ -9,6 +9,8 @@ import '../flashcard/add/screens/flashcard_add.dart';
 import '../home/screens/home_page.dart';
 import '../login_register/screens/login_page.dart';
 import '../login_register/screens/registration_page.dart';
+import '../quiz/show/screens/question_page.dart';
+import '../quiz/show/screens/quiz_page.dart';
 
 List<GoRoute> myRoutes(){
   return[
@@ -23,22 +25,22 @@ List<GoRoute> myRoutes(){
       const RegistrationPage(),
     ),
     GoRoute(
-      path: '/home',
+      path: '/',
       builder: (BuildContext context, GoRouterState state) =>
       const HomePage(),
     ),
-/*    GoRoute(
-      path: '/random_task', // temporary path
+    GoRoute(
+      path: '/daily_challenge', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuizPage(),
     ),
     GoRoute(
-      path: '/random_task/question', // temporary path
+      path: '/daily_challenge/question', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const QuestionPage(),
-    ),*/
+    ),
     GoRoute(
-      path: '/random_task/flashcard', // temporary path
+      path: '/random_task', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const FlashcardPage(),
     ),
@@ -58,7 +60,7 @@ List<GoRoute> myRoutes(){
       const FriendsPage(),
     ),
     GoRoute(
-      path: '/search/add_flashcard',
+      path: '/pomodoro',
       builder: (BuildContext context, GoRouterState state) =>
       const AddFlashcardPage(),
     )

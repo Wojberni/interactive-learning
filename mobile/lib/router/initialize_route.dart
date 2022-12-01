@@ -10,7 +10,7 @@ Future<String> getInitialRoute() async {
     if (value == null || JwtDecoder.isExpired(value)) {
       return initialRoute;
     }
-    initialRoute = '/home';
+    initialRoute = '/';
     apiClient.addDefaultHeader("Authorization", "Bearer $value");
   });
   return initialRoute;

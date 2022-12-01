@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       '/daily_challenge',
       '/random_task',
       '/search',
-      '/random_task/flashcard' // TODO: change back to /pomodoro
+      '/pomodoro'
     ];
 
     return Scaffold(
