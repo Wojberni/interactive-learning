@@ -29,8 +29,8 @@ class CustomFormField extends StatelessWidget {
           textAlign: TextAlign.left,
           textWidthBasis: TextWidthBasis.parent,
           style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+            fontSize: 26,
+            fontWeight: FontWeight.normal,
             color: Colors.white,
           ),
         ),

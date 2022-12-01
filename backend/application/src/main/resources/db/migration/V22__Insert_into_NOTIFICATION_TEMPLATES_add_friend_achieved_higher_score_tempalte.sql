@@ -1,0 +1,2 @@
+INSERT INTO notification_templates(notification_name, notification_template, notification_title)
+    values ('FRIEND_ACHIEVED_HIGHER_SCORE', 'Twój znajomy %s osiągnął lepszy wynik w quizie %s', 'Twój znajomy pokazał Ci, jak to się robi!');
