@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
               await _storage.write(key: 'token', value: value?.token),
                 showSnackBar(context,
                     'Zalogowano użytkownika!', SnackBarType.success),
-                context.go("/home")
+                context.go("/")
               })
           .catchError((err) => {
                 if (err.code == 403)
