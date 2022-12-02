@@ -44,7 +44,7 @@ class AddQuizProvider with ChangeNotifier {
     }
     QuizEndpointApi(apiClient)
         .createQuiz(request)
-        .then((value) async => {
+        .then((value) => {
               showSnackBar(context, "Dodano quiz!", SnackBarType.success),
               context.go('/'),
             })
