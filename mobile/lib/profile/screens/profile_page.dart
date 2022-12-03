@@ -34,8 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
             body: SafeArea(
       child: FutureBuilder<ProfilePageData?>(
         future: dataFuture,
@@ -146,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         },
       ),
-    )));
+    ));
   }
 
   Future<void> logout() async {

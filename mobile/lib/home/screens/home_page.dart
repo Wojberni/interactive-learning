@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 child: const Center(
                   child: Text(
-                    "Logo <- Interactive Learning App",
+                    "Interactive Learning App",
                     style: TextStyle(
                         fontSize: 24,
                         color: Colors.black,
