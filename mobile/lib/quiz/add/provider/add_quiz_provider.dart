@@ -8,15 +8,17 @@ import 'package:mobile/quiz/add/model/quiz_model.dart';
 import '../model/answer_model.dart';
 import '../model/question_model.dart';
 
+enum QuizAddStatus { title, question }
+
 class AddQuizProvider with ChangeNotifier {
   QuizModel quiz = QuizModel();
-  bool addQuestions = false;
+  QuizAddStatus status = QuizAddStatus.title;
   int correctAnswer = 0;
 
   void addQuizTitleAndDescription(BuildContext context, String name, String description) {
     quiz.setName(name);
     quiz.setDescription(description);
-    addQuestions = true;
+    status = QuizAddStatus.question;
     showSnackBar(context, 'Dodano tytuł oraz opis!', SnackBarType.success);
     notifyListeners();
   }

@@ -11,6 +11,42 @@ import 'api/ApiClient.dart';
 import 'firebase_options.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initializeEnvironment(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return MaterialApp.router(
+            title: 'Interactive Learning',
+            routerConfig: CustomRouter(initialRoute: snapshot.data!),
+          );
+        } else {
+          return const MaterialApp(
+            title: 'Interactive Learning',
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+Future<String> _initializeEnvironment() async {
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,25 +59,5 @@ Future main() async {
     NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
         RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
   }
-
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(MyApp(initialRoute: initialRoute));
-  });
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp(
-      {super.key, required this.initialRoute});
-
-  final String initialRoute;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Interactive Learning',
-      routerConfig: CustomRouter(initialRoute: initialRoute),
-    );
-  }
+  return initialRoute;
 }

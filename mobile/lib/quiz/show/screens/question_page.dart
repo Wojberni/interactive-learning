@@ -7,8 +7,12 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import '../model/quiz_dto.dart';
+import '../widgets/correct_answer_container.dart';
 import '../widgets/header_quiz_page.dart';
 import '../widgets/question_container.dart';
+import '../widgets/quiz_title_container.dart';
+import '../widgets/result_container.dart';
+import '../widgets/wrong_answer_container.dart';
 
 class QuestionPage extends StatelessWidget {
   const QuestionPage({super.key});
@@ -25,18 +29,17 @@ class QuestionPage extends StatelessWidget {
               if (snapshot.hasData) {
                 QuizDto? quiz = snapshot.data;
                 ShowQuizProvider provider = context.read<ShowQuizProvider>();
-                if(quiz != null){
+                if (quiz != null) {
                   provider.quiz = quiz;
-                  provider.question = quiz.questions[provider.currentQuestion];
+                  provider.question =
+                      quiz.questions[provider.userQuizData.currentQuestion];
                 }
                 return Consumer<ShowQuizProvider>(
                   builder: (context, provider, child) => _listView(provider),
                 );
-              }
-              else if (snapshot.hasError) {
+              } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
-              }
-              else {
+              } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -52,16 +55,67 @@ class QuestionPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
-        QuestionContainer(question: provider.question.content),
-        for (int i = 0; i < provider.question.answers.length; i++)
-          AnswerContainer(containerIndex: i, provider: provider)
-      ],);
+        const QuizTitleContainer(title: 'Title of the quiz'),
+        _showCurrentWidget(provider),
+      ],
+    );
   }
 
+  Widget _showCurrentWidget(ShowQuizProvider provider) {
+    switch (provider.userQuizData.status) {
+      case QuizShowStatus.question:
+        return _showQuestion(provider);
+      case QuizShowStatus.answer:
+        return _showAnswer(provider);
+      case QuizShowStatus.result:
+        return _showResult(provider);
+    }
+  }
+
+  Widget _showQuestion(ShowQuizProvider provider) {
+    return Column(children: [
+      QuestionContainer(question: provider.question.content),
+      for (int i = 0; i < provider.question.answers.length; i++)
+        AnswerContainer(containerIndex: i, provider: provider)
+    ]);
+  }
+
+  Widget _showAnswer(ShowQuizProvider provider) {
+    if (provider.userQuizData.userCorrectAnswered) {
+      return GestureDetector(
+        onTap: () => provider.nextQuestion(),
+        child: Column(children: [
+          QuestionContainer(question: provider.question.content),
+          AnswerContainer(
+              containerIndex: provider.userQuizData.currentAnswer,
+              provider: provider),
+          const CorrectAnswerContainer(),
+        ]),
+      );
+    } else {
+      return GestureDetector(
+        onTap: () => provider.nextQuestion(),
+        child: Column(children: [
+          QuestionContainer(question: provider.question.content),
+          AnswerContainer(
+              containerIndex: provider.userQuizData.currentAnswer,
+              provider: provider),
+          WrongAnswerContainer(provider: provider),
+        ]),
+      );
+    }
+  }
+
+  Widget _showResult(ShowQuizProvider provider) {
+    return ResultContainer(
+      provider: provider,
+    );
+  }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {
-    QuizDetailsResponse? response = await QuizEndpointApi(apiClient).getDailyChallenge();
-    if(response != null){
+    QuizDetailsResponse? response =
+        await QuizEndpointApi(apiClient).getDailyChallenge();
+    if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return QuizDto.fromJson(json);
     }
