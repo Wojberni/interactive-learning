@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Interactive Learning',
       routerConfig: CustomRouter(initialRoute: initialRoute),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
