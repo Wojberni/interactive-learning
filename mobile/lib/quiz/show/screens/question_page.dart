@@ -7,8 +7,12 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import '../model/quiz_dto.dart';
+import '../widgets/correct_answer_container.dart';
 import '../widgets/header_quiz_page.dart';
 import '../widgets/question_container.dart';
+import '../widgets/quiz_title_container.dart';
+import '../widgets/result_container.dart';
+import '../widgets/wrong_answer_container.dart';
 
 class QuestionPage extends StatelessWidget {
   const QuestionPage({super.key});
@@ -27,7 +31,8 @@ class QuestionPage extends StatelessWidget {
                 ShowQuizProvider provider = context.read<ShowQuizProvider>();
                 if (quiz != null) {
                   provider.quiz = quiz;
-                  provider.question = quiz.questions[provider.currentQuestion];
+                  provider.question =
+                      quiz.questions[provider.userQuizData.currentQuestion];
                 }
                 return Consumer<ShowQuizProvider>(
                   builder: (context, provider, child) => _listView(provider),
@@ -50,13 +55,14 @@ class QuestionPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
-        // QuizTitleContainer(title: provider.quiz.title), // maciek
+        const QuizTitleContainer(title: 'Title of the quiz'),
         _showCurrentWidget(provider),
-      ],);
+      ],
+    );
   }
 
   Widget _showCurrentWidget(ShowQuizProvider provider) {
-    switch (provider.status) {
+    switch (provider.userQuizData.status) {
       case QuizShowStatus.question:
         return _showQuestion(provider);
       case QuizShowStatus.answer:
@@ -75,22 +81,35 @@ class QuestionPage extends StatelessWidget {
   }
 
   Widget _showAnswer(ShowQuizProvider provider) {
-    if(provider.userCorrectAnswered) {
-      return Column(children: [
-        QuestionContainer(question: provider.question.content),
-        AnswerContainer(containerIndex: , provider: provider)
-      ]);
-    }
-    else{
-      return Column(children: [
-        QuestionContainer(question: provider.question.content),
-        AnswerContainer(containerIndex: , provider: provider)
-      ]);
+    if (provider.userQuizData.userCorrectAnswered) {
+      return GestureDetector(
+        onTap: () => provider.nextQuestion(),
+        child: Column(children: [
+          QuestionContainer(question: provider.question.content),
+          AnswerContainer(
+              containerIndex: provider.userQuizData.currentAnswer,
+              provider: provider),
+          const CorrectAnswerContainer(),
+        ]),
+      );
+    } else {
+      return GestureDetector(
+        onTap: () => provider.nextQuestion(),
+        child: Column(children: [
+          QuestionContainer(question: provider.question.content),
+          AnswerContainer(
+              containerIndex: provider.userQuizData.currentAnswer,
+              provider: provider),
+          WrongAnswerContainer(provider: provider),
+        ]),
+      );
     }
   }
 
   Widget _showResult(ShowQuizProvider provider) {
-      return ResultContainer(provider.userScore.toString());
+    return ResultContainer(
+      provider: provider,
+    );
   }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/quiz/show/model/user_quiz_data.dart';
 
 import '../model/question_dto.dart';
 import '../model/quiz_dto.dart';
@@ -6,38 +7,35 @@ import '../model/quiz_dto.dart';
 enum QuizShowStatus { question, answer, result }
 
 class ShowQuizProvider with ChangeNotifier {
-
   late QuizDto quiz;
   late QuestionDto question;
 
-  int currentQuestion = 0;
-  int rightAnswered = 0;
-  QuizShowStatus status = QuizShowStatus.question;
-  bool userCorrectAnswered = false;
-  double userScore = 0;
+  UserQuizData userQuizData = UserQuizData();
 
-  void nextQuestion(){
-    currentQuestion += 1;
-    if (currentQuestion < quiz.questions.length) {
-      question = quiz.questions[currentQuestion];
-      status = QuizShowStatus.question;
+  void nextQuestion() {
+    userQuizData.currentQuestion += 1;
+    if (userQuizData.currentQuestion < quiz.questions.length) {
+      question = quiz.questions[userQuizData.currentQuestion];
+      userQuizData.status = QuizShowStatus.question;
     } else {
-      status = QuizShowStatus.result;
-      userScore = rightAnswered / quiz.questions.length * 100;
+      userQuizData.userScore =
+          userQuizData.rightAnsweredCount / quiz.questions.length * 100;
+      userQuizData.status = QuizShowStatus.result;
     }
     notifyListeners();
   }
 
-  void showAnswers(int containerIndex){
-    if(question.answers[containerIndex].isCorrect){
-      userCorrectAnswered = true;
-      rightAnswered += 1;
+  void showAnswers(int containerIndex) {
+    userQuizData.currentAnswer = containerIndex;
+    userQuizData.correctAnswer =
+        question.answers.indexWhere((element) => element.isCorrect);
+    if (userQuizData.currentAnswer == userQuizData.correctAnswer) {
+      userQuizData.userCorrectAnswered = true;
+      userQuizData.rightAnsweredCount += 1;
+    } else {
+      userQuizData.userCorrectAnswered = false;
     }
-    else{
-      userCorrectAnswered = false;
-    }
-    status = QuizShowStatus.answer;
+    userQuizData.status = QuizShowStatus.answer;
     notifyListeners();
   }
-
 }

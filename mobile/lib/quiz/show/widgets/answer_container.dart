@@ -23,24 +23,26 @@ class AnswerContainer extends StatelessWidget {
             color: _setBackgroundColor(),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(right: 20),
-                child: Image.asset(
-                  _setImagePath(),
-                  width: 25,
-                  height: 25,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Image.asset(
+                    _setImagePath(),
+                    width: 25,
+                    height: 25,
+                  ),
                 ),
-              ),
-              Text(
-                provider.question.answers[containerIndex].content,
-                style: const TextStyle(
-                  fontSize: 22,
+                Expanded(
+                  child: Text(
+                    provider.question.answers[containerIndex].content,
+                    style: const TextStyle(
+                      fontSize: 22,
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
         ),
       ),
     );
@@ -48,7 +50,6 @@ class AnswerContainer extends StatelessWidget {
 
   void _checkAnswer(){
     provider.showAnswers(containerIndex);
-    provider.nextQuestion();
   }
 
   Color _setBackgroundColor() {
