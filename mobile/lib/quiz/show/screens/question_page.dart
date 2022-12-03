@@ -25,18 +25,16 @@ class QuestionPage extends StatelessWidget {
               if (snapshot.hasData) {
                 QuizDto? quiz = snapshot.data;
                 ShowQuizProvider provider = context.read<ShowQuizProvider>();
-                if(quiz != null){
+                if (quiz != null) {
                   provider.quiz = quiz;
                   provider.question = quiz.questions[provider.currentQuestion];
                 }
                 return Consumer<ShowQuizProvider>(
                   builder: (context, provider, child) => _listView(provider),
                 );
-              }
-              else if (snapshot.hasError) {
+              } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
-              }
-              else {
+              } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -52,16 +50,53 @@ class QuestionPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
-        QuestionContainer(question: provider.question.content),
-        for (int i = 0; i < provider.question.answers.length; i++)
-          AnswerContainer(containerIndex: i, provider: provider)
+        // QuizTitleContainer(title: provider.quiz.title), // maciek
+        _showCurrentWidget(provider),
       ],);
   }
 
+  Widget _showCurrentWidget(ShowQuizProvider provider) {
+    switch (provider.status) {
+      case QuizShowStatus.question:
+        return _showQuestion(provider);
+      case QuizShowStatus.answer:
+        return _showAnswer(provider);
+      case QuizShowStatus.result:
+        return _showResult(provider);
+    }
+  }
+
+  Widget _showQuestion(ShowQuizProvider provider) {
+    return Column(children: [
+      QuestionContainer(question: provider.question.content),
+      for (int i = 0; i < provider.question.answers.length; i++)
+        AnswerContainer(containerIndex: i, provider: provider)
+    ]);
+  }
+
+  Widget _showAnswer(ShowQuizProvider provider) {
+    if(provider.userCorrectAnswered) {
+      return Column(children: [
+        QuestionContainer(question: provider.question.content),
+        AnswerContainer(containerIndex: , provider: provider)
+      ]);
+    }
+    else{
+      return Column(children: [
+        QuestionContainer(question: provider.question.content),
+        AnswerContainer(containerIndex: , provider: provider)
+      ]);
+    }
+  }
+
+  Widget _showResult(ShowQuizProvider provider) {
+      return ResultContainer(provider.userScore.toString());
+  }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {
-    QuizDetailsResponse? response = await QuizEndpointApi(apiClient).getDailyChallenge();
-    if(response != null){
+    QuizDetailsResponse? response =
+        await QuizEndpointApi(apiClient).getDailyChallenge();
+    if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return QuizDto.fromJson(json);
     }

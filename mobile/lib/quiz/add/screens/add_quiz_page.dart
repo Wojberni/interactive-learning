@@ -24,7 +24,7 @@ class _AddQuizPageState extends State<AddQuizPage> {
             return ListView(
               children: [
                 const AddQuizHeader(),
-                provider.addQuestions == false
+                provider.status == QuizAddStatus.title
                     ? const QuizPage()
                     : const QuizAnswers(),
               ],

@@ -3,29 +3,41 @@ import 'package:flutter/material.dart';
 import '../model/question_dto.dart';
 import '../model/quiz_dto.dart';
 
+enum QuizShowStatus { question, answer, result }
+
 class ShowQuizProvider with ChangeNotifier {
 
   late QuizDto quiz;
   late QuestionDto question;
 
-  bool showAnswer = false;
   int currentQuestion = 0;
+  int rightAnswered = 0;
+  QuizShowStatus status = QuizShowStatus.question;
+  bool userCorrectAnswered = false;
+  double userScore = 0;
 
   void nextQuestion(){
     currentQuestion += 1;
-    question = quiz.questions[currentQuestion];
+    if (currentQuestion < quiz.questions.length) {
+      question = quiz.questions[currentQuestion];
+      status = QuizShowStatus.question;
+    } else {
+      status = QuizShowStatus.result;
+      userScore = rightAnswered / quiz.questions.length * 100;
+    }
     notifyListeners();
   }
 
   void showAnswers(int containerIndex){
-    showAnswer = true;
     if(question.answers[containerIndex].isCorrect){
-      print('Correct');
+      userCorrectAnswered = true;
+      rightAnswered += 1;
     }
     else{
-      print('Incorrect');
+      userCorrectAnswered = false;
     }
-    // notifyListeners();
+    status = QuizShowStatus.answer;
+    notifyListeners();
   }
 
 }
