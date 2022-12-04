@@ -6,6 +6,7 @@ import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/quiz/add/screens/add_quiz_page.dart';
 
 import '../flashcard/add/screens/flashcard_add.dart';
+import '../friends/screens/requests_page.dart';
 import '../home/screens/home_page.dart';
 import '../login_register/screens/login_page.dart';
 import '../login_register/screens/registration_page.dart';
@@ -58,6 +59,11 @@ List<GoRoute> myRoutes(){
       path: '/friends', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
       const FriendsPage(),
+    ),
+    GoRoute(
+      path: '/requests',
+      builder: (BuildContext context, GoRouterState state) =>
+      const RequestsPage(),
     ),
     GoRoute(
       path: '/pomodoro',
