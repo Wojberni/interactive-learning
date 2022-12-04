@@ -30,10 +30,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             title: 'Interactive Learning',
             routerConfig: CustomRouter(initialRoute: snapshot.data!),
+            debugShowCheckedModeBanner: false,
           );
         } else {
           return const MaterialApp(
             title: 'Interactive Learning',
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
