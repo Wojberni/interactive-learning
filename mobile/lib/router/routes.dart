@@ -5,6 +5,7 @@ import 'package:mobile/friends/screens/friends_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/quiz/add/screens/add_quiz_page.dart';
 
+import '../add/screens/choose_method.dart';
 import '../flashcard/add/screens/flashcard_add.dart';
 import '../friends/screens/requests_page.dart';
 import '../home/screens/home_page.dart';
@@ -50,13 +51,18 @@ List<GoRoute> myRoutes(){
       builder: (BuildContext context, GoRouterState state) =>
       const ProfilePage(),
     ),
-    GoRoute(
+/*    GoRoute(
       path: '/search', // temporary path
+      builder: (BuildContext context, GoRouterState state) =>
+      const AddQuizPage(),
+    ),*/
+    GoRoute(
+      path: '/add/quiz',
       builder: (BuildContext context, GoRouterState state) =>
       const AddQuizPage(),
     ),
     GoRoute(
-      path: '/friends', // temporary path
+      path: '/friends',
       builder: (BuildContext context, GoRouterState state) =>
       const FriendsPage(),
     ),
@@ -66,7 +72,12 @@ List<GoRoute> myRoutes(){
       const RequestsPage(),
     ),
     GoRoute(
-      path: '/pomodoro',
+      path: '/add',
+      builder: (BuildContext context, GoRouterState state) =>
+      const ChooseMethod(),
+    ),
+    GoRoute(
+      path: '/add/flashcard',
       builder: (BuildContext context, GoRouterState state) =>
       const AddFlashcardPage(),
     )
