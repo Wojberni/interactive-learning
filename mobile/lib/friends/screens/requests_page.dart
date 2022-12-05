@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/friends/data/requests_list_data.dart';
 import 'package:mobile/profile/widgets/navigation_button.dart';
 
@@ -154,11 +153,10 @@ class _RequestsPageState extends State<RequestsPage> {
                     ],
                   ),
                 ),
-                const CustomNavigationBar(),
               ],
             );
           } else {
-            return const Text('Pobieranie danych', textAlign: TextAlign.center);
+            return const Center(child: CircularProgressIndicator(),);
           }
         },
       ),

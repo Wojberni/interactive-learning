@@ -141,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             );
           } else {
-            return const Text('Pobieranie danych', textAlign: TextAlign.center);
+            return const Center(child: CircularProgressIndicator(),);
           }
         },
       ),

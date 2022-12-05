@@ -168,7 +168,7 @@ class _FriendsPageState extends State<FriendsPage> {
               ],
             );
           } else {
-            return const Text('Pobieranie danych', textAlign: TextAlign.center);
+            return const Center(child: CircularProgressIndicator(),);
           }
         },
       ),
