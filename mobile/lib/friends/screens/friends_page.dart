@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
@@ -11,7 +12,7 @@ import 'package:mobile/quiz/add/widgets/custom_form_field.dart';
 
 import '../../common/helpers/snackbar.dart';
 import '../data/friends_list_data.dart';
-import '../data/get_friends_list.dart';
+import '../data/get_friends_and_requests_list.dart';
 
 class FriendsPage extends StatefulWidget {
   const FriendsPage({super.key});
@@ -53,25 +54,24 @@ class _FriendsPageState extends State<FriendsPage> {
                 Flexible(
                   child: ListView(
                     padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
                     children: [
                       Row(
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(top: screenHeight * 0.02),
-                            child: Image.asset('assets/images/friends.png',
+                          Image.asset('assets/images/friends.png',
                                 width: 70, height: 70),
-                          ),
                           const Expanded(
                             child: Text(
                               'Znajomi',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 36,
+                                  fontSize: 40,
                                   color: Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
-                          )
+                          ),
+                          IconButton(onPressed: () => context.go('/requests'), iconSize: 70,
+                            icon: const Icon(Icons.email_outlined, color: Colors.deepPurpleAccent),)
                         ],
                       ),
                       CustomFormField(
@@ -168,7 +168,7 @@ class _FriendsPageState extends State<FriendsPage> {
               ],
             );
           } else {
-            return const Text('Pobieranie danych', textAlign: TextAlign.center);
+            return const Center(child: CircularProgressIndicator(),);
           }
         },
       ),

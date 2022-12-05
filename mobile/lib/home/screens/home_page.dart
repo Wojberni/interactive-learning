@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       'Daily Challenge',
       'Losowe zadanie',
       'Wyszukiwanie',
-      'Ulubione'
+      'Dodaj'
     ];
     final List<Color> tilesColors = [
       const Color(0xFF38FE40),
@@ -29,13 +29,13 @@ class _HomePageState extends State<HomePage> {
       'assets/images/daily_challenge.png',
       'assets/images/random_task.png',
       'assets/images/search.png',
-      'assets/images/pomodoro.png'
+      'assets/images/add_home.png'
     ];
     final List<String> tilesRoutes = [
       '/daily_challenge',
       '/random_task',
       '/search',
-      '/pomodoro'
+      '/add'
     ];
 
     return Scaffold(
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 child: const Center(
                   child: Text(
-                    "Logo <- Interactive Learning App",
+                    "Interactive Learning App",
                     style: TextStyle(
                         fontSize: 24,
                         color: Colors.black,
