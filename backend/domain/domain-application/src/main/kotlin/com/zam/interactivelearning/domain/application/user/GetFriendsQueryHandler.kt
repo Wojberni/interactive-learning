@@ -22,6 +22,8 @@ class GetFriendsQueryHandler(
             Friend(
                 it.id,
                 it.username,
+                it.quizScores.sumOf { it.score },
+                it.dailyStreak
             )
         }
     }
