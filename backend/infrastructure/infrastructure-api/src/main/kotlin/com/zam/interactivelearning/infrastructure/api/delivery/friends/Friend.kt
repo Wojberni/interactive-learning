@@ -7,4 +7,8 @@ data class Friend(
     val id: Long,
     @get: NotNull
     val username: String,
+    @get: NotNull
+    val score: Int,
+    @get: NotNull
+    val dailyStreak: Int,
 )
