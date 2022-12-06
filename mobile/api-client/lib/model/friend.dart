@@ -15,30 +15,42 @@ class Friend {
   Friend({
     required this.id,
     required this.username,
+    required this.score,
+    required this.dailyStreak,
   });
 
   int id;
 
   String username;
 
+  int score;
+
+  int dailyStreak;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is Friend &&
      other.id == id &&
-     other.username == username;
+     other.username == username &&
+     other.score == score &&
+     other.dailyStreak == dailyStreak;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id.hashCode) +
-    (username.hashCode);
+    (username.hashCode) +
+    (score.hashCode) +
+    (dailyStreak.hashCode);
 
   @override
-  String toString() => 'Friend[id=$id, username=$username]';
+  String toString() => 'Friend[id=$id, username=$username, score=$score, dailyStreak=$dailyStreak]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
       json[r'id'] = this.id;
       json[r'username'] = this.username;
+      json[r'score'] = this.score;
+      json[r'dailyStreak'] = this.dailyStreak;
     return json;
   }
 
@@ -63,6 +75,8 @@ class Friend {
       return Friend(
         id: mapValueOfType<int>(json, r'id')!,
         username: mapValueOfType<String>(json, r'username')!,
+        score: mapValueOfType<int>(json, r'score')!,
+        dailyStreak: mapValueOfType<int>(json, r'dailyStreak')!,
       );
     }
     return null;
@@ -114,6 +128,8 @@ class Friend {
   static const requiredKeys = <String>{
     'id',
     'username',
+    'score',
+    'dailyStreak',
   };
 }
 
