@@ -40,7 +40,9 @@ class FriendsEndpointHelper(
             friends.map {
                 Friend(
                     it.id,
-                    it.username
+                    it.username,
+                    it.score,
+                    it.dailyStreak
                 )
             }
         )
