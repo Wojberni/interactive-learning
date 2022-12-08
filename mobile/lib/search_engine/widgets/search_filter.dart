@@ -10,8 +10,8 @@ class SearchFilter extends StatelessWidget{
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        FilterContainer(searchItemType: SearchItemType.quiz),
-        FilterContainer(searchItemType: SearchItemType.flashcard),
+        FilterContainer(searchFilterType: SearchFilterType.quiz),
+        FilterContainer(searchFilterType: SearchFilterType.flashcard),
       ],
     );
   }

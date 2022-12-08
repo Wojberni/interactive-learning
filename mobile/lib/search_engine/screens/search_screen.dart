@@ -6,6 +6,7 @@ import 'package:mobile/search_engine/widgets/search_engine_header.dart';
 import 'package:mobile/search_engine/widgets/search_filter.dart';
 
 enum SearchItemType{ quiz, flashcard, }
+enum SearchFilterType{ all, quiz, flashcard, }
 
 class SearchScreenPage extends StatelessWidget {
   const SearchScreenPage({super.key});
@@ -15,12 +16,12 @@ class SearchScreenPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: const [
-            SearchEngineHeader(),
+          children: [
+            const SearchEngineHeader(),
             SearchBar(),
-            SearchFilter(),
-            SearchContainer(),
-            CustomNavigationBar(),
+            const SearchFilter(),
+            const SearchContainer(),
+            const CustomNavigationBar(),
           ],
         ),
       ),

@@ -6,8 +6,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/router/custom_router.dart';
 import 'package:mobile/router/initialize_route.dart';
+import 'package:provider/provider.dart';
 
 import 'api/ApiClient.dart';
+import 'common/providers/search_quiz_provider.dart';
 import 'firebase_options.dart';
 
 Future main() async {
@@ -27,11 +29,7 @@ class MyApp extends StatelessWidget {
       future: _initializeEnvironment(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return MaterialApp.router(
-            title: 'Interactive Learning',
-            routerConfig: CustomRouter(initialRoute: snapshot.data!),
-            debugShowCheckedModeBanner: false,
-          );
+          return _showMaterialRouter(snapshot.data!);
         } else {
           return const MaterialApp(
             title: 'Interactive Learning',
@@ -46,6 +44,20 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+Widget _showMaterialRouter(String initialRoute) {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider<SearchScreenProvider>(
+          create: (_) => SearchScreenProvider()),
+    ],
+    child: MaterialApp.router(
+      title: 'Interactive Learning',
+      routerConfig: CustomRouter(initialRoute: initialRoute),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 Future<String> _initializeEnvironment() async {

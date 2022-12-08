@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import '../../common/providers/search_quiz_provider.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+  SearchBar({super.key});
 
   final String _hintText = "Szukaj...";
   final Color _fillInputColor = const Color(0xFFB1FAFF);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -13,33 +17,38 @@ class SearchBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       child: Row(children: [
         Expanded(
-          child: TextFormField(
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(50),
-            ],
-            // validator: () => print("Lol"),
-            onTap: () {
-              FocusScope.of(context).unfocus();
-              TextEditingController().clear();
-            },
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: _fillInputColor,
-              hintText: _hintText,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+          child: Form(
+            key: _formKey,
+            child: TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(50),
+              ],
+              onSaved: (value) {
+                context.read<SearchScreenProvider>().query = value!;
+              },
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                TextEditingController().clear();
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: _fillInputColor,
+                hintText: _hintText,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
               ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-            ),
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 24,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+              ),
             ),
           ),
         ),
         GestureDetector(
-          onTap: () => print("clicked search button"),
+          onTap: () => _saveInput(),
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: Container(
@@ -60,5 +69,9 @@ class SearchBar extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  _saveInput(){
+    _formKey.currentState!.save();
   }
 }
