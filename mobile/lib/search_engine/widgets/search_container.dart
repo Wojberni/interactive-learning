@@ -24,7 +24,7 @@ class _SearchContainerState extends State<SearchContainer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<SearchScreenProvider>().futureItems,
+      future: context.watch<SearchScreenProvider>().futureItems,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Consumer<SearchScreenProvider>(
@@ -32,7 +32,7 @@ class _SearchContainerState extends State<SearchContainer> {
                 _buildListView(provider, snapshot.data),
           );
         } else if (snapshot.hasError) {
-          return Expanded(child: Text('Error: ${snapshot.error}'));
+          return Expanded(child: Center(child: Text('Error: ${snapshot.error}')));
         } else {
           return const Expanded(
             child: Center(
