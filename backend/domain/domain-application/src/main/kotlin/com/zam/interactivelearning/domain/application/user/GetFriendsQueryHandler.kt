@@ -5,7 +5,6 @@ import com.zam.interactivelearning.domain.api.friends.Friend
 import com.zam.interactivelearning.domain.api.user.GetFriendsQuery
 import com.zam.interactivelearning.domain.application.user.persistence.UserRepository
 import org.springframework.transaction.annotation.Transactional
-import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 
 @Transactional
