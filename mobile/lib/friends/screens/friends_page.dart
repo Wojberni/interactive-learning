@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
+import 'package:mobile/friends/widgets/daily_streak_tile.dart';
+import 'package:mobile/friends/widgets/number_of_points_tile.dart';
 import 'package:mobile/login_register/extensions/custom_validation_extension.dart';
 import 'package:mobile/profile/widgets/navigation_button.dart';
 import 'package:mobile/quiz/add/widgets/custom_form_field.dart';
@@ -53,13 +55,14 @@ class _FriendsPageState extends State<FriendsPage> {
               children: [
                 Flexible(
                   child: ListView(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05,
+                        vertical: screenHeight * 0.02),
                     children: [
                       Row(
                         children: <Widget>[
                           Image.asset('assets/images/friends.png',
-                                width: 70, height: 70),
+                              width: 70, height: 70),
                           const Expanded(
                             child: Text(
                               'Znajomi',
@@ -70,8 +73,12 @@ class _FriendsPageState extends State<FriendsPage> {
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
-                          IconButton(onPressed: () => context.go('/requests'), iconSize: 70,
-                            icon: const Icon(Icons.email_outlined, color: Colors.deepPurpleAccent),)
+                          IconButton(
+                            onPressed: () => context.go('/requests'),
+                            iconSize: 70,
+                            icon: const Icon(Icons.email_outlined,
+                                color: Colors.deepPurpleAccent),
+                          )
                         ],
                       ),
                       CustomFormField(
@@ -94,10 +101,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         child: const Text(
                           'Lista znajomych',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 36,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
+                          style: TextStyle(fontSize: 36, color: Colors.black),
                         ),
                       ),
                       Padding(
@@ -113,10 +117,31 @@ class _FriendsPageState extends State<FriendsPage> {
                                         (BuildContext context, int index) {
                                       return Card(
                                           child: ListTile(
-                                        title: Text(friendsListData.friends
-                                            .toList()
-                                            .elementAt(index)
-                                            .username),
+                                        title: Row(
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              friendsListData.friends
+                                                  .toList()
+                                                  .elementAt(index)
+                                                  .username,
+                                              style:
+                                                  const TextStyle(fontSize: 24),
+                                            )),
+                                            DailyStreakTile(
+                                                dailyStreak: friendsListData
+                                                    .friends
+                                                    .toList()
+                                                    .elementAt(index)
+                                                    .dailyStreak),
+                                            NumberOfPointsTile(
+                                                numOfPoints: friendsListData
+                                                    .friends
+                                                    .toList()
+                                                    .elementAt(index)
+                                                    .score)
+                                          ],
+                                        ),
                                         tileColor: Colors.grey[200],
                                         onTap: () {
                                           showDialog<String>(
@@ -168,7 +193,9 @@ class _FriendsPageState extends State<FriendsPage> {
               ],
             );
           } else {
-            return const Center(child: CircularProgressIndicator(),);
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
