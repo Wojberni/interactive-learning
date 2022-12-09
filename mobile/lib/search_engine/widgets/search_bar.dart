@@ -24,7 +24,7 @@ class SearchBar extends StatelessWidget {
                 LengthLimitingTextInputFormatter(50),
               ],
               onSaved: (value) {
-                context.read<SearchScreenProvider>().query = value!;
+                context.read<SearchScreenProvider>().searchForItems(value!);
               },
               onTap: () {
                 FocusScope.of(context).unfocus();

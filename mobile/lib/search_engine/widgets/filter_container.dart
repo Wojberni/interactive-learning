@@ -11,14 +11,12 @@ class FilterContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _setFilter(context),
+      onTap: () =>
+          context.read<SearchScreenProvider>().setFilter(searchFilterType),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: const Color(0xFF000000),
-            width: 1,
-          ),
+          border: _setBorder(context),
           borderRadius: BorderRadius.circular(10),
           color: const Color(0xFFB1FFB1),
         ),
@@ -28,14 +26,14 @@ class FilterContainer extends StatelessWidget {
   }
 
   Widget _getImage() {
-    if(searchFilterType == SearchFilterType.quiz){
+    if (searchFilterType == SearchFilterType.quiz) {
       return Image.asset(
         'assets/images/quiz.png',
         width: 40,
         height: 40,
       );
     }
-    if(searchFilterType == SearchFilterType.flashcard){
+    if (searchFilterType == SearchFilterType.flashcard) {
       return Image.asset(
         'assets/images/flash-cards.png',
         width: 40,
@@ -45,12 +43,15 @@ class FilterContainer extends StatelessWidget {
     return const SizedBox();
   }
 
-  _setFilter(BuildContext context){
-    SearchFilterType searchFilterType = context.read<SearchScreenProvider>().filter;
-    if(searchFilterType == this.searchFilterType){
-      context.read<SearchScreenProvider>().filter = SearchFilterType.all;
-    } else {
-      context.read<SearchScreenProvider>().filter = this.searchFilterType;
-    }
+  Border _setBorder(BuildContext context) {
+    return context.watch<SearchScreenProvider>().filter == searchFilterType
+        ? Border.all(
+            color: Colors.red,
+            width: 3,
+          )
+        : Border.all(
+            color: const Color(0xFF000000),
+            width: 1,
+          );
   }
 }
