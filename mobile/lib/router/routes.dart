@@ -4,8 +4,9 @@ import 'package:mobile/flashcard/show/screens/flashcard_page.dart';
 import 'package:mobile/friends/screens/friends_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
 import 'package:mobile/quiz/add/screens/add_quiz_page.dart';
+import 'package:mobile/search_engine/screens/search_screen.dart';
 
-import '../add/screens/choose_method.dart';
+import '../add/screens/choose_method_page.dart';
 import '../flashcard/add/screens/flashcard_add.dart';
 import '../friends/screens/requests_page.dart';
 import '../home/screens/home_page.dart';
@@ -51,11 +52,11 @@ List<GoRoute> myRoutes(){
       builder: (BuildContext context, GoRouterState state) =>
       const ProfilePage(),
     ),
-/*    GoRoute(
+    GoRoute(
       path: '/search', // temporary path
       builder: (BuildContext context, GoRouterState state) =>
-      const AddQuizPage(),
-    ),*/
+      const SearchScreenPage(),
+    ),
     GoRoute(
       path: '/add/quiz',
       builder: (BuildContext context, GoRouterState state) =>
@@ -74,7 +75,7 @@ List<GoRoute> myRoutes(){
     GoRoute(
       path: '/add',
       builder: (BuildContext context, GoRouterState state) =>
-      const ChooseMethod(),
+      const ChooseMethodPage(),
     ),
     GoRoute(
       path: '/add/flashcard',
