@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/common/providers/search_quiz_provider.dart';
-import 'package:mobile/search_engine/screens/search_screen.dart';
+import 'package:mobile/search_engine/dto/item_dto.dart';
 import 'package:provider/provider.dart';
 
 class FilterContainer extends StatelessWidget {
-  final SearchFilterType searchFilterType;
+  final ItemType itemType;
 
-  const FilterContainer({super.key, required this.searchFilterType});
+  const FilterContainer({super.key, required this.itemType});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          context.read<SearchScreenProvider>().setFilter(searchFilterType),
+          context.read<SearchScreenProvider>().setFilter(itemType),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -26,14 +26,14 @@ class FilterContainer extends StatelessWidget {
   }
 
   Widget _getImage() {
-    if (searchFilterType == SearchFilterType.quiz) {
+    if (itemType == ItemType.quiz) {
       return Image.asset(
         'assets/images/quiz.png',
         width: 40,
         height: 40,
       );
     }
-    if (searchFilterType == SearchFilterType.flashcard) {
+    if (itemType == ItemType.flashcard) {
       return Image.asset(
         'assets/images/flash-cards.png',
         width: 40,
@@ -44,7 +44,7 @@ class FilterContainer extends StatelessWidget {
   }
 
   Border _setBorder(BuildContext context) {
-    return context.watch<SearchScreenProvider>().filter == searchFilterType
+    return context.watch<SearchScreenProvider>().filter == itemType
         ? Border.all(
             color: Colors.red,
             width: 3,

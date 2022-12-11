@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/search_engine/screens/search_screen.dart';
+import 'package:mobile/search_engine/dto/item_dto.dart';
 import 'package:mobile/search_engine/widgets/filter_container.dart';
 
 class SearchFilter extends StatelessWidget{
@@ -10,8 +10,8 @@ class SearchFilter extends StatelessWidget{
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        FilterContainer(searchFilterType: SearchFilterType.quiz),
-        FilterContainer(searchFilterType: SearchFilterType.flashcard),
+        FilterContainer(itemType: ItemType.quiz),
+        FilterContainer(itemType: ItemType.flashcard),
       ],
     );
   }

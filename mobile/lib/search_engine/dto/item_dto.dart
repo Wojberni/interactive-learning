@@ -1,4 +1,4 @@
-enum ItemType{ quiz, flashcard, }
+enum ItemType{ quiz, flashcard, all}
 
 class ItemDto {
   ItemDto(
@@ -10,22 +10,22 @@ class ItemDto {
   final int id;
   final String title;
   final String description;
-  final String kind;
+  final ItemType kind;
 
   factory ItemDto.fromJson(Map<String, dynamic> json) => ItemDto(
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      kind: json['kind']);
+      kind: getItemType(json['kind']));
+}
 
-  static ItemType getItemType(String kind){
-    switch(kind){
-      case 'QUIZ':
-        return ItemType.quiz;
-      case 'FLASHCARD':
-        return ItemType.flashcard;
-      default:
-        throw Exception('Unknown item type');
-    }
+ItemType getItemType(String kind){
+  switch(kind){
+    case 'QUIZ':
+      return ItemType.quiz;
+    case 'FLASHCARD':
+      return ItemType.flashcard;
+    default:
+      throw Exception('Unknown item type');
   }
 }

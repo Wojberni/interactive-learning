@@ -60,6 +60,8 @@ class SearchItem extends StatelessWidget {
           width: 50,
           height: 50,
         );
+      default:
+        throw Exception("Invalid item type");
     }
   }
 
@@ -73,6 +75,8 @@ class SearchItem extends StatelessWidget {
         return const Text(
           'Fiszka',
         );
+      default:
+        throw Exception("Invalid item type");
     }
   }
 
