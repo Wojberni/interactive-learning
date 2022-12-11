@@ -4,8 +4,7 @@ import 'package:mobile/search_engine/widgets/search_item.dart';
 import 'package:provider/provider.dart';
 
 import '../dto/get_items.dart';
-import '../dto/quizzes_dto.dart';
-import '../screens/search_screen.dart';
+import '../dto/item_dto.dart';
 
 class SearchContainer extends StatefulWidget {
   const SearchContainer({super.key});
@@ -18,7 +17,7 @@ class _SearchContainerState extends State<SearchContainer> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchScreenProvider>().futureItems = getAllItems();
+    context.read<SearchScreenProvider>().futureItems = getItemsList("");
   }
 
   @override
@@ -44,21 +43,28 @@ class _SearchContainerState extends State<SearchContainer> {
     );
   }
 
-  Widget _buildListView(SearchScreenProvider provider, QuizzesDto? quizzesDto) {
-    if (quizzesDto == null) {
-      throw Exception('quiz list cant be null');
+  Widget _buildListView(SearchScreenProvider provider, List<ItemDto>? items) {
+    if(items == null) {
+      throw Exception("items is null");
     }
-    provider.items = quizzesDto;
+    if (items.isEmpty) {
+      return const Expanded(
+        child: Center(
+          child: Text('No items found'),
+        ),
+      );
+    }
+    provider.items = items;
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView.builder(
-          itemCount: provider.items.quizzes.length,
+          itemCount: provider.items.length,
           itemBuilder: (context, index) {
             return SearchItem(
               itemIndex: index,
-              searchItemType: SearchItemType.quiz,
-              itemDescription: provider.items.quizzes[index].description,
+              itemType: ItemDto.getItemType(provider.items[index].kind),
+              itemDescription: provider.items[index].title,
             );
           },
         ),

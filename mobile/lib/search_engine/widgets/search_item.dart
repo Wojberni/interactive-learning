@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/search_engine/screens/search_screen.dart';
+import 'package:mobile/search_engine/dto/item_dto.dart';
 
 class SearchItem extends StatelessWidget {
   final int itemIndex;
   final String itemDescription;
-  final SearchItemType searchItemType;
+  final ItemType itemType;
 
   const SearchItem(
       {super.key,
       required this.itemIndex,
-      required this.searchItemType,
+      required this.itemType,
       required this.itemDescription});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => print('clicked $itemIndex'),
+      onTap: () => _handleNavigationTap(),
       child: Container(
         decoration: BoxDecoration(
           color: _setColor(),
@@ -47,14 +47,14 @@ class SearchItem extends StatelessWidget {
   }
 
   Widget _itemImage() {
-    switch (searchItemType) {
-      case SearchItemType.quiz:
+    switch (itemType) {
+      case ItemType.quiz:
         return Image.asset(
           "assets/images/quiz.png",
           width: 50,
           height: 50,
         );
-      case SearchItemType.flashcard:
+      case ItemType.flashcard:
         return Image.asset(
           "assets/images/flash-cards.png",
           width: 50,
@@ -64,14 +64,15 @@ class SearchItem extends StatelessWidget {
   }
 
   Widget _itemType() {
-    switch (searchItemType) {
-      case SearchItemType.quiz:
+    switch (itemType) {
+      case ItemType.quiz:
         return const Text(
           'Quiz',
-          textAlign: TextAlign.end,
         );
-      case SearchItemType.flashcard:
-        return const Text('Fiszka');
+      case ItemType.flashcard:
+        return const Text(
+          'Fiszka',
+        );
     }
   }
 
@@ -81,5 +82,9 @@ class SearchItem extends StatelessWidget {
     } else {
       return const Color(0xFFE3E3E3);
     }
+  }
+
+  void _handleNavigationTap() {
+
   }
 }

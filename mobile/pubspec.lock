@@ -337,7 +337,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.2"
+    version: "5.2.4"
   graphs:
     dependency: transitive
     description:
@@ -406,7 +406,7 @@ packages:
     description:
       path: "mobile/api-client"
       ref: generated-api-client
-      resolved-ref: "7563be2cce28dc7759ade53f1a8327500e9312c8"
+      resolved-ref: "8fa9209d8cb20d5ea977ac3b2ac12bb3a0392f09"
       url: "https://github.com/Wojberni/interactive-learning.git"
     source: git
     version: "1.0.0"
