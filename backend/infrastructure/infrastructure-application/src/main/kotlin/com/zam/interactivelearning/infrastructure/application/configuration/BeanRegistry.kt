@@ -12,6 +12,7 @@ import com.zam.interactivelearning.domain.application.notifications.GetAllNotifi
 import com.zam.interactivelearning.domain.application.notifications.GetNotificationTargetQueryHandler
 import com.zam.interactivelearning.domain.application.notifications.RegisterOrUpdateDeviceTokenCommandHandler
 import com.zam.interactivelearning.domain.application.quiz.*
+import com.zam.interactivelearning.domain.application.search.SearchActivityQueryHandler
 import com.zam.interactivelearning.domain.application.user.*
 import com.zam.interactivelearning.events.AsynchronousEventsConfiguration
 import com.zam.interactivelearning.events.EventPublisher
@@ -26,6 +27,8 @@ import com.zam.interactivelearning.infrastructure.application.delivery.notificat
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.QuizEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.helper.QuizEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.quiz.validator.CreateQuizRequestValidator
+import com.zam.interactivelearning.infrastructure.application.delivery.search.SearchEndpoint
+import com.zam.interactivelearning.infrastructure.application.delivery.search.helper.SearchEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.delivery.user.UserEndpoint
 import com.zam.interactivelearning.infrastructure.application.delivery.user.helper.UserEndpointHelper
 import com.zam.interactivelearning.infrastructure.application.exceptionhandlers.DomainExceptionHandler
@@ -88,6 +91,7 @@ class BeanRegistry {
         bean<GetAllNotificationTargetsQueryHandler>()
         bean<GetDailyChallengeQueryHandler>()
         bean<GetFinishedActivitiesCountQueryHandler>()
+        bean<SearchActivityQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
@@ -116,6 +120,9 @@ class BeanRegistry {
         bean<FriendsEndpointHelper>()
         bean<NotificationsEndpoint>()
         bean<NotificationsEndpointHelper>()
+        bean<SearchEndpoint>()
+        bean<SearchEndpointHelper>()
+
     }
 
     private fun registerCqrsBeans() = beans {
