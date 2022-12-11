@@ -73,6 +73,3 @@ lib/model/search_response.dart
 lib/model/search_result.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
-test/search_endpoint_api_test.dart
-test/search_response_test.dart
-test/search_result_test.dart
