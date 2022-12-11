@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.context.WebApplicationContext
 
 @IntegrationTest
@@ -30,7 +31,10 @@ class FlashcardEndpointTest(
     }
 
     @Test
+    @Transactional
     fun `should create a new flashcard`() {
+        flashcardRepository.deleteAll()
+
         Given {
             header(getAuthHeader(userJwt))
             body(getCreateFlashcardRequest())

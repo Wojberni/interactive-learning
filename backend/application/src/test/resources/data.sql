@@ -19,4 +19,7 @@ insert into answers(id, content, is_correct, question_id, created_by) values
     (next value for answers_id_seq, 'Alexander Graham Bell', true, select id from questions where content = 'Who invented the telephone?', 1),
     (next value for answers_id_seq, 'Thomas Edison', false, select id from questions where content = 'Who invented the telephone?', 1),
     (next value for answers_id_seq, 'Nikola Tesla', false, select id from questions where content = 'Who invented the telephone?', 1);
-    
+
+insert into flashcards(id, content, answer, created_by) values
+    (next value for flashcards_id_seq, 'What is the capital of Poland?', 'Warsaw', 1),
+    (next value for flashcards_id_seq, 'aha Polish Monarchs oho', 'Test', 1);
