@@ -32,6 +32,7 @@ part 'api/flashcard_endpoint_api.dart';
 part 'api/friends_endpoint_api.dart';
 part 'api/notifications_endpoint_api.dart';
 part 'api/quiz_endpoint_api.dart';
+part 'api/search_endpoint_api.dart';
 part 'api/user_endpoint_api.dart';
 
 part 'model/accept_or_reject_friend_request.dart';
@@ -54,6 +55,8 @@ part 'model/quiz_question.dart';
 part 'model/register_or_update_device_token_request.dart';
 part 'model/register_user_request.dart';
 part 'model/report_quiz_score_request.dart';
+part 'model/search_response.dart';
+part 'model/search_result.dart';
 part 'model/user_profile_response.dart';
 
 

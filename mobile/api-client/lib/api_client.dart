@@ -221,6 +221,10 @@ class ApiClient {
           return RegisterUserRequest.fromJson(value);
         case 'ReportQuizScoreRequest':
           return ReportQuizScoreRequest.fromJson(value);
+        case 'SearchResponse':
+          return SearchResponse.fromJson(value);
+        case 'SearchResult':
+          return SearchResult.fromJson(value);
         case 'UserProfileResponse':
           return UserProfileResponse.fromJson(value);
         default:

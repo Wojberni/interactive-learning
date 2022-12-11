@@ -27,6 +27,9 @@ doc/QuizQuestion.md
 doc/RegisterOrUpdateDeviceTokenRequest.md
 doc/RegisterUserRequest.md
 doc/ReportQuizScoreRequest.md
+doc/SearchEndpointApi.md
+doc/SearchResponse.md
+doc/SearchResult.md
 doc/UserEndpointApi.md
 doc/UserProfileResponse.md
 git_push.sh
@@ -36,6 +39,7 @@ lib/api/flashcard_endpoint_api.dart
 lib/api/friends_endpoint_api.dart
 lib/api/notifications_endpoint_api.dart
 lib/api/quiz_endpoint_api.dart
+lib/api/search_endpoint_api.dart
 lib/api/user_endpoint_api.dart
 lib/api_client.dart
 lib/api_exception.dart
@@ -65,5 +69,10 @@ lib/model/quiz_question.dart
 lib/model/register_or_update_device_token_request.dart
 lib/model/register_user_request.dart
 lib/model/report_quiz_score_request.dart
+lib/model/search_response.dart
+lib/model/search_result.dart
 lib/model/user_profile_response.dart
 pubspec.yaml
+test/search_endpoint_api_test.dart
+test/search_response_test.dart
+test/search_result_test.dart
