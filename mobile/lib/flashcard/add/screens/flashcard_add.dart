@@ -34,14 +34,14 @@ class _AddFlashcardPageState extends State<AddFlashcardPage> {
             CustomFormField(
               hintText: 'Pytanie',
               inputFormatters: [
-                LengthLimitingTextInputFormatter(150),
+                LengthLimitingTextInputFormatter(100),
               ],
               validator: (value) => validateQuestion(value),
             ),
             CustomFormField(
               hintText: 'Odpowiedź',
               inputFormatters: [
-                LengthLimitingTextInputFormatter(150),
+                LengthLimitingTextInputFormatter(100),
               ],
               validator: (value) => validateAnswer(value),
             ),
