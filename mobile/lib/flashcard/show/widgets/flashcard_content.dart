@@ -43,7 +43,7 @@ class FlashcardContent extends StatelessWidget {
                   padding: const EdgeInsets.all(30),
                   child: Text(
                     text,
-                    style: const TextStyle(fontSize: 40),
+                    style: const TextStyle(fontSize: 25),
                     selectionColor: Colors.white,
                   )))
         ],
