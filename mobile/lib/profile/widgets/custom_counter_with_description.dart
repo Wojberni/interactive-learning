@@ -26,7 +26,7 @@ class CustomCounterWithDescription extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: screenHeight * 0.02),
+          padding: EdgeInsets.only(bottom: screenHeight * 0.015),
           child: Text(
             text,
             textAlign: TextAlign.center,

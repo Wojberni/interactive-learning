@@ -122,16 +122,19 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: screenHeight * 0.1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            NavigationButton(
-                                'Znajomi', () => context.go('/friends')),
-                            NavigationButton('Wyloguj',
-                                () => {logout(), context.go('/auth/login')}),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                        child: SizedBox(
+                          height: screenHeight * 0.1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              NavigationButton(
+                                  'Znajomi', () => context.go('/friends')),
+                              NavigationButton('Wyloguj',
+                                      () => {logout(), context.go('/auth/login')}),
+                            ],
+                          ),
                         ),
                       ),
                     ],
