@@ -8,9 +8,8 @@ class HeartFavourite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40,
-      height: 40,
-      color: const Color(0xFFECECEC),
+      width: 80,
+      height: 80,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -20,8 +19,8 @@ class HeartFavourite extends StatelessWidget {
         isFavourite
             ? 'assets/images/unfilled_heart.png'
             : 'assets/images/filled_heart.png',
-        width: 30,
-        height: 30,
+        width: 70,
+        height: 70,
       ),
     );
   }

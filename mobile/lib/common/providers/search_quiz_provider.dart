@@ -29,9 +29,6 @@ class SearchScreenProvider with ChangeNotifier {
   }
 
   void filterResults() {
-    if (items.results.isEmpty) {
-      return;
-    }
     if (filter == ItemType.all) {
       filteredItems = items;
     } else {
