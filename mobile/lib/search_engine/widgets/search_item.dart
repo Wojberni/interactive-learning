@@ -90,15 +90,6 @@ class SearchItem extends StatelessWidget {
   }
 
   void _handleNavigationTap(BuildContext context) {
-    switch (itemType) {
-      case ItemType.quiz:
-        // TODO: add router after quiz has router with id
-        break;
-      case ItemType.flashcard:
-        context.go('/flashcard/' + itemIndex.toString());
-        break;
-      default:
-        break;
-    }
+    
   }
 }
