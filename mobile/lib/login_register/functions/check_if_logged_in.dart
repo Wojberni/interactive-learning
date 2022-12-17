@@ -5,13 +5,16 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../api/ApiClient.dart';
 
 Future<bool> checkIfLoggedIn() async {
+  bool isLoggedIn = false;
   var storage = const FlutterSecureStorage();
   await storage.read(key: 'token').then((value) {
     if (value == null || JwtDecoder.isExpired(value)) {
-      return false;
+      isLoggedIn = false;
     }
-    apiClient.addDefaultHeader('token', value);
-    return true;
+    else{
+      apiClient.addDefaultHeader('token', value);
+      isLoggedIn = true;
+    }
   });
-  return false;
+  return isLoggedIn;
 }

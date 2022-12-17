@@ -8,7 +8,9 @@ import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/profile/widgets/custom_counter_with_description.dart';
 import 'package:mobile/profile/widgets/navigation_button.dart';
 import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
+import 'package:provider/provider.dart';
 
+import '../../login_register/providers/auth_provider.dart';
 import '../data/get_user_profile.dart';
 import '../data/profile_page_data.dart';
 
@@ -130,7 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             NavigationButton(
                                 'Znajomi', () => context.goNamed('friends')),
                             NavigationButton('Wyloguj',
-                                () => {logout(), context.goNamed('login')}),
+                                () => {logout(), context.read<AuthProvider>().setAuthenticated(false),
+                                  context.goNamed('login')}),
                           ],
                         ),
                       ),
