@@ -16,6 +16,8 @@ class SearchResult {
     required this.id,
     required this.title,
     required this.description,
+    required this.author,
+    required this.successRate,
     required this.kind,
   });
 
@@ -25,6 +27,10 @@ class SearchResult {
 
   String description;
 
+  String author;
+
+  int successRate;
+
   SearchResultKindEnum kind;
 
   @override
@@ -32,6 +38,8 @@ class SearchResult {
      other.id == id &&
      other.title == title &&
      other.description == description &&
+     other.author == author &&
+     other.successRate == successRate &&
      other.kind == kind;
 
   @override
@@ -40,16 +48,20 @@ class SearchResult {
     (id.hashCode) +
     (title.hashCode) +
     (description.hashCode) +
+    (author.hashCode) +
+    (successRate.hashCode) +
     (kind.hashCode);
 
   @override
-  String toString() => 'SearchResult[id=$id, title=$title, description=$description, kind=$kind]';
+  String toString() => 'SearchResult[id=$id, title=$title, description=$description, author=$author, successRate=$successRate, kind=$kind]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
       json[r'id'] = this.id;
       json[r'title'] = this.title;
       json[r'description'] = this.description;
+      json[r'author'] = this.author;
+      json[r'successRate'] = this.successRate;
       json[r'kind'] = this.kind;
     return json;
   }
@@ -76,6 +88,8 @@ class SearchResult {
         id: mapValueOfType<int>(json, r'id')!,
         title: mapValueOfType<String>(json, r'title')!,
         description: mapValueOfType<String>(json, r'description')!,
+        author: mapValueOfType<String>(json, r'author')!,
+        successRate: mapValueOfType<int>(json, r'successRate')!,
         kind: SearchResultKindEnum.fromJson(json[r'kind'])!,
       );
     }
@@ -129,6 +143,8 @@ class SearchResult {
     'id',
     'title',
     'description',
+    'author',
+    'successRate',
     'kind',
   };
 }
