@@ -52,8 +52,11 @@ class ResultContainer extends StatelessWidget {
   }
 
   Widget _toggleFavouritesButton() {
-    return QuizButton(
-        title: 'Dodaj do ulubionych',
-        onPressed: () => print('Dodano do ulubionych'));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      child: QuizButton(
+          title: 'Dodaj do ulubionych',
+          onPressed: () => print('Dodano do ulubionych')),
+    );
   }
 }
