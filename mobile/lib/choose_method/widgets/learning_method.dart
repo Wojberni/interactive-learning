@@ -68,9 +68,9 @@ class LearningMethod extends StatelessWidget {
 
   _goToClickedPath(BuildContext context) {
     if (name == "Quiz") {
-      context.go('/add/quiz');
+      context.goNamed('add_quiz');
     } else if (name == "Fiszka") {
-      context.go('/add/flashcard');
+      context.goNamed('add_flashcard');
     }
   }
 }

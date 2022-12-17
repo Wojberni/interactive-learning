@@ -74,7 +74,7 @@ class _FriendsPageState extends State<FriendsPage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => context.go('/requests'),
+                            onPressed: () => context.goNamed('friend_requests'),
                             iconSize: 70,
                             icon: const Icon(Icons.email_outlined,
                                 color: Colors.deepPurpleAccent),

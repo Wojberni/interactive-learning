@@ -142,7 +142,7 @@ class _RequestsPageState extends State<RequestsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      NavigationButton('Znajomi', () => context.go('/friends')),
+                      NavigationButton('Znajomi', () => context.goNamed('friends')),
                       NavigationButton(
                           'Odśwież',
                           () => getRequestsData().then((value) async => {

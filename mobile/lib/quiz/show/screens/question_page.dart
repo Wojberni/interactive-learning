@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
+import 'package:mobile/common/providers/search_quiz_provider.dart';
 import 'package:mobile/quiz/show/provider/show_quiz_provider.dart';
 import 'package:mobile/quiz/show/widgets/answer_container.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,9 @@ import '../widgets/result_container.dart';
 import '../widgets/wrong_answer_container.dart';
 
 class QuestionPage extends StatelessWidget {
-  const QuestionPage({super.key});
+  final String id;
+
+  const QuestionPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,8 @@ class QuestionPage extends StatelessWidget {
                       quiz.questions[provider.userQuizData.currentQuestion];
                 }
                 return Consumer<ShowQuizProvider>(
-                  builder: (context, provider, child) => _listView(provider),
+                  builder: (context, provider, child) =>
+                      _listView(context, provider),
                 );
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
@@ -51,23 +55,29 @@ class QuestionPage extends StatelessWidget {
     );
   }
 
-  Widget _listView(ShowQuizProvider provider) {
+  Widget _listView(BuildContext context, ShowQuizProvider provider) {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
         const QuizTitleContainer(title: 'Title of the quiz'),
-        _showCurrentWidget(provider),
+        _showCurrentWidget(context, provider),
       ],
     );
   }
 
-  Widget _showCurrentWidget(ShowQuizProvider provider) {
+  Widget _showCurrentWidget(BuildContext context, ShowQuizProvider provider) {
     switch (provider.userQuizData.status) {
       case QuizShowStatus.question:
         return _showQuestion(provider);
       case QuizShowStatus.answer:
         return _showAnswer(provider);
       case QuizShowStatus.result:
+        int integerId = context
+            .read<SearchScreenProvider>()
+            .filteredItems
+            .results[int.parse(id)]
+            .id;
+        provider.sendResult(integerId, context);
         return _showResult(provider);
     }
   }
@@ -113,8 +123,13 @@ class QuestionPage extends StatelessWidget {
   }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {
+    final int quizId = context
+        .read<SearchScreenProvider>()
+        .filteredItems
+        .results[int.parse(id)]
+        .id;
     QuizDetailsResponse? response =
-        await QuizEndpointApi(apiClient).getDailyChallenge();
+        await QuizEndpointApi(apiClient).getQuizById(quizId);
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return QuizDto.fromJson(json);
