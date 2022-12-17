@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/search_engine/dto/item_dto.dart';
 
 class SearchItem extends StatelessWidget {
@@ -15,7 +16,7 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _handleNavigationTap(),
+      onTap: () => _handleNavigationTap(context),
       child: Container(
         decoration: BoxDecoration(
           color: _setColor(),
@@ -88,7 +89,16 @@ class SearchItem extends StatelessWidget {
     }
   }
 
-  void _handleNavigationTap() {
-
+  void _handleNavigationTap(BuildContext context) {
+    switch (itemType) {
+      case ItemType.quiz:
+        // TODO: add router after quiz has router with id
+        break;
+      case ItemType.flashcard:
+        context.go('/flashcard/' + itemIndex.toString());
+        break;
+      default:
+        break;
+    }
   }
 }
