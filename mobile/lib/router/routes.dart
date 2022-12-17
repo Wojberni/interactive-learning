@@ -33,27 +33,33 @@ List<GoRoute> myRoutes() {
       name: 'home',
       builder: (BuildContext context, GoRouterState state) => const HomePage(),
     ),
-    GoRoute(
+/*    GoRoute(
       path: '/daily_challenge',
       name: 'daily_challenge',
       builder: (BuildContext context, GoRouterState state) => const QuizPage(),
-    ),
-/*    GoRoute(
+    ),*/
+    GoRoute(
       path: '/show/quiz/:id',
       name: 'show_quiz',
-      builder: (BuildContext context, GoRouterState state) => const ShowQuiz(id: state.params['id']),
-    ),*/
+      builder: (BuildContext context, GoRouterState state) => QuizPage(id: state.params['id']!),
+    ),
+    GoRoute(
+      path: '/show/quiz/questions/:id',
+      name: 'show_quiz_questions',
+      builder: (BuildContext context, GoRouterState state) =>
+          QuestionPage(id: state.params['id']!),
+    ),
 /*    GoRoute(
       path: '/show/flashcard/:id',
       name: 'show_flashcard',
       builder: (BuildContext context, GoRouterState state) => const ShowFlashcard(id: state.params['id']),
     ),*/
-    GoRoute(
+/*    GoRoute(
       path: '/daily_challenge/question',
       name: 'daily_challenge_question',
       builder: (BuildContext context, GoRouterState state) =>
           const QuestionPage(),
-    ),
+    ),*/
     GoRoute(
       path: '/random_task',
       name: 'random_task',

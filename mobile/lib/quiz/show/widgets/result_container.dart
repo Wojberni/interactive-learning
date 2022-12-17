@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/quiz/common/widgets/quiz_button.dart';
 import 'package:mobile/quiz/show/widgets/high_score_container.dart';
 
 import '../provider/show_quiz_provider.dart';
@@ -34,6 +35,7 @@ class ResultContainer extends StatelessWidget {
             ),
           ),
           _showScore(),
+          _toggleFavouritesButton(),
         ],
       ),
     );
@@ -41,9 +43,17 @@ class ResultContainer extends StatelessWidget {
 
   Widget _showScore() {
     if (provider.userQuizData.userScore >= 50.0) {
-      return HighScoreContainer(score: '${provider.userQuizData.userScore.toStringAsFixed(0)}%');
+      return HighScoreContainer(
+          score: '${provider.userQuizData.userScore.toStringAsFixed(0)}%');
     } else {
-      return LowScoreContainer(score: '${provider.userQuizData.userScore.toStringAsFixed(0)}%');
+      return LowScoreContainer(
+          score: '${provider.userQuizData.userScore.toStringAsFixed(0)}%');
     }
+  }
+
+  Widget _toggleFavouritesButton() {
+    return QuizButton(
+        title: 'Dodaj do ulubionych',
+        onPressed: () => print('Dodano do ulubionych'));
   }
 }

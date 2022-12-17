@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/header_quiz_page.dart';
 import '../widgets/heart_favourite.dart';
@@ -7,7 +9,9 @@ import '../../common/widgets/quiz_button.dart';
 import '../widgets/quiz_page_text_container.dart';
 
 class QuizPage extends StatelessWidget {
-  const QuizPage({super.key});
+  final String id;
+
+  const QuizPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +20,25 @@ class QuizPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             const HeaderQuizPage(),
-            const Text(
-              'Daily Challenge',
+            Text(
+              context
+                  .read<SearchScreenProvider>()
+                  .filteredItems
+                  .results[int.parse(id)]
+                  .title,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: Text(
-                'This is your daily challenge.',
-                style: TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
+                context
+                    .read<SearchScreenProvider>()
+                    .filteredItems
+                    .results[int.parse(id)]
+                    .description,
+                style:
+                    const TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
               ),
             ),
             const QuizPageTestContainer('Liczba pytań', '10'),
@@ -38,8 +51,8 @@ class QuizPage extends StatelessWidget {
                 children: <Widget>[
                   QuizButton(
                     title: 'Start',
-                    onPressed: () =>
-                        context.goNamed('daily_challenge_question'),
+                    onPressed: () => context
+                        .goNamed('show_quiz_questions', params: {'id': id}),
                   ),
                   const HeartFavourite(isFavourite: true),
                 ],
