@@ -5,4 +5,6 @@ class SearchActivityResult(
     val title: String,
     val description: String,
     val kind: ActivityKind,
+    val authorId: Long,
+    val successRate: Int,
 )

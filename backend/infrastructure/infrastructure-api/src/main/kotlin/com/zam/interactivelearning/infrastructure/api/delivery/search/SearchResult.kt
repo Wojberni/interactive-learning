@@ -10,5 +10,9 @@ data class SearchResult(
     @get: NotNull
     val description: String,
     @get: NotNull
+    val author: String,
+    @get: NotNull
+    val successRate: Int,
+    @get: NotNull
     val kind: ActivityKind,
 )
