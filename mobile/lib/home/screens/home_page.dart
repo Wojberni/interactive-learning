@@ -42,19 +42,29 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           child: Column(
             children: [
-              Container(
-                height: 60,
-                color: Colors.white,
-                child: const Center(
-                  child: Text(
-                    "Interactive Learning App",
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        backgroundColor: Colors.white,
-                        fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Image.asset('assets/images/logo.png', width: 50, height: 50),
                   ),
-                ),
+                  Container(
+                    height: 60,
+                    color: Colors.white,
+                    child: const Center(
+                      child: Text(
+                        "Interactive Learning App",
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black,
+                            backgroundColor: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ],
               ),
               Flexible(
                 child: GridView.count(
