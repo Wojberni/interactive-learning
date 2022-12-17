@@ -38,6 +38,16 @@ List<GoRoute> myRoutes() {
       name: 'daily_challenge',
       builder: (BuildContext context, GoRouterState state) => const QuizPage(),
     ),
+/*    GoRoute(
+      path: '/show/quiz/:id',
+      name: 'show_quiz',
+      builder: (BuildContext context, GoRouterState state) => const ShowQuiz(id: state.params['id']),
+    ),*/
+/*    GoRoute(
+      path: '/show/flashcard/:id',
+      name: 'show_flashcard',
+      builder: (BuildContext context, GoRouterState state) => const ShowFlashcard(id: state.params['id']),
+    ),*/
     GoRoute(
       path: '/daily_challenge/question',
       name: 'daily_challenge_question',
