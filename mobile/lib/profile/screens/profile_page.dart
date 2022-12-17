@@ -10,6 +10,7 @@ import 'package:mobile/profile/widgets/navigation_button.dart';
 import 'package:mobile/profile/widgets/profile_page_icon_with_description.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/widgets/navigation_bar_selection.dart';
 import '../../login_register/providers/auth_provider.dart';
 import '../data/get_user_profile.dart';
 import '../data/profile_page_data.dart';
@@ -140,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                const CustomNavigationBar(),
+                const CustomNavigationBar(selectedIndex: NavigationBarSelection.profile),
               ],
             );
           } else {
