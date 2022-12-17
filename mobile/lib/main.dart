@@ -26,39 +26,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initializeEnvironmentAndLogIn(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return _showMaterialRouter(snapshot.data!);
-        } else {
-          return const MaterialApp(
-            title: 'Interactive Learning',
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
-        }
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SearchScreenProvider>(
+            create: (_) => SearchScreenProvider()),
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+      ],
+      child: FutureBuilder(
+        future: _initializeEnvironmentAndLogIn(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            context.read<AuthProvider>().setAuthenticated(snapshot.data!);
+            return _showMaterialRouter(snapshot.data!);
+          } else {
+            return _showLoadingScreen();
+          }
+        },
+      ),
     );
   }
 }
 
 Widget _showMaterialRouter(bool isLoggedIn) {
-  return MultiProvider(
-    providers: [
-      ChangeNotifierProvider<SearchScreenProvider>(
-          create: (_) => SearchScreenProvider()),
-      ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider()),
-    ],
-    child: MaterialApp.router(
-      title: 'Interactive Learning',
-      routerConfig: CustomRouter(loggedIn: isLoggedIn),
-      debugShowCheckedModeBanner: false,
+  return MaterialApp.router(
+    title: 'Interactive Learning',
+    routerConfig: CustomRouter(loggedIn: isLoggedIn),
+    debugShowCheckedModeBanner: false,
+  );
+}
+
+Widget _showLoadingScreen() {
+  return const MaterialApp(
+    title: 'Interactive Learning',
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     ),
   );
 }
@@ -72,9 +76,9 @@ Future<bool> _initializeEnvironmentAndLogIn() async {
   final fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
 
   bool loggedIn = await checkIfLoggedIn();
-  if (loggedIn) {
+  /*if (loggedIn) {
     NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
         RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
-  }
+  }*/
   return loggedIn;
 }

@@ -7,6 +7,5 @@ class AuthProvider with ChangeNotifier {
 
   void setAuthenticated(bool isAuthenticated) {
     _isAuthenticated = isAuthenticated;
-    notifyListeners();
   }
 }
