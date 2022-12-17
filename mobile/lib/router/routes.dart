@@ -18,69 +18,91 @@ import '../quiz/show/screens/quiz_page.dart';
 List<GoRoute> myRoutes(){
   return[
     GoRoute(
-      path: '/auth/login',
-      builder: (BuildContext context, GoRouterState state) =>
-      const LoginPage(),
-    ),
-    GoRoute(
-      path: '/auth/register',
-      builder: (BuildContext context, GoRouterState state) =>
-      const RegistrationPage(),
+      path: '/auth',
+      routes: [
+        GoRoute(
+          path: '/login',
+          name: 'login',
+          builder: (BuildContext context, GoRouterState state) =>
+          const LoginPage(),
+        ),
+        GoRoute(
+          path: '/register',
+          name: 'register',
+          builder: (BuildContext context, GoRouterState state) =>
+          const RegistrationPage(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/',
+      name: 'home',
       builder: (BuildContext context, GoRouterState state) =>
       const HomePage(),
     ),
     GoRoute(
-      path: '/daily_challenge', // temporary path
+      path: '/daily_challenge',
+      name: 'daily_challenge',
       builder: (BuildContext context, GoRouterState state) =>
       const QuizPage(),
     ),
     GoRoute(
-      path: '/daily_challenge/question', // temporary path
+      path: '/daily_challenge/question',
+      name: 'daily_challenge_question',
       builder: (BuildContext context, GoRouterState state) =>
       const QuestionPage(),
     ),
     GoRoute(
-      path: '/random_task', // temporary path
+      path: '/random_task',
+      name: 'random_task',
       builder: (BuildContext context, GoRouterState state) =>
       const FlashcardPage(),
     ),
     GoRoute(
       path: '/profile',
+      name: 'profile',
       builder: (BuildContext context, GoRouterState state) =>
       const ProfilePage(),
     ),
     GoRoute(
-      path: '/search', // temporary path
+      path: '/search',
+      name: 'search',
       builder: (BuildContext context, GoRouterState state) =>
       const SearchScreenPage(),
     ),
     GoRoute(
-      path: '/add/quiz',
+      path: '/add',
+      name: 'choose_method',
       builder: (BuildContext context, GoRouterState state) =>
-      const AddQuizPage(),
+      const ChooseMethodPage(),
+      routes: [
+        GoRoute(
+          path: '/quiz',
+          name: 'add_quiz',
+          builder: (BuildContext context, GoRouterState state) =>
+          const AddQuizPage(),
+        ),
+        GoRoute(
+          path: '/flashcard',
+          name: 'add_flashcard',
+          builder: (BuildContext context, GoRouterState state) =>
+          const AddFlashcardPage(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/friends',
+      name: 'friends',
       builder: (BuildContext context, GoRouterState state) =>
       const FriendsPage(),
+      routes: [
+        GoRoute(
+          path: '/requests',
+          name: 'friend_requests',
+          builder: (BuildContext context, GoRouterState state) =>
+          const RequestsPage(),
+        ),
+      ],
     ),
-    GoRoute(
-      path: '/requests',
-      builder: (BuildContext context, GoRouterState state) =>
-      const RequestsPage(),
-    ),
-    GoRoute(
-      path: '/add',
-      builder: (BuildContext context, GoRouterState state) =>
-      const ChooseMethodPage(),
-    ),
-    GoRoute(
-      path: '/add/flashcard',
-      builder: (BuildContext context, GoRouterState state) =>
-      const AddFlashcardPage(),
-    )
   ];
 }

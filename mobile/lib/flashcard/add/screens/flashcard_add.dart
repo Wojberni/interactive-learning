@@ -45,7 +45,7 @@ class _AddQuizPageState extends State<AddFlashcardPage>{
                   title: 'Dodaj fiszkę',
                   onPressed: () => {
                     showSnackBar(context, "Dodano fiszkę", SnackBarType.info),
-                    context.go('/'),
+                    context.goNamed('home'),
                   }
                 )
               ],

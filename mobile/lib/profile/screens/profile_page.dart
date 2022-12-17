@@ -128,9 +128,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             NavigationButton(
-                                'Znajomi', () => context.go('/friends')),
+                                'Znajomi', () => context.goNamed('friends')),
                             NavigationButton('Wyloguj',
-                                () => {logout(), context.go('/auth/login')}),
+                                () => {logout(), context.goNamed('login')}),
                           ],
                         ),
                       ),

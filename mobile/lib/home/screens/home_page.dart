@@ -32,10 +32,10 @@ class _HomePageState extends State<HomePage> {
       'assets/images/add_home.png'
     ];
     final List<String> tilesRoutes = [
-      '/daily_challenge',
-      '/random_task',
-      '/search',
-      '/add'
+      'daily_challenge',
+      'random_task',
+      'search',
+      'choose_method'
     ];
 
     return Scaffold(
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         color: tilesColors[index],
                         iconPath: tilesIcons[index],
                         onTap: () {
-                          context.go(tilesRoutes[index]);
+                          context.goNamed(tilesRoutes[index]);
                         });
                   }),
                 ),

@@ -80,7 +80,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 padding: EdgeInsets.symmetric(
                     horizontal: 15, vertical: screenHeight * 0.01),
                 child: GestureDetector(
-                  onTap: () => context.go('/auth/login'),
+                  onTap: () => context.goNamed('login'),
                   child: SizedBox(
                     width: screenWidth,
                     child: const Text(
@@ -103,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           .register(RegisterUserRequest(
               email: _email, username: _login, password: _password))
           .then((res) => {
-        context.go('auth/login'),
+        context.goNamed('login'),
         showSnackBar(context,
             'Zarejestrowano użytkownika!', SnackBarType.success)})
           .catchError((err) => {

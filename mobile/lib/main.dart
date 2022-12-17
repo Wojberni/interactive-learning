@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/login_register/functions/check_if_logged_in.dart';
+import 'package:mobile/login_register/providers/auth_provider.dart';
 import 'package:mobile/router/custom_router.dart';
-import 'package:mobile/router/initialize_route.dart';
 import 'package:provider/provider.dart';
 
 import 'api/ApiClient.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializeEnvironment(),
+      future: _initializeEnvironmentAndLogIn(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return _showMaterialRouter(snapshot.data!);
@@ -46,21 +47,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Widget _showMaterialRouter(String initialRoute) {
+Widget _showMaterialRouter(bool isLoggedIn) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<SearchScreenProvider>(
           create: (_) => SearchScreenProvider()),
+      ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider()),
     ],
     child: MaterialApp.router(
       title: 'Interactive Learning',
-      routerConfig: CustomRouter(initialRoute: initialRoute),
+      routerConfig: CustomRouter(loggedIn: isLoggedIn),
       debugShowCheckedModeBanner: false,
     ),
   );
 }
 
-Future<String> _initializeEnvironment() async {
+Future<bool> _initializeEnvironmentAndLogIn() async {
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -68,10 +71,10 @@ Future<String> _initializeEnvironment() async {
 
   final fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
 
-  String initialRoute = await getInitialRoute();
-  if (initialRoute == '/') {
+  bool loggedIn = await checkIfLoggedIn();
+  if (loggedIn) {
     NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
         RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
   }
-  return initialRoute;
+  return loggedIn;
 }

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/login_register/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../api/ApiClient.dart';
 import '../../common/helpers/snackbar.dart';
@@ -20,7 +22,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
-  final _storage  = const FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   String _login = "";
   String _password = "";
@@ -61,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                       )),
               CustomElevatedButton(
                 title: 'Rejestracja',
-                onPressed: () => context.go('/auth/register'),
+                onPressed: () => context.goNamed('register'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -92,10 +94,11 @@ class _LoginPageState extends State<LoginPage> {
           .then((value) async => {
                 apiClient.addDefaultHeader(
                     "Authorization", "Bearer ${value?.token}"),
-              await _storage.write(key: 'token', value: value?.token),
-                showSnackBar(context,
-                    'Zalogowano użytkownika!', SnackBarType.success),
-                context.go("/")
+                await _storage.write(key: 'token', value: value?.token),
+                showSnackBar(
+                    context, 'Zalogowano użytkownika!', SnackBarType.success),
+                context.read<AuthProvider>().setAuthenticated(true),
+                context.goNamed("home")
               })
           .catchError((err) => {
                 if (err.code == 403)
@@ -107,22 +110,21 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  String? validateLoginInput(String? value){
-      if (value!.isEmpty) {
-        return "Wpisz login!";
-      } else {
-        _login = value;
-        return null;
-      }
+  String? validateLoginInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz login!";
+    } else {
+      _login = value;
+      return null;
+    }
   }
 
-  String? validatePasswordInput(String? value){
-      if (value!.isEmpty) {
-        return "Wpisz hasło!";
-      } else {
-        _password = value;
-        return null;
-      }
+  String? validatePasswordInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz hasło!";
+    } else {
+      _password = value;
+      return null;
+    }
   }
-
 }

@@ -37,7 +37,7 @@ class QuizPage extends StatelessWidget {
               children: <Widget>[
                 QuizButton(
                   title: 'Start',
-                  onPressed: () => context.go('/daily_challenge/question/'),
+                  onPressed: () => context.goNamed('daily_challenge_question'),
                 ),
                 // const HeartFavourite(isFavourite: true),
               ],
