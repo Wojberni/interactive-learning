@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
+import 'package:mobile/common/providers/search_quiz_provider.dart';
 import 'package:mobile/flashcard/show/models/flashcard_dto.dart';
 import 'package:mobile/flashcard/show/widgets/flashcard_container.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/header_flashcard.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,9 @@ class _FlashcardPageState extends State<FlashcardPage> {
   String answer = "Answer";
 
   Future<FlashcardDTO?> _getFlashcard(BuildContext context) async {
+    int apiId = context.read<SearchScreenProvider>().filteredItems.results[widget.id].id;
     FlashcardDetailsResponse? response =
-        await FlashcardEndpointApi(apiClient).getById(widget.id);
+        await FlashcardEndpointApi(apiClient).getById(apiId);
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return FlashcardDTO.fromJSON(json);

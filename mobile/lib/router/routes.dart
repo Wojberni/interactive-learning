@@ -49,11 +49,11 @@ List<GoRoute> myRoutes() {
       builder: (BuildContext context, GoRouterState state) =>
           QuestionPage(id: state.params['id']!),
     ),
-/*    GoRoute(
+    GoRoute(
       path: '/show/flashcard/:id',
       name: 'show_flashcard',
-      builder: (BuildContext context, GoRouterState state) => const ShowFlashcard(id: state.params['id']),
-    ),*/
+      builder: (BuildContext context, GoRouterState state) => FlashcardPage(int.parse(state.params['id']!)),
+    ),
 /*    GoRoute(
       path: '/daily_challenge/question',
       name: 'daily_challenge_question',
