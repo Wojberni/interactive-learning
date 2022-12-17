@@ -12,7 +12,8 @@ Future<bool> checkIfLoggedIn() async {
       isLoggedIn = false;
     }
     else{
-      apiClient.addDefaultHeader('token', value);
+      apiClient.addDefaultHeader(
+          "Authorization", "Bearer $value");
       isLoggedIn = true;
     }
   });

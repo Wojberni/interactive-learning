@@ -41,7 +41,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         context.goNamed('home');
         break;
       case 1:
-        context.go('/profile');
+        context.goNamed('profile');
         break;
       case 2:
         context.goNamed('favourites');

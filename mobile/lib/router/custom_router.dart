@@ -13,7 +13,7 @@ class CustomRouter extends GoRouter {
           initialLocation: loggedIn ? '/' : '/auth/login',
           redirect: (BuildContext context, GoRouterState state) {
             final bool loggedIn = context.read<AuthProvider>().isAuthenticated;
-            final bool loggingIn = state.location == '/auth/login';
+            final bool loggingIn = state.subloc == '/auth/login';
 
             if (!loggedIn) {
               return loggingIn ? null : '/auth/login';
