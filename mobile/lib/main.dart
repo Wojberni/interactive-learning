@@ -76,9 +76,9 @@ Future<bool> _initializeEnvironmentAndLogIn() async {
   final fcmToken = await FirebaseMessaging.instance.getToken() ?? '';
 
   bool loggedIn = await checkIfLoggedIn();
-  /*if (loggedIn) {
+  if (loggedIn) {
     NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
         RegisterOrUpdateDeviceTokenRequest(token: fcmToken));
-  }*/
+  }
   return loggedIn;
 }
