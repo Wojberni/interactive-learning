@@ -65,6 +65,7 @@ List<GoRoute> myRoutes() {
       name: 'random_task',
       builder: (BuildContext context, GoRouterState state) =>
           const FlashcardPage(),
+      const FlashcardPage(1),
     ),
     GoRoute(
       path: '/profile',
