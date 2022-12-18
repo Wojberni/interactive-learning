@@ -66,7 +66,8 @@ class _FlashcardPageState extends State<FlashcardPage> {
                           case ConnectionState.none:
                           case ConnectionState.active:
                           case ConnectionState.waiting:
-                            return const Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
                           case ConnectionState.done:
                             _setFavoriteStatus();
                             if (isFavorite == true) {

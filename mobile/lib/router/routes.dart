@@ -120,5 +120,11 @@ List<GoRoute> myRoutes() {
         ),
       ],
     ),
+    GoRoute(
+      path: '/favorites',
+      name: 'favorites',
+      builder: (BuildContext context, GoRouterState state) =>
+              const FavoriteScreen(),
+    )
   ];
 }

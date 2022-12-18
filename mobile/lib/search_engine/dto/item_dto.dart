@@ -28,6 +28,8 @@ class ItemDto {
         'id': id,
         'title': title,
         'description': description,
+        'author': author,
+        'successRate': successRate,
         'kind': setItemType(kind),
       };
 }
