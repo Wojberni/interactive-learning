@@ -4,6 +4,7 @@ import 'package:mobile/search_engine/widgets/search_bar.dart';
 import 'package:mobile/search_engine/widgets/search_container.dart';
 import 'package:mobile/search_engine/widgets/search_engine_header.dart';
 import 'package:mobile/search_engine/widgets/search_filter.dart';
+import '../../common/widgets/navigation_bar_selection.dart';
 
 class SearchScreenPage extends StatelessWidget {
   const SearchScreenPage({super.key});
@@ -18,7 +19,7 @@ class SearchScreenPage extends StatelessWidget {
             SearchBar(),
             const SearchFilter(),
             const SearchContainer(),
-            const CustomNavigationBar(),
+            const CustomNavigationBar(selectedIndex: NavigationBarSelection.home),
           ],
         ),
       ),

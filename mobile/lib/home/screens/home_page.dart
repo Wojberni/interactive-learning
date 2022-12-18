@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/home/widgets/home_tile.dart';
 
+import '../../common/widgets/navigation_bar_selection.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -14,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<String> tilesTitles = [
-      'Daily Challenge',
+      'Dzienne wyzwanie',
       'Losowe zadanie',
       'Wyszukiwanie',
       'Dodaj'
@@ -40,50 +42,49 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Image.asset('assets/images/logo.png', width: 50, height: 50),
-                  ),
-                  Container(
-                    height: 60,
-                    color: Colors.white,
-                    child: const Center(
-                      child: Text(
-                        "Interactive Learning App",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.black,
-                            backgroundColor: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Flexible(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.6,
-                  children: List.generate(tilesTitles.length, (index) {
-                    return HomeTile(
-                        title: tilesTitles[index],
-                        color: tilesColors[index],
-                        iconPath: tilesIcons[index],
-                        onTap: () {
-                          context.goNamed(tilesRoutes[index]);
-                        });
-                  }),
+      child: Column(
+        children: [
+          Container(
+            height: 70,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Image.asset('assets/images/logo.png',
+                      width: 60, height: 60),
                 ),
-              ),
-              const CustomNavigationBar(),
-            ],
+                const Text(
+                  "Aplikacja do nauki",
+                  style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.black,
+                      backgroundColor: Colors.white,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
           ),
-        ));
+          Flexible(
+            child: GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 0.6,
+              children: List.generate(tilesTitles.length, (index) {
+                return HomeTile(
+                    title: tilesTitles[index],
+                    color: tilesColors[index],
+                    iconPath: tilesIcons[index],
+                    onTap: () {
+                      context.goNamed(tilesRoutes[index]);
+                    });
+              }),
+            ),
+          ),
+          const CustomNavigationBar(selectedIndex: NavigationBarSelection.home),
+        ],
+      ),
+    ));
   }
 }
