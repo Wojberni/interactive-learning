@@ -13,17 +13,11 @@ import '../widgets/heart_favourite.dart';
 import '../../common/widgets/quiz_button.dart';
 import '../widgets/quiz_page_text_container.dart';
 
-class QuizPage extends StatefulWidget {
+class QuizPage extends StatelessWidget {
   final String id;
 
   const QuizPage({super.key, required this.id});
 
-  @override
-  State<QuizPage> createState() => _QuizPageState();
-}
-
-class _QuizPageState extends State<QuizPage> {
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
                   QuizButton(
                     title: 'Start',
                     onPressed: () => context.goNamed('show_quiz_questions',
-                        params: {'id': widget.id}),
+                        params: {'id': id}),
                   ),
                   FutureBuilder(
                       future: getFavorites(),
@@ -69,14 +63,14 @@ class _QuizPageState extends State<QuizPage> {
                           for (int i = 0; i < items.results.length; i++) {
                             if (items.results[i].id == context.read<ItemListProvider>()
                               .filteredItems
-                              .results[int.parse(widget.id)].id && 
+                              .results[int.parse(id)].id && 
                               items.results[i].kind == ItemType.quiz) {
                               return const HeartFavourite(isFavourite: true);
                             }
                           }
-                          return HeartFavourite(isFavourite: isFavorite);
+                          return const HeartFavourite(isFavourite: false);
                         } else {
-                          return Text("");
+                          return const Text("");
                         }
                       }))
                 ],
@@ -89,52 +83,52 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   String _setTitle(BuildContext context) {
-    if (widget.id == 'daily_challenge') {
+    if (id == 'daily_challenge') {
       return 'Dzienne wyzwanie';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(widget.id)]
+          .results[int.parse(id)]
           .title;
     }
   }
 
   String _setDescription(BuildContext context) {
-    if (widget.id == 'daily_challenge') {
+    if (id == 'daily_challenge') {
       return 'Dzienne wyzwanie to quiz, który jest losowany raz dziennie. '
           'Spróbuj odpowiedzieć na jak najwięcej pytań!';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(widget.id)]
+          .results[int.parse(id)]
           .description;
     }
   }
 
   String _setAuthor(BuildContext context) {
-    if (widget.id == 'daily_challenge') {
+    if (id == 'daily_challenge') {
       return '?????';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(widget.id)]
+          .results[int.parse(id)]
           .author;
     }
   }
 
   String _setPercentage(BuildContext context) {
-    if (widget.id == 'daily_challenge') {
+    if (id == 'daily_challenge') {
       return '??%';
     } else {
-      return '${context.read<ItemListProvider>().filteredItems.results[int.parse(widget.id)].successRate}%';
+      return '${context.read<ItemListProvider>().filteredItems.results[int.parse(id)].successRate}%';
     }
   }
 
   Future<String?> getFavorites() async {
-    if (widget.id == 'daily_challenge') return null;
+    if (id == 'daily_challenge') return null;
     const storage = FlutterSecureStorage();
     String? idString = await storage.read(key: 'id');
     if (idString == null) return null;

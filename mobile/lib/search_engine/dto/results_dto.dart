@@ -1,7 +1,7 @@
 import 'item_dto.dart';
 
 class ResultsDto{
-  List<ItemDto> results;
+  final List<ItemDto> results;
 
   ResultsDto({
     required this.results,
