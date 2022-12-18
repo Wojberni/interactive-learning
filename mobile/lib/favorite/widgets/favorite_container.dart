@@ -58,6 +58,7 @@ class _FavoriteContainerState extends State<FavoriteContainer> {
           itemCount: provider.filteredItems.results.length,
           itemBuilder: (context, index) {
             return SearchItem(
+              itemId: provider.filteredItems.results[index].id,
               itemIndex: index,
               itemType: provider.filteredItems.results[index].kind,
               itemDescription: provider.filteredItems.results[index].title,

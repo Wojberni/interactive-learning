@@ -57,7 +57,8 @@ class _SearchContainerState extends State<SearchContainer> {
           itemCount: provider.filteredItems.results.length,
           itemBuilder: (context, index) {
             return SearchItem(
-              itemIndex: provider.filteredItems.results[index].id,
+              itemId: provider.filteredItems.results[index].id,
+              itemIndex: index,
               itemType: provider.filteredItems.results[index].kind,
               itemDescription: provider.filteredItems.results[index].title,
             );

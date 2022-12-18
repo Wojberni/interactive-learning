@@ -6,9 +6,11 @@ class SearchItem extends StatelessWidget {
   final int itemIndex;
   final String itemDescription;
   final ItemType itemType;
+  final int itemId;
 
   const SearchItem(
       {super.key,
+      required this.itemId,
       required this.itemIndex,
       required this.itemType,
       required this.itemDescription});
@@ -95,7 +97,7 @@ class SearchItem extends StatelessWidget {
         context.goNamed('show_quiz', params: {'id': itemIndex.toString()});
         break;
       case ItemType.flashcard:
-        context.goNamed('show_flashcard', params: {'id': itemIndex.toString()});
+        context.goNamed('show_flashcard', params: {'id': itemId.toString()});
         break;
       case ItemType.all:
         break;

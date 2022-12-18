@@ -25,7 +25,13 @@ class ItemListProvider with ChangeNotifier {
     String? idString = await storage.read(key: 'id');
     if (idString == null) return;
     String? result = await storage.read(key: 'favorites_' + idString);
-    if (result == null) return;
+    if (result == null) {
+      futureItems = Future<ResultsDto>.value(ResultsDto(results: []));
+      await futureItems;
+      items = ResultsDto(results: []);
+      filteredItems = ResultsDto(results: []);
+      return;
+    }
     Map<String, dynamic> json = jsonDecode(result);
     futureItems = getFuture(json).then((value) => items = value);
     await futureItems;
@@ -33,9 +39,15 @@ class ItemListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearProvider() {
+  void clearProvider() async {
+    futureItems = getEmptyFuture();
+    await futureItems;
     items = ResultsDto(results: []);
     filteredItems = ResultsDto(results: []);
+  }
+
+  Future<ResultsDto> getEmptyFuture() async {
+    return ResultsDto(results: []);
   }
 
   Future<ResultsDto> getFuture(Map<String, dynamic> json) async {
