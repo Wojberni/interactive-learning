@@ -15,9 +15,8 @@ class ResultsDto{
     );
   }
 
-  toJSONEncodable() {
-    return results.map((item) {
-      return item.toJSONEncodable();
-    }).toList();
-  }
+  Map<String, dynamic> toJson() => {
+    'results': results.map((e) => e.toJson()).toList(),
+  };
+
 }

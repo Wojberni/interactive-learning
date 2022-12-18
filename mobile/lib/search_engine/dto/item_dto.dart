@@ -18,16 +18,12 @@ class ItemDto {
       description: json['description'],
       kind: getItemType(json['kind']));
 
-  toJSONEncodable() {
-    Map<String, dynamic> m = new Map();
-
-    m['id'] = id;
-    m['description'] = description;
-    m['title'] = title;
-    m['kind'] = kind;
-
-    return m;
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'description': description,
+        'kind': setItemType(kind),
+      };
 }
 
 ItemType getItemType(String kind){
@@ -40,4 +36,16 @@ ItemType getItemType(String kind){
       throw Exception('Unknown item type');
   }
   
+}
+
+String setItemType(ItemType kind){
+  switch(kind){
+    case ItemType.quiz:
+      return 'QUIZ';
+    case ItemType.flashcard:
+      return 'FLASHCARD';
+    default:
+      throw Exception('Unknown item type');
+  }
+
 }

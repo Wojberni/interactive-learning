@@ -28,6 +28,7 @@ class SearchScreenProvider with ChangeNotifier {
     if (result == null) return;
     Map<String, dynamic> json = jsonDecode(result);
     futureItems = getFuture(json).then((value) => items = value);
+    await futureItems;
     filterResults();
     notifyListeners();
   }
