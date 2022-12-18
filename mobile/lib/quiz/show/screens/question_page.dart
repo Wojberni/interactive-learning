@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/quiz/show/provider/show_quiz_provider.dart';
 import 'package:mobile/quiz/show/widgets/answer_container.dart';
 import 'package:provider/provider.dart';
@@ -72,12 +72,7 @@ class QuestionPage extends StatelessWidget {
       case QuizShowStatus.answer:
         return _showAnswer(provider);
       case QuizShowStatus.result:
-        int integerId = context
-            .read<SearchScreenProvider>()
-            .filteredItems
-            .results[int.parse(id)]
-            .id;
-        provider.sendResult(integerId, context);
+        provider.sendResult();
         return _showResult(provider);
     }
   }
@@ -129,7 +124,7 @@ class QuestionPage extends StatelessWidget {
     }
     else{
       final int quizId = context
-          .read<SearchScreenProvider>()
+          .read<ItemListProvider>()
           .filteredItems
           .results[int.parse(id)]
           .id;
@@ -148,7 +143,7 @@ class QuestionPage extends StatelessWidget {
     }
     else{
       return context
-          .read<SearchScreenProvider>()
+          .read<ItemListProvider>()
           .filteredItems
           .results[int.parse(id)]
           .title;

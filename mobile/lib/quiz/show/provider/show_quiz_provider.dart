@@ -41,10 +41,10 @@ class ShowQuizProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> sendResult(int id, BuildContext context) async {
+  Future<String> sendResult() async {
     DefaultResponse? response = await QuizEndpointApi(apiClient)
         .reportQuizScore(ReportQuizScoreRequest(
-        quizId: id, correctAnswersCount: userQuizData.rightAnsweredCount));
+        quizId: quiz.quizId, correctAnswersCount: userQuizData.rightAnsweredCount));
     return response.toString();
   }
 }

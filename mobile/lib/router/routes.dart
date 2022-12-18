@@ -55,8 +55,7 @@ List<GoRoute> myRoutes() {
       path: '/daily_challenge',
       name: 'daily_challenge',
       redirect: (BuildContext context, GoRouterState state) {
-        return context
-            .namedLocation('show_quiz', params: {'id': 'daily_challenge'});
+        return '/show/quiz/daily_challenge';
       },
     ),
     GoRoute(

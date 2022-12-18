@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/flashcard/show/models/flashcard_dto.dart';
 import 'package:mobile/flashcard/show/widgets/flashcard_container.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
   String answer = "Answer";
 
   Future<FlashcardDTO?> _getFlashcard(BuildContext context) async {
-    int apiId = context.read<SearchScreenProvider>().filteredItems.results[widget.id].id;
+    int apiId = context.read<ItemListProvider>().filteredItems.results[widget.id].id;
     FlashcardDetailsResponse? response =
         await FlashcardEndpointApi(apiClient).getById(apiId);
     if (response != null) {

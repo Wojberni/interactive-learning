@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/search_engine/dto/item_dto.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class FilterContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          context.read<SearchScreenProvider>().setFilter(itemType),
+          context.read<ItemListProvider>().setFilter(itemType),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class FilterContainer extends StatelessWidget {
   }
 
   Border _setBorder(BuildContext context) {
-    return context.watch<SearchScreenProvider>().filter == itemType
+    return context.watch<ItemListProvider>().filter == itemType
         ? Border.all(
             color: Colors.red,
             width: 3,
