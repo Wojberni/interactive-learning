@@ -36,7 +36,6 @@ class _FlashcardPageState extends State<FlashcardPage> {
 
   @override
   Widget build(BuildContext context) {
-    _getFlashcard(context);
 
     return Scaffold(
         body: SafeArea(
