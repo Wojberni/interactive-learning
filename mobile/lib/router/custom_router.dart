@@ -14,12 +14,14 @@ class CustomRouter extends GoRouter {
           redirect: (BuildContext context, GoRouterState state) {
             final bool loggedIn = context.read<AuthProvider>().isAuthenticated;
             final bool loggingIn = state.subloc == '/auth/login';
-
+            final bool registering = state.subloc == '/auth/register';
             if (!loggedIn) {
-              return loggingIn ? null : '/auth/login';
-            }
-            if (loggingIn) {
-              return '/';
+              if (loggingIn || registering) {
+                return null;
+              }
+              else {
+                return '/auth/login';
+              }
             }
             return null;
           },
