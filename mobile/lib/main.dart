@@ -10,7 +10,7 @@ import 'package:mobile/router/custom_router.dart';
 import 'package:provider/provider.dart';
 
 import 'api/ApiClient.dart';
-import 'common/providers/search_quiz_provider.dart';
+import 'common/providers/item_list_provider.dart';
 import 'firebase_options.dart';
 
 Future main() async {
@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SearchScreenProvider>(
-            create: (_) => SearchScreenProvider()),
+        ChangeNotifierProvider<ItemListProvider>(
+            create: (_) => ItemListProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
       ],
       child: FutureBuilder(

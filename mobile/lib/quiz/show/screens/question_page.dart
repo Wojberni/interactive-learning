@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/quiz/show/provider/show_quiz_provider.dart';
 import 'package:mobile/quiz/show/widgets/answer_container.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +59,7 @@ class QuestionPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
-        const QuizTitleContainer(title: 'Title of the quiz'),
+        QuizTitleContainer(title: _setTitleQuiz(context)),
         _showCurrentWidget(context, provider),
       ],
     );
@@ -72,12 +72,7 @@ class QuestionPage extends StatelessWidget {
       case QuizShowStatus.answer:
         return _showAnswer(provider);
       case QuizShowStatus.result:
-        int integerId = context
-            .read<SearchScreenProvider>()
-            .filteredItems
-            .results[int.parse(id)]
-            .id;
-        provider.sendResult(integerId, context);
+        provider.sendResult();
         return _showResult(provider);
     }
   }
@@ -123,17 +118,41 @@ class QuestionPage extends StatelessWidget {
   }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {
-    final int quizId = context
-        .read<SearchScreenProvider>()
-        .filteredItems
-        .results[int.parse(id)]
-        .id;
-    QuizDetailsResponse? response =
-        await QuizEndpointApi(apiClient).getQuizById(quizId);
+    QuizDetailsResponse? response;
+    if (id == 'daily_challenge'){
+      response = await QuizEndpointApi(apiClient).getDailyChallenge();
+    }
+    else if(id == 'random_task'){
+      response = await QuizEndpointApi(apiClient).getRandomQuiz();
+    }
+    else{
+      final int quizId = context
+          .read<ItemListProvider>()
+          .filteredItems
+          .results[int.parse(id)]
+          .id;
+      response = await QuizEndpointApi(apiClient).getQuizById(quizId);
+    }
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return QuizDto.fromJson(json);
     }
     return null;
+  }
+
+  String _setTitleQuiz(BuildContext context){
+    if (id == 'daily_challenge'){
+      return 'Dzienne wyzwanie';
+    }
+    else if (id == 'random_task'){
+      return 'Losowe zadanie';
+    }
+    else{
+      return context
+          .read<ItemListProvider>()
+          .filteredItems
+          .results[int.parse(id)]
+          .title;
+    }
   }
 }

@@ -3,7 +3,7 @@ import 'package:mobile/search_engine/dto/get_items.dart';
 import 'package:mobile/search_engine/dto/item_dto.dart';
 import 'package:mobile/search_engine/dto/results_dto.dart';
 
-class SearchScreenProvider with ChangeNotifier {
+class ItemListProvider with ChangeNotifier {
   late Future<ResultsDto> futureItems;
   late ResultsDto items;
   late ResultsDto filteredItems;
