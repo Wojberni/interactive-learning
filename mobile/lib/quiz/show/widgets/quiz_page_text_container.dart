@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class QuizPageTestContainer extends StatelessWidget {
+class QuizPageTextContainer extends StatelessWidget {
 
   final String text;
   final String value;
 
-  const QuizPageTestContainer(this.text, this.value, {super.key});
+  const QuizPageTextContainer(this.text, this.value, {super.key});
 
   @override
   Widget build(BuildContext context) {

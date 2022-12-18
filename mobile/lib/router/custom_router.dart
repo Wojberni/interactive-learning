@@ -23,6 +23,7 @@ class CustomRouter extends GoRouter {
             }
             return null;
           },
+          redirectLimit: 100,
         );
 
   final bool loggedIn;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/providers/search_quiz_provider.dart';
+import '../../common/providers/item_list_provider.dart';
 
 class SearchBar extends StatelessWidget {
   SearchBar({super.key});
@@ -24,7 +24,7 @@ class SearchBar extends StatelessWidget {
                 LengthLimitingTextInputFormatter(50),
               ],
               onSaved: (value) {
-                context.read<SearchScreenProvider>().searchForItems(value!);
+                context.read<ItemListProvider>().searchForItems(value!);
               },
               onTap: () {
                 FocusScope.of(context).unfocus();

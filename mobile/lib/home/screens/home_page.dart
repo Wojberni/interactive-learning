@@ -4,6 +4,7 @@ import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/home/widgets/home_tile.dart';
 
 import '../../common/widgets/navigation_bar_selection.dart';
+import '../widgets/home_logo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,29 +45,7 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
       child: Column(
         children: [
-          Container(
-            height: 70,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Image.asset('assets/images/logo.png',
-                      width: 60, height: 60),
-                ),
-                const Text(
-                  "Aplikacja do nauki",
-                  style: TextStyle(
-                      fontSize: 28,
-                      color: Colors.black,
-                      backgroundColor: Colors.white,
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ),
+          const HomeLogo(),
           Flexible(
             child: GridView.count(
               crossAxisCount: 2,
