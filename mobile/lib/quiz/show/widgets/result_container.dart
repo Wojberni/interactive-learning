@@ -133,7 +133,7 @@ class _ResultContainerState extends State<ResultContainer> {
         description: quiz.description,
         author: quiz.author,
         successRate: quiz.successRate, // will be updated on click anyways
-        kind: ItemType.quiz,
+        kind: ItemType.quiz
       );
       items.results.add(newItem);
       storage.write(key: 'favorites_' + userId, value: jsonEncode(items));

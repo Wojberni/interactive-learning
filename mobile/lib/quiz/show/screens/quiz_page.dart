@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/common/providers/item_list_provider.dart';
+import 'package:mobile/search_engine/dto/item_dto.dart';
+import 'package:mobile/search_engine/dto/results_dto.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/header_quiz_page.dart';
@@ -8,13 +13,21 @@ import '../widgets/heart_favourite.dart';
 import '../../common/widgets/quiz_button.dart';
 import '../widgets/quiz_page_text_container.dart';
 
-class QuizPage extends StatelessWidget {
+class QuizPage extends StatefulWidget {
   final String id;
 
   const QuizPage({super.key, required this.id});
 
   @override
+  State<QuizPage> createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  bool isFavorite = false;
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -43,10 +56,29 @@ class QuizPage extends StatelessWidget {
                 children: <Widget>[
                   QuizButton(
                     title: 'Start',
-                    onPressed: () => context
-                        .goNamed('show_quiz_questions', params: {'id': id}),
+                    onPressed: () => context.goNamed('show_quiz_questions',
+                        params: {'id': widget.id}),
                   ),
-                  _setHeart(),
+                  FutureBuilder(
+                      future: getFavorites(),
+                      builder: ((context, snapshot) {
+                        if (snapshot.hasData) {
+                          String? data = snapshot.data!;
+                          Map<String, dynamic> json = jsonDecode(data);
+                          ResultsDto items = ResultsDto.fromJson(json);
+                          for (int i = 0; i < items.results.length; i++) {
+                            if (items.results[i].id == context.read<ItemListProvider>()
+                              .filteredItems
+                              .results[int.parse(widget.id)].id && 
+                              items.results[i].kind == ItemType.quiz) {
+                              return const HeartFavourite(isFavourite: true);
+                            }
+                          }
+                          return HeartFavourite(isFavourite: isFavorite);
+                        } else {
+                          return Text("");
+                        }
+                      }))
                 ],
               ),
             ),
@@ -57,56 +89,56 @@ class QuizPage extends StatelessWidget {
   }
 
   String _setTitle(BuildContext context) {
-    if (id == 'daily_challenge') {
+    if (widget.id == 'daily_challenge') {
       return 'Dzienne wyzwanie';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(id)]
+          .results[int.parse(widget.id)]
           .title;
     }
   }
 
   String _setDescription(BuildContext context) {
-    if (id == 'daily_challenge') {
+    if (widget.id == 'daily_challenge') {
       return 'Dzienne wyzwanie to quiz, który jest losowany raz dziennie. '
           'Spróbuj odpowiedzieć na jak najwięcej pytań!';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(id)]
+          .results[int.parse(widget.id)]
           .description;
     }
   }
 
   String _setAuthor(BuildContext context) {
-    if (id == 'daily_challenge') {
+    if (widget.id == 'daily_challenge') {
       return '?????';
     } else {
       return context
           .read<ItemListProvider>()
           .filteredItems
-          .results[int.parse(id)]
+          .results[int.parse(widget.id)]
           .author;
     }
   }
 
   String _setPercentage(BuildContext context) {
-    if (id == 'daily_challenge') {
+    if (widget.id == 'daily_challenge') {
       return '??%';
     } else {
-      return '${context.read<ItemListProvider>().filteredItems.results[int.parse(id)].successRate}%';
+      return '${context.read<ItemListProvider>().filteredItems.results[int.parse(widget.id)].successRate}%';
     }
   }
 
-  _setHeart() {
-    if (id == 'daily_challenge') {
-      return const Visibility(
-          visible: false, child: HeartFavourite(isFavourite: true));
-    } else {
-      return const HeartFavourite(isFavourite: true);
-    }
+  Future<String?> getFavorites() async {
+    if (widget.id == 'daily_challenge') return null;
+    const storage = FlutterSecureStorage();
+    String? idString = await storage.read(key: 'id');
+    if (idString == null) return null;
+    String? result = await storage.read(key: 'favorites_' + idString);
+    return result;
   }
 }
