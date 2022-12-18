@@ -33,15 +33,11 @@ List<GoRoute> myRoutes() {
       name: 'home',
       builder: (BuildContext context, GoRouterState state) => const HomePage(),
     ),
-/*    GoRoute(
-      path: '/daily_challenge',
-      name: 'daily_challenge',
-      builder: (BuildContext context, GoRouterState state) => const QuizPage(),
-    ),*/
     GoRoute(
       path: '/show/quiz/:id',
       name: 'show_quiz',
-      builder: (BuildContext context, GoRouterState state) => QuizPage(id: state.params['id']!),
+      builder: (BuildContext context, GoRouterState state) =>
+          QuizPage(id: state.params['id']!),
     ),
     GoRoute(
       path: '/show/quiz/questions/:id',
@@ -52,14 +48,25 @@ List<GoRoute> myRoutes() {
     GoRoute(
       path: '/show/flashcard/:id',
       name: 'show_flashcard',
-      builder: (BuildContext context, GoRouterState state) => FlashcardPage(int.parse(state.params['id']!)),
+      builder: (BuildContext context, GoRouterState state) =>
+          FlashcardPage(int.parse(state.params['id']!)),
     ),
-/*    GoRoute(
+    GoRoute(
+      path: '/daily_challenge',
+      name: 'daily_challenge',
+      redirect: (BuildContext context, GoRouterState state) {
+        return context
+            .namedLocation('show_quiz', params: {'id': 'daily_challenge'});
+      },
+    ),
+    GoRoute(
       path: '/daily_challenge/question',
       name: 'daily_challenge_question',
-      builder: (BuildContext context, GoRouterState state) =>
-          const QuestionPage(),
-    ),*/
+      redirect: (BuildContext context, GoRouterState state) {
+        return context.namedLocation('show_quiz_questions',
+            params: {'id': 'daily_challenge'});
+      },
+    ),
     GoRoute(
       path: '/random_task',
       name: 'random_task',

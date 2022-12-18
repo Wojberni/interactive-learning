@@ -59,7 +59,7 @@ class QuestionPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         const HeaderQuizPage(),
-        const QuizTitleContainer(title: 'Title of the quiz'),
+        QuizTitleContainer(title: _setTitleQuiz(context)),
         _showCurrentWidget(context, provider),
       ],
     );
@@ -123,17 +123,35 @@ class QuestionPage extends StatelessWidget {
   }
 
   Future<QuizDto?> _getQuiz(BuildContext context) async {
-    final int quizId = context
-        .read<SearchScreenProvider>()
-        .filteredItems
-        .results[int.parse(id)]
-        .id;
-    QuizDetailsResponse? response =
-        await QuizEndpointApi(apiClient).getQuizById(quizId);
+    QuizDetailsResponse? response;
+    if (id == 'daily_challenge'){
+      response = await QuizEndpointApi(apiClient).getDailyChallenge();
+    }
+    else{
+      final int quizId = context
+          .read<SearchScreenProvider>()
+          .filteredItems
+          .results[int.parse(id)]
+          .id;
+      response = await QuizEndpointApi(apiClient).getQuizById(quizId);
+    }
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return QuizDto.fromJson(json);
     }
     return null;
+  }
+
+  String _setTitleQuiz(BuildContext context){
+    if (id == 'daily_challenge'){
+      return 'Dzienne wyzwanie';
+    }
+    else{
+      return context
+          .read<SearchScreenProvider>()
+          .filteredItems
+          .results[int.parse(id)]
+          .title;
+    }
   }
 }
