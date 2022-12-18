@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'navigation_bar_selection.dart';
+
 class CustomNavigationBar extends StatefulWidget {
-  const CustomNavigationBar({super.key});
+  const CustomNavigationBar({super.key, required this.selectedIndex});
+
+  final NavigationBarSelection selectedIndex;
 
   @override
   State<CustomNavigationBar> createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex.index;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +28,15 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: 'Ekran główny',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'Profile',
+          label: 'Profil',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),
-          label: 'Favorites',
+          label: 'Ulubione',
         ),
       ],
       currentIndex: _selectedIndex,
@@ -38,13 +48,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     _selectedIndex = index;
     switch (index) {
       case 0:
-        context.go('/');
+        context.goNamed('home');
         break;
       case 1:
-        context.go('/profile');
+        context.goNamed('profile');
         break;
       case 2:
-        context.go('/favorites');
+        context.goNamed('favourites');
         break;
       default:
         _selectedIndex = -1;

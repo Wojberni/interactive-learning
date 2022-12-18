@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/search_engine/widgets/search_item.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +14,13 @@ class _SearchContainerState extends State<SearchContainer> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchScreenProvider>().searchForItems('');
+    context.read<ItemListProvider>().searchForItems('');
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.watch<SearchScreenProvider>().futureItems,
+      future: context.watch<ItemListProvider>().futureItems,
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -33,7 +33,7 @@ class _SearchContainerState extends State<SearchContainer> {
               return Expanded(
                   child: Center(child: Text('Error: ${snapshot.error}')));
             } else {
-              return Consumer<SearchScreenProvider>(
+              return Consumer<ItemListProvider>(
                 builder: (context, provider, child) => _buildListView(provider),
               );
             }
@@ -42,7 +42,7 @@ class _SearchContainerState extends State<SearchContainer> {
     );
   }
 
-  Widget _buildListView(SearchScreenProvider provider) {
+  Widget _buildListView(ItemListProvider provider) {
     if (provider.filteredItems.results.isEmpty) {
       return const Expanded(
         child: Center(

@@ -77,7 +77,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   build_runner_core:
     dependency: transitive
     description:
@@ -413,7 +413,7 @@ packages:
     description:
       path: "mobile/api-client"
       ref: generated-api-client
-      resolved-ref: aee3863236ef1541923ae4b7863bb062187b92e4
+      resolved-ref: "563247cf54034bf829b7b1a86a689334b379af06"
       url: "https://github.com/Wojberni/interactive-learning.git"
     source: git
     version: "1.0.0"
@@ -570,7 +570,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.4"
+    version: "6.0.5"
   pub_semver:
     dependency: transitive
     description:

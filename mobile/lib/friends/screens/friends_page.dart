@@ -13,6 +13,7 @@ import 'package:mobile/profile/widgets/navigation_button.dart';
 import 'package:mobile/quiz/add/widgets/custom_form_field.dart';
 
 import '../../common/helpers/snackbar.dart';
+import '../../common/widgets/navigation_bar_selection.dart';
 import '../data/friends_list_data.dart';
 import '../data/get_friends_and_requests_list.dart';
 
@@ -74,7 +75,7 @@ class _FriendsPageState extends State<FriendsPage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => context.go('/requests'),
+                            onPressed: () => context.goNamed('friend_requests'),
                             iconSize: 70,
                             icon: const Icon(Icons.email_outlined,
                                 color: Colors.deepPurpleAccent),
@@ -189,7 +190,7 @@ class _FriendsPageState extends State<FriendsPage> {
                     ],
                   ),
                 ),
-                const CustomNavigationBar(),
+                const CustomNavigationBar(selectedIndex: NavigationBarSelection.profile),
               ],
             );
           } else {

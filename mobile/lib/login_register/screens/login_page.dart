@@ -4,6 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:learning_api/api.dart';
+import 'package:mobile/login_register/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../api/ApiClient.dart';
 import '../../common/helpers/snackbar.dart';
@@ -62,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       )),
               CustomElevatedButton(
                 title: 'Rejestracja',
-                onPressed: () => context.go('/auth/register'),
+                onPressed: () => context.goNamed('register'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -101,7 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                 await _storage.write(key: 'id', value: id.toString()),
                 showSnackBar(
                     context, 'Zalogowano użytkownika!', SnackBarType.success),
-                context.go("/")
+                context.read<AuthProvider>().setAuthenticated(true),
+                context.goNamed("home")
               })
           .catchError((err) => {
                 if (err.code == 403)

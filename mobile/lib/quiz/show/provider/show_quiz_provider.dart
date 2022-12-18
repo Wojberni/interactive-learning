@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/quiz/show/model/user_quiz_data.dart';
+import 'package:mobile/api/ApiClient.dart';
+import 'package:learning_api/api.dart';
 
 import '../model/question_dto.dart';
 import '../model/quiz_dto.dart';
@@ -37,5 +39,12 @@ class ShowQuizProvider with ChangeNotifier {
     }
     userQuizData.status = QuizShowStatus.answer;
     notifyListeners();
+  }
+
+  Future<String> sendResult() async {
+    DefaultResponse? response = await QuizEndpointApi(apiClient)
+        .reportQuizScore(ReportQuizScoreRequest(
+        quizId: quiz.quizId, correctAnswersCount: userQuizData.rightAnsweredCount));
+    return response.toString();
   }
 }

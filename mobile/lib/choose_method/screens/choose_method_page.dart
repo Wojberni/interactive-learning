@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
+import 'package:mobile/common/widgets/navigation_bar_selection.dart';
 
 import '../widgets/choose_method_header.dart';
 import '../widgets/learning_method.dart';
@@ -36,7 +37,7 @@ class ChooseMethodPage extends StatelessWidget {
                 ],
               ),
             ),
-            const CustomNavigationBar(),
+            const CustomNavigationBar(selectedIndex: NavigationBarSelection.home),
           ]
         ),
       ),

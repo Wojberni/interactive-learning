@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/common/providers/search_quiz_provider.dart';
 import 'package:mobile/flashcard/show/models/flashcard_dto.dart';
 import 'package:mobile/flashcard/show/widgets/flashcard_container.dart';
@@ -94,8 +95,9 @@ class _FlashcardPageState extends State<FlashcardPage> {
   }
 
   Future<FlashcardDTO?> _getFlashcard(BuildContext context) async {
+    int apiId = context.read<ItemListProvider>().filteredItems.results[widget.id].id;
     FlashcardDetailsResponse? response =
-        await FlashcardEndpointApi(apiClient).getById(widget.id);
+        await FlashcardEndpointApi(apiClient).getById(apiId);
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return FlashcardDTO.fromJSON(json);
@@ -117,6 +119,8 @@ class _FlashcardPageState extends State<FlashcardPage> {
           id: widget.id,
           title: question,
           description: '',
+          author: '',
+          successRate: 0,
           kind: ItemType.flashcard);
       items.results.add(newItem);
       storage.write(key: 'favorites_' + userId, value: jsonEncode(items));

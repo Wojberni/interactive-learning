@@ -5,7 +5,7 @@ app:
     password: postgres
   security.jwt:
     tokenSecret: secret
-    tokenExpirationAfterSeconds: 3600
+    tokenExpirationAfterSeconds: 604800
     tokenIssuer: http://localhost:8080
 
 spring:

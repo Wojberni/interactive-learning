@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
 import 'package:mobile/home/widgets/home_tile.dart';
 
+import '../../common/widgets/navigation_bar_selection.dart';
+import '../widgets/home_logo.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -14,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<String> tilesTitles = [
-      'Daily Challenge',
+      'Dzienne wyzwanie',
       'Losowe zadanie',
       'Wyszukiwanie',
       'Dodaj'
@@ -32,48 +35,35 @@ class _HomePageState extends State<HomePage> {
       'assets/images/add_home.png'
     ];
     final List<String> tilesRoutes = [
-      '/daily_challenge',
-      '/random_task',
-      '/search',
-      '/add'
+      'daily_challenge',
+      'random_task',
+      'search',
+      'choose_method'
     ];
 
     return Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                height: 60,
-                color: Colors.white,
-                child: const Center(
-                  child: Text(
-                    "Interactive Learning App",
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        backgroundColor: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.6,
-                  children: List.generate(tilesTitles.length, (index) {
-                    return HomeTile(
-                        title: tilesTitles[index],
-                        color: tilesColors[index],
-                        iconPath: tilesIcons[index],
-                        onTap: () {
-                          context.go(tilesRoutes[index]);
-                        });
-                  }),
-                ),
-              ),
-              const CustomNavigationBar(),
-            ],
+      child: Column(
+        children: [
+          const HomeLogo(),
+          Flexible(
+            child: GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 0.6,
+              children: List.generate(tilesTitles.length, (index) {
+                return HomeTile(
+                    title: tilesTitles[index],
+                    color: tilesColors[index],
+                    iconPath: tilesIcons[index],
+                    onTap: () {
+                      context.goNamed(tilesRoutes[index]);
+                    });
+              }),
+            ),
           ),
-        ));
+          const CustomNavigationBar(selectedIndex: NavigationBarSelection.home),
+        ],
+      ),
+    ));
   }
 }

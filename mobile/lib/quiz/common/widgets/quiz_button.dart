@@ -21,8 +21,9 @@ class QuizButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Center(
-        child:
-            Text(title, style: const TextStyle(fontSize: 24, color: Colors.blue)),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 24, color: Colors.blue)),
       ),
     );
   }

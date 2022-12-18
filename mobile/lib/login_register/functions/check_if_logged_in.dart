@@ -1,17 +1,21 @@
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../api/ApiClient.dart';
+import '../../api/ApiClient.dart';
 
-Future<String> getInitialRoute() async {
-  String initialRoute = '/auth/login';
+Future<bool> checkIfLoggedIn() async {
+  bool isLoggedIn = false;
   var storage = const FlutterSecureStorage();
   await storage.read(key: 'token').then((value) {
     if (value == null || JwtDecoder.isExpired(value)) {
-      return initialRoute;
+      isLoggedIn = false;
     }
-    initialRoute = '/';
-    apiClient.addDefaultHeader("Authorization", "Bearer $value");
+    else{
+      apiClient.addDefaultHeader(
+          "Authorization", "Bearer $value");
+      isLoggedIn = true;
+    }
   });
-  return initialRoute;
+  return isLoggedIn;
 }

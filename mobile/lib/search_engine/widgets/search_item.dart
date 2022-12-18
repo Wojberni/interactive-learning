@@ -90,6 +90,15 @@ class SearchItem extends StatelessWidget {
   }
 
   void _handleNavigationTap(BuildContext context) {
-    
+    switch (itemType) {
+      case ItemType.quiz:
+        context.goNamed('show_quiz', params: {'id': itemIndex.toString()});
+        break;
+      case ItemType.flashcard:
+        context.goNamed('show_flashcard', params: {'id': itemIndex.toString()});
+        break;
+      case ItemType.all:
+        break;
+    }
   }
 }
