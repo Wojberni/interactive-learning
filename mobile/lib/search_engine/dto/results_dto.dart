@@ -1,7 +1,7 @@
 import 'item_dto.dart';
 
 class ResultsDto{
-  final List<ItemDto> results;
+  List<ItemDto> results;
 
   ResultsDto({
     required this.results,
@@ -13,5 +13,11 @@ class ResultsDto{
           .map((e) => ItemDto.fromJson(e))
           .toList(),
     );
+  }
+
+  toJSONEncodable() {
+    return results.map((item) {
+      return item.toJSONEncodable();
+    }).toList();
   }
 }

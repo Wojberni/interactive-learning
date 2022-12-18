@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:learning_api/api.dart';
 
 import '../../api/ApiClient.dart';
@@ -20,7 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _backgroundColor = const Color(0xFF090546);
-  final _storage  = const FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   String _login = "";
   String _password = "";
@@ -86,15 +87,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void handleLogin() {
+    int id;
+    Map<String, dynamic> payload;
     if (_formKey.currentState!.validate()) {
       AuthEndpointApi(apiClient)
           .login(LoginUserRequest(username: _login, password: _password))
           .then((value) async => {
                 apiClient.addDefaultHeader(
                     "Authorization", "Bearer ${value?.token}"),
-              await _storage.write(key: 'token', value: value?.token),
-                showSnackBar(context,
-                    'Zalogowano użytkownika!', SnackBarType.success),
+                await _storage.write(key: 'token', value: value?.token),
+                payload = JwtDecoder.decode(value!.token),
+                id = payload['id'],
+                await _storage.write(key: 'id', value: id.toString()),
+                showSnackBar(
+                    context, 'Zalogowano użytkownika!', SnackBarType.success),
                 context.go("/")
               })
           .catchError((err) => {
@@ -107,22 +113,21 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  String? validateLoginInput(String? value){
-      if (value!.isEmpty) {
-        return "Wpisz login!";
-      } else {
-        _login = value;
-        return null;
-      }
+  String? validateLoginInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz login!";
+    } else {
+      _login = value;
+      return null;
+    }
   }
 
-  String? validatePasswordInput(String? value){
-      if (value!.isEmpty) {
-        return "Wpisz hasło!";
-      } else {
-        _password = value;
-        return null;
-      }
+  String? validatePasswordInput(String? value) {
+    if (value!.isEmpty) {
+      return "Wpisz hasło!";
+    } else {
+      _password = value;
+      return null;
+    }
   }
-
 }
