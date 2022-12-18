@@ -122,6 +122,9 @@ class QuestionPage extends StatelessWidget {
     if (id == 'daily_challenge'){
       response = await QuizEndpointApi(apiClient).getDailyChallenge();
     }
+    else if(id == 'random_task'){
+      response = await QuizEndpointApi(apiClient).getRandomQuiz();
+    }
     else{
       final int quizId = context
           .read<ItemListProvider>()
@@ -140,6 +143,9 @@ class QuestionPage extends StatelessWidget {
   String _setTitleQuiz(BuildContext context){
     if (id == 'daily_challenge'){
       return 'Dzienne wyzwanie';
+    }
+    else if (id == 'random_task'){
+      return 'Losowe zadanie';
     }
     else{
       return context

@@ -69,8 +69,9 @@ List<GoRoute> myRoutes() {
     GoRoute(
       path: '/random_task',
       name: 'random_task',
-      builder: (BuildContext context, GoRouterState state) =>
-          const FlashcardPage(1),
+      redirect: (BuildContext context, GoRouterState state) {
+        return '/show/quiz/questions/random_task';
+      },
     ),
     GoRoute(
       path: '/profile',

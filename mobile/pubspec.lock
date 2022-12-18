@@ -406,7 +406,7 @@ packages:
     description:
       path: "mobile/api-client"
       ref: generated-api-client
-      resolved-ref: a456dc5bf6d94783f44df95a93ed6e2ad5dd4707
+      resolved-ref: "563247cf54034bf829b7b1a86a689334b379af06"
       url: "https://github.com/Wojberni/interactive-learning.git"
     source: git
     version: "1.0.0"
