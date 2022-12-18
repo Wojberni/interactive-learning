@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
+import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/search_engine/widgets/search_item.dart';
 import 'package:provider/provider.dart';
 
@@ -14,14 +14,14 @@ class _FavoriteContainerState extends State<FavoriteContainer> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchScreenProvider>().clearProvider();
-    context.read<SearchScreenProvider>().getFavorites();
+    context.read<ItemListProvider>().clearProvider();
+    context.read<ItemListProvider>().getFavorites();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.watch<SearchScreenProvider>().futureItems,
+      future: context.watch<ItemListProvider>().futureItems,
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -34,7 +34,7 @@ class _FavoriteContainerState extends State<FavoriteContainer> {
               return const Expanded(
                   child: Center(child: Text('No favorites found')));
             } else {
-              return Consumer<SearchScreenProvider>(
+              return Consumer<ItemListProvider>(
                 builder: (context, provider, child) => _buildListView(provider),
               );
             }
@@ -43,7 +43,7 @@ class _FavoriteContainerState extends State<FavoriteContainer> {
     );
   }
 
-  Widget _buildListView(SearchScreenProvider provider) {
+  Widget _buildListView(ItemListProvider provider) {
     if (provider.filteredItems.results.isEmpty) {
       return const Expanded(
         child: Center(

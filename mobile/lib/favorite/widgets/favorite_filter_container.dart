@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
 import 'package:mobile/search_engine/dto/item_dto.dart';
-import 'package:provider/provider.dart';
 
 class FavoriteFilterContainer extends StatelessWidget {
   final ItemType itemType;

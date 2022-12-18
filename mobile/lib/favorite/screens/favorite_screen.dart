@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/common/widgets/custom_navigation_bar.dart';
+import 'package:mobile/common/widgets/navigation_bar_selection.dart';
 import 'package:mobile/favorite/widgets/favorite_container.dart';
 import 'package:mobile/favorite/widgets/favorite_header.dart';
 import 'package:mobile/search_engine/widgets/search_filter.dart';
@@ -22,7 +23,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           FavoriteHeader(),
           SearchFilter(),
           FavoriteContainer(),
-          CustomNavigationBar(),
+          CustomNavigationBar(selectedIndex: NavigationBarSelection.favourites),
         ],
       ),
     ));

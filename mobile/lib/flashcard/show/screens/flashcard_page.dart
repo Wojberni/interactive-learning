@@ -4,7 +4,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/api/ApiClient.dart';
 import 'package:mobile/common/providers/item_list_provider.dart';
-import 'package:mobile/common/providers/search_quiz_provider.dart';
 import 'package:mobile/flashcard/show/models/flashcard_dto.dart';
 import 'package:mobile/flashcard/show/widgets/flashcard_container.dart';
 import 'package:mobile/profile/widgets/navigation_button.dart';
@@ -31,8 +30,8 @@ class _FlashcardPageState extends State<FlashcardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchScreenProvider>().clearProvider();
-    context.read<SearchScreenProvider>().getFavorites();
+    context.read<ItemListProvider>().clearProvider();
+    context.read<ItemListProvider>().getFavorites();
   }
 
   @override
@@ -61,7 +60,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 20),
                     child: FutureBuilder(
-                      future: context.watch<SearchScreenProvider>().futureItems,
+                      future: context.watch<ItemListProvider>().futureItems,
                       builder: (context, snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.none:
@@ -95,9 +94,8 @@ class _FlashcardPageState extends State<FlashcardPage> {
   }
 
   Future<FlashcardDTO?> _getFlashcard(BuildContext context) async {
-    int apiId = context.read<ItemListProvider>().filteredItems.results[widget.id].id;
     FlashcardDetailsResponse? response =
-        await FlashcardEndpointApi(apiClient).getById(apiId);
+        await FlashcardEndpointApi(apiClient).getById(widget.id);
     if (response != null) {
       Map<String, dynamic> json = jsonDecode(jsonEncode(response));
       return FlashcardDTO.fromJSON(json);
@@ -110,7 +108,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
     String? userId = await storage.read(key: 'id');
     if (userId == null) return;
     ResultsDto items =
-        Provider.of<SearchScreenProvider>(context, listen: false).items;
+        Provider.of<ItemListProvider>(context, listen: false).items;
 
     int idx = _findTaskInFavorites();
 
@@ -138,7 +136,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
 
   int _findTaskInFavorites() {
     ResultsDto items =
-        Provider.of<SearchScreenProvider>(context, listen: false).items;
+        Provider.of<ItemListProvider>(context, listen: false).items;
     int idx = -1;
     for (int i = 0; i < items.results.length; i++) {
       if (items.results[i].id == widget.id &&
