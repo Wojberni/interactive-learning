@@ -110,14 +110,12 @@ List<GoRoute> myRoutes() {
       name: 'friends',
       builder: (BuildContext context, GoRouterState state) =>
           const FriendsPage(),
-      routes: [
-        GoRoute(
-          path: 'requests',
-          name: 'friend_requests',
-          builder: (BuildContext context, GoRouterState state) =>
-              const RequestsPage(),
-        ),
-      ],
+    ),
+    GoRoute(
+      path: '/requests',
+      name: 'friend_requests',
+      builder: (BuildContext context, GoRouterState state) =>
+          const RequestsPage(),
     ),
   ];
 }
