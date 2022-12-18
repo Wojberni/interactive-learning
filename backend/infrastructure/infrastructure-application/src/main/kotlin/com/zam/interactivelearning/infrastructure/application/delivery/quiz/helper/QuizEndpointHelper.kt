@@ -4,6 +4,7 @@ import com.zam.interactivelearning.cqrs.CqrsExecutor
 import com.zam.interactivelearning.domain.api.dailychallenge.GetDailyChallengeQuery
 import com.zam.interactivelearning.domain.api.quiz.GetAllQuizzesQuery
 import com.zam.interactivelearning.domain.api.quiz.GetQuizByIdQuery
+import com.zam.interactivelearning.domain.api.quiz.GetRandomQuizQuery
 import com.zam.interactivelearning.domain.api.quiz.SaveQuizScoreCommand
 import com.zam.interactivelearning.domain.api.user.GetUsernameByIdQuery
 import com.zam.interactivelearning.infrastructure.api.delivery.common.RequestValidator
@@ -56,5 +57,10 @@ class QuizEndpointHelper(
             reportQuizScoreRequest.quizId,
             reportQuizScoreRequest.correctAnswersCount,
         ))
+    }
+
+    fun getRandomQuiz(): QuizDetailsResponse {
+        return executor.executeQuery(GetRandomQuizQuery())
+            .toQuizDetailsResponse()
     }
 }

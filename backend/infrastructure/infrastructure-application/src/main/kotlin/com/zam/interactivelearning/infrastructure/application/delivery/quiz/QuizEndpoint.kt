@@ -58,4 +58,10 @@ class QuizEndpoint(
         helper.reportQuizScore(reportQuizScoreRequest)
         return DefaultResponse()
     }
+
+    @GetMapping("/random")
+    @Operation(summary = "Get a random quiz", description = "Returns a random quiz with all questions and answers")
+    fun getRandomQuiz(): QuizDetailsResponse {
+        return helper.getRandomQuiz()
+    }
 }
