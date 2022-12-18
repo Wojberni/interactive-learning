@@ -14,4 +14,9 @@ class ResultsDto{
           .toList(),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'results': results.map((e) => e.toJson()).toList(),
+  };
+
 }

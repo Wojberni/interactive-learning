@@ -23,6 +23,15 @@ class ItemDto {
       author: json['author'],
       successRate: json['successRate'],
       kind: getItemType(json['kind']));
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'description': description,
+        'author': author,
+        'successRate': successRate,
+        'kind': setItemType(kind),
+      };
 }
 
 ItemType getItemType(String kind) {
@@ -34,4 +43,17 @@ ItemType getItemType(String kind) {
     default:
       throw Exception('Unknown item type');
   }
+  
+}
+
+String setItemType(ItemType kind){
+  switch(kind){
+    case ItemType.quiz:
+      return 'QUIZ';
+    case ItemType.flashcard:
+      return 'FLASHCARD';
+    default:
+      throw Exception('Unknown item type');
+  }
+
 }

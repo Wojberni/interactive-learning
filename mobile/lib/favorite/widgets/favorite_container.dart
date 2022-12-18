@@ -3,18 +3,19 @@ import 'package:mobile/common/providers/item_list_provider.dart';
 import 'package:mobile/search_engine/widgets/search_item.dart';
 import 'package:provider/provider.dart';
 
-class SearchContainer extends StatefulWidget {
-  const SearchContainer({super.key});
+class FavoriteContainer extends StatefulWidget {
+  const FavoriteContainer({super.key});
 
   @override
-  State<SearchContainer> createState() => _SearchContainerState();
+  State<FavoriteContainer> createState() => _FavoriteContainerState();
 }
 
-class _SearchContainerState extends State<SearchContainer> {
+class _FavoriteContainerState extends State<FavoriteContainer> {
   @override
   void initState() {
     super.initState();
-    context.read<ItemListProvider>().searchForItems('');
+    context.read<ItemListProvider>().clearProvider();
+    context.read<ItemListProvider>().getFavorites();
   }
 
   @override
@@ -30,8 +31,8 @@ class _SearchContainerState extends State<SearchContainer> {
                 child: Center(child: CircularProgressIndicator()));
           case ConnectionState.done:
             if (snapshot.hasError) {
-              return Expanded(
-                  child: Center(child: Text('Error: ${snapshot.error}')));
+              return const Expanded(
+                  child: Center(child: Text('No favorites found')));
             } else {
               return Consumer<ItemListProvider>(
                 builder: (context, provider, child) => _buildListView(provider),
