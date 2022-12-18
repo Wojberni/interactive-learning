@@ -30,7 +30,7 @@ class RotateDailyChallengeCommandHandler(
         }
 
         val quizzesCount = quizRepository.count()
-        val nextQuizId = quizRepository.getRandomQuiz().id
+        val nextQuizId = quizRepository.getNextDailyChallenge().id
         val nextQuiz = quizRepository.findById(nextQuizId).get()
 
         logger.info("Rotating daily challenge to quiz with id $nextQuizId")

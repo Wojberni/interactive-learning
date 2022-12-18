@@ -1,7 +1,6 @@
 package com.zam.interactivelearning.infrastructure.application.configuration
 
 import com.zam.interactivelearning.cqrs.CqrsExecutor
-import com.zam.interactivelearning.domain.api.user.GetFinishedActivitiesCountQuery
 import com.zam.interactivelearning.domain.application.dailychallenge.GetDailyChallengeQueryHandler
 import com.zam.interactivelearning.domain.application.dailychallenge.RotateDailyChallengeCommandHandler
 import com.zam.interactivelearning.domain.application.dailychallenge.SendDailyChallengeNotificationEventHandler
@@ -92,6 +91,7 @@ class BeanRegistry {
         bean<GetDailyChallengeQueryHandler>()
         bean<GetFinishedActivitiesCountQueryHandler>()
         bean<SearchActivityQueryHandler>()
+        bean<GetRandomQuizQueryHandler>()
     }
 
     private fun registerEventHandlerBeans() = beans {
