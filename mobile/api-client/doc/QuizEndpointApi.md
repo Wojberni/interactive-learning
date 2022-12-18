@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**getAllQuizzes**](QuizEndpointApi.md#getallquizzes) | **GET** /quizzes | Get all quizzes
 [**getDailyChallenge**](QuizEndpointApi.md#getdailychallenge) | **GET** /quizzes/daily-challenge | Get the daily challenge
 [**getQuizById**](QuizEndpointApi.md#getquizbyid) | **GET** /quizzes/{id} | Get a quiz by id
+[**getRandomQuiz**](QuizEndpointApi.md#getrandomquiz) | **GET** /quizzes/random | Get a random quiz
 [**reportQuizScore**](QuizEndpointApi.md#reportquizscore) | **POST** /quizzes/report-score | Report quiz score
 
 
@@ -186,6 +187,51 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
+
+### Return type
+
+[**QuizDetailsResponse**](QuizDetailsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getRandomQuiz**
+> QuizDetailsResponse getRandomQuiz()
+
+Get a random quiz
+
+Returns a random quiz with all questions and answers
+
+### Example
+```dart
+import 'package:learning_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = QuizEndpointApi();
+
+try {
+    final result = api_instance.getRandomQuiz();
+    print(result);
+} catch (e) {
+    print('Exception when calling QuizEndpointApi->getRandomQuiz: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 
