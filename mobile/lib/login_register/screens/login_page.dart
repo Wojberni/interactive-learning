@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:learning_api/api.dart';
 import 'package:mobile/login_register/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -65,21 +66,6 @@ class _LoginPageState extends State<LoginPage> {
                 title: 'Rejestracja',
                 onPressed: () => context.goNamed('register'),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 15, vertical: screenHeight * 0.02),
-                child: GestureDetector(
-                  // onTap: () => context.go('/auth/forgotPassword'),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: const Text(
-                      'Nie pamiętasz hasła?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
             ]),
           ),
         ),
@@ -88,6 +74,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void handleLogin() {
+    int id;
+    Map<String, dynamic> payload;
     if (_formKey.currentState!.validate()) {
       AuthEndpointApi(apiClient)
           .login(LoginUserRequest(username: _login, password: _password))
@@ -95,6 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                 apiClient.addDefaultHeader(
                     "Authorization", "Bearer ${value?.token}"),
                 await _storage.write(key: 'token', value: value?.token),
+                payload = JwtDecoder.decode(value!.token),
+                id = payload['id'],
+                await _storage.write(key: 'id', value: id.toString()),
                 showSnackBar(
                     context, 'Zalogowano użytkownika!', SnackBarType.success),
                 context.read<AuthProvider>().setAuthenticated(true),

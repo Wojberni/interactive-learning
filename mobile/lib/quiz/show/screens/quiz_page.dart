@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/common/providers/item_list_provider.dart';
+import 'package:mobile/search_engine/dto/item_dto.dart';
+import 'package:mobile/search_engine/dto/results_dto.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/header_quiz_page.dart';
@@ -13,8 +18,10 @@ class QuizPage extends StatelessWidget {
 
   const QuizPage({super.key, required this.id});
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -43,10 +50,29 @@ class QuizPage extends StatelessWidget {
                 children: <Widget>[
                   QuizButton(
                     title: 'Start',
-                    onPressed: () => context
-                        .goNamed('show_quiz_questions', params: {'id': id}),
+                    onPressed: () => context.goNamed('show_quiz_questions',
+                        params: {'id': id}),
                   ),
-                  _setHeart(),
+                  FutureBuilder(
+                      future: getFavorites(),
+                      builder: ((context, snapshot) {
+                        if (snapshot.hasData) {
+                          String? data = snapshot.data!;
+                          Map<String, dynamic> json = jsonDecode(data);
+                          ResultsDto items = ResultsDto.fromJson(json);
+                          for (int i = 0; i < items.results.length; i++) {
+                            if (items.results[i].id == context.read<ItemListProvider>()
+                              .filteredItems
+                              .results[int.parse(id)].id && 
+                              items.results[i].kind == ItemType.quiz) {
+                              return const HeartFavourite(isFavourite: true);
+                            }
+                          }
+                          return const HeartFavourite(isFavourite: false);
+                        } else {
+                          return const Visibility(visible: false, child: Text(""));
+                        }
+                      }))
                 ],
               ),
             ),
@@ -101,12 +127,12 @@ class QuizPage extends StatelessWidget {
     }
   }
 
-  _setHeart() {
-    if (id == 'daily_challenge') {
-      return const Visibility(
-          visible: false, child: HeartFavourite(isFavourite: true));
-    } else {
-      return const HeartFavourite(isFavourite: true);
-    }
+  Future<String?> getFavorites() async {
+    if (id == 'daily_challenge') return null;
+    const storage = FlutterSecureStorage();
+    String? idString = await storage.read(key: 'id');
+    if (idString == null) return null;
+    String? result = await storage.read(key: 'favorites_' + idString);
+    return result;
   }
 }

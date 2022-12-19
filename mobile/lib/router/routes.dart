@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/favorite/screens/favorite_screen.dart';
 import 'package:mobile/flashcard/show/screens/flashcard_page.dart';
 import 'package:mobile/friends/screens/friends_page.dart';
 import 'package:mobile/profile/screens/profile_page.dart';
@@ -110,14 +111,18 @@ List<GoRoute> myRoutes() {
       name: 'friends',
       builder: (BuildContext context, GoRouterState state) =>
           const FriendsPage(),
-      routes: [
-        GoRoute(
-          path: 'requests',
-          name: 'friend_requests',
-          builder: (BuildContext context, GoRouterState state) =>
-              const RequestsPage(),
-        ),
-      ],
     ),
+    GoRoute(
+      path: '/requests',
+      name: 'friend_requests',
+      builder: (BuildContext context, GoRouterState state) =>
+          const RequestsPage(),
+    ),
+    GoRoute(
+      path: '/favorites',
+      name: 'favorites',
+      builder: (BuildContext context, GoRouterState state) =>
+              const FavoriteScreen(),
+    )
   ];
 }

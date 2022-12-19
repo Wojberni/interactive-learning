@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HeartFavourite extends StatelessWidget {
@@ -7,21 +8,9 @@ class HeartFavourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 80,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFFECECEC),
-      ),
-      child: Image.asset(
-        isFavourite
-            ? 'assets/images/unfilled_heart.png'
-            : 'assets/images/filled_heart.png',
-        width: 70,
-        height: 70,
-      ),
-    );
+    return Icon(
+            color: Colors.red,
+            isFavourite ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+            size: 70);
   }
 }

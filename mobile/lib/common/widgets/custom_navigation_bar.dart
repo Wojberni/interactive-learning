@@ -54,7 +54,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         context.goNamed('profile');
         break;
       case 2:
-        context.goNamed('favourites');
+        context.goNamed('favorites');
         break;
       default:
         _selectedIndex = -1;
