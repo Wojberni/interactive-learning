@@ -30,7 +30,6 @@ class _FlashcardPageState extends State<FlashcardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<ItemListProvider>().clearProvider();
     context.read<ItemListProvider>().getFavorites();
   }
 

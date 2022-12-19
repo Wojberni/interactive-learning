@@ -70,7 +70,7 @@ class QuizPage extends StatelessWidget {
                           }
                           return const HeartFavourite(isFavourite: false);
                         } else {
-                          return const Text("");
+                          return const Visibility(visible: false, child: Text(""));
                         }
                       }))
                 ],

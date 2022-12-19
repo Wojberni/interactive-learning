@@ -23,9 +23,14 @@ class CustomRouter extends GoRouter {
                 return '/auth/login';
               }
             }
+            else {
+              if (loggingIn || registering) {
+                return '/';
+              }
+            }
             return null;
           },
-          redirectLimit: 100,
+          redirectLimit: 1000,
         );
 
   final bool loggedIn;

@@ -13,8 +13,8 @@ class ItemListProvider with ChangeNotifier {
   ItemType filter = ItemType.all;
 
   void searchForItems(String query) async {
-    futureItems = getItemsList(query).then((value) => items = value);
-    //.catchError((onError) => print(onError));
+    futureItems = getItemsList(query).then((value) => items = value)
+    .catchError((onError) => print(onError));
     await futureItems;
     filterResults();
     notifyListeners();
@@ -44,6 +44,7 @@ class ItemListProvider with ChangeNotifier {
     await futureItems;
     items = ResultsDto(results: []);
     filteredItems = ResultsDto(results: []);
+    filter = ItemType.all;
   }
 
   Future<ResultsDto> getEmptyFuture() async {

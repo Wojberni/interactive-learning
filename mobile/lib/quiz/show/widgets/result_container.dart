@@ -30,7 +30,6 @@ class _ResultContainerState extends State<ResultContainer> {
   @override
   void initState() {
     super.initState();
-    context.read<ItemListProvider>().clearProvider();
     context.read<ItemListProvider>().getFavorites();
   }
 

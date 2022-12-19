@@ -66,21 +66,6 @@ class _LoginPageState extends State<LoginPage> {
                 title: 'Rejestracja',
                 onPressed: () => context.goNamed('register'),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 15, vertical: screenHeight * 0.02),
-                child: GestureDetector(
-                  // onTap: () => context.go('/auth/forgotPassword'),
-                  child: SizedBox(
-                    width: screenWidth,
-                    child: const Text(
-                      'Nie pamiętasz hasła?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
             ]),
           ),
         ),
