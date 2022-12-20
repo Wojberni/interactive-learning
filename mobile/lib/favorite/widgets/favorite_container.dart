@@ -47,7 +47,7 @@ class _FavoriteContainerState extends State<FavoriteContainer> {
     if (provider.filteredItems.results.isEmpty) {
       return const Expanded(
         child: Center(
-          child: Text('No items found'),
+          child: Text('Brak wyników wyszukiwania'),
         ),
       );
     }

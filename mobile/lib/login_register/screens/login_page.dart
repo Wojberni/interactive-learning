@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -76,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
   void handleLogin() {
     int id;
     Map<String, dynamic> payload;
+    String fcmToken;
     if (_formKey.currentState!.validate()) {
       AuthEndpointApi(apiClient)
           .login(LoginUserRequest(username: _login, password: _password))
@@ -86,6 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                 payload = JwtDecoder.decode(value!.token),
                 id = payload['id'],
                 await _storage.write(key: 'id', value: id.toString()),
+                fcmToken = await FirebaseMessaging.instance.getToken() ?? '',
+                NotificationsEndpointApi(apiClient).registerOrUpdateDeviceToken(
+                    RegisterOrUpdateDeviceTokenRequest(token: fcmToken)),
                 showSnackBar(
                     context, 'Zalogowano użytkownika!', SnackBarType.success),
                 context.read<AuthProvider>().setAuthenticated(true),
